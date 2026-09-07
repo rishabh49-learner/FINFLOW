@@ -12,7 +12,7 @@
 
     1. Decision — Transaction vs Attempt
     transaction and attempt seperated into two different entities rather one flat 
-    —>multiple attempts of a transaction can be possibel by system,executive and default cutomer's included which reqired its own view of attempts seperated from transactions 
+    —>multiple attempts of a transaction can be possible by system,executive and default cutomers included which required its own view of attempts seperated from transactions 
 
     2. Decision — Store vs derive
     few fields will be derived rather than storing—>storing specific fields which can be derived leads to incosistent information 
