@@ -1,0 +1,3798 @@
+{
+  "Transactions": [
+    {
+      "tr_id": "5efdb692-45d5-4425-a8a3-aecdd748f699",
+      "name": "Cathryn_Mitchell",
+      "email": "Anya74",
+      "amount": "862.23",
+      "refunded": false,
+      "refunded_at": "2026-03-09T00:34:44.106Z",
+      "created_at": "2027-03-26T16:57:36.172Z"
+    },
+    {
+      "tr_id": "9bfe8834-2844-4500-86bf-63b44817ddc3",
+      "name": "Lyda.Gleichner",
+      "email": "Nelle36",
+      "amount": "788.10",
+      "refunded": true,
+      "refunded_at": "2026-04-10T01:07:28.365Z",
+      "created_at": "2026-09-05T15:05:32.525Z"
+    },
+    {
+      "tr_id": "fc39e7fe-41da-4e66-bcf5-2e4f1148ee92",
+      "name": "Julianne.Reynolds",
+      "email": "Llewellyn60",
+      "amount": "543.98",
+      "refunded": false,
+      "refunded_at": "2027-09-25T16:40:08.122Z",
+      "created_at": "2026-05-14T16:14:34.705Z"
+    },
+    {
+      "tr_id": "3e654510-707c-43cf-97a3-786bc631e13a",
+      "name": "Norene41",
+      "email": "Taya58",
+      "amount": "99.96",
+      "refunded": true,
+      "refunded_at": "2027-05-30T07:41:49.126Z",
+      "created_at": "2026-08-12T08:34:37.878Z"
+    },
+    {
+      "tr_id": "3852a1ae-2efb-4f85-ac1a-d5b3e34e7fab",
+      "name": "Michele.Okuneva23",
+      "email": "Chaim.Waters60",
+      "amount": "670.73",
+      "refunded": true,
+      "refunded_at": "2026-04-08T03:23:36.130Z",
+      "created_at": "2026-03-17T10:38:35.662Z"
+    },
+    {
+      "tr_id": "3a12e010-89d4-47d7-afd6-29aad1708f5d",
+      "name": "Joel_Graham34",
+      "email": "Eloy.Bartoletti",
+      "amount": "819.62",
+      "refunded": true,
+      "refunded_at": "2026-01-02T05:03:45.774Z",
+      "created_at": "2026-02-21T06:52:15.363Z"
+    },
+    {
+      "tr_id": "921c77d7-0d97-4891-9ce0-fb1bf62cf036",
+      "name": "Sylvester48",
+      "email": "Loy75",
+      "amount": "508.07",
+      "refunded": true,
+      "refunded_at": "2025-11-08T04:52:28.965Z",
+      "created_at": "2027-04-29T10:36:15.333Z"
+    },
+    {
+      "tr_id": "69417ede-7645-455d-8f48-0d5ffecb7e2d",
+      "name": "Kelton_Schuster",
+      "email": "Torey_Kuphal",
+      "amount": "446.31",
+      "refunded": false,
+      "refunded_at": "2027-05-28T11:41:22.973Z",
+      "created_at": "2026-07-16T01:05:00.885Z"
+    },
+    {
+      "tr_id": "b68f9732-9077-43eb-b965-ca9109048e59",
+      "name": "Kale_Pacocha43",
+      "email": "Noel77",
+      "amount": "84.24",
+      "refunded": false,
+      "refunded_at": "2026-12-16T00:35:45.327Z",
+      "created_at": "2026-11-17T07:39:00.969Z"
+    },
+    {
+      "tr_id": "3d0e9f72-91db-43d5-9bd5-2ff35fae21c0",
+      "name": "Rigoberto_Nitzsche",
+      "email": "Harmon_Mills",
+      "amount": "843.33",
+      "refunded": true,
+      "refunded_at": "2025-12-23T10:29:59.636Z",
+      "created_at": "2027-04-02T14:11:51.816Z"
+    },
+    {
+      "tr_id": "6e2a6830-500c-447e-b231-e9232a6697be",
+      "name": "Eriberto.Breitenberg",
+      "email": "Jovani89",
+      "amount": "969.45",
+      "refunded": false,
+      "refunded_at": "2027-03-01T00:39:52.402Z",
+      "created_at": "2027-06-03T21:43:48.645Z"
+    },
+    {
+      "tr_id": "aa087820-33e4-4330-b02a-d847da2ec5e1",
+      "name": "Rafaela.Kessler",
+      "email": "Stanton_Hamill53",
+      "amount": "192.68",
+      "refunded": true,
+      "refunded_at": "2027-03-19T23:40:46.451Z",
+      "created_at": "2026-06-14T19:57:11.801Z"
+    },
+    {
+      "tr_id": "23290336-3497-4990-9748-709528b41daa",
+      "name": "Eino71",
+      "email": "Kristofer.Schowalter79",
+      "amount": "503.95",
+      "refunded": false,
+      "refunded_at": "2027-02-22T03:08:27.219Z",
+      "created_at": "2026-02-06T09:03:50.843Z"
+    },
+    {
+      "tr_id": "face98e8-546e-48b3-a079-806fc4c8ed3a",
+      "name": "Maxime_Prohaska",
+      "email": "Bryon.Renner",
+      "amount": "236.21",
+      "refunded": false,
+      "refunded_at": "2026-08-09T16:00:39.347Z",
+      "created_at": "2027-04-08T17:08:21.003Z"
+    },
+    {
+      "tr_id": "833ab1be-908e-48e1-a658-953fdc124208",
+      "name": "Merritt_Dibbert59",
+      "email": "Tyrese.Kemmer",
+      "amount": "340.53",
+      "refunded": true,
+      "refunded_at": "2027-01-15T09:24:38.405Z",
+      "created_at": "2026-07-31T23:43:29.860Z"
+    },
+    {
+      "tr_id": "41c8ba80-263e-4e0f-8e9d-67b2f3d0b5f1",
+      "name": "Garland_Emmerich21",
+      "email": "Kerry_Reilly-Murphy69",
+      "amount": "758.02",
+      "refunded": false,
+      "refunded_at": "2026-08-24T23:18:32.318Z",
+      "created_at": "2026-12-02T20:15:45.701Z"
+    },
+    {
+      "tr_id": "66923458-1cd2-45ba-a996-a8da8d5d5b33",
+      "name": "Hattie69",
+      "email": "Madge98",
+      "amount": "205.00",
+      "refunded": false,
+      "refunded_at": "2026-03-18T20:16:20.381Z",
+      "created_at": "2027-05-16T07:41:12.773Z"
+    },
+    {
+      "tr_id": "624cb062-59ec-463e-91d0-ad24de210c3d",
+      "name": "Morton_Toy61",
+      "email": "Isabell.Nitzsche27",
+      "amount": "988.52",
+      "refunded": true,
+      "refunded_at": "2026-12-19T00:39:39.779Z",
+      "created_at": "2027-01-06T14:02:42.853Z"
+    },
+    {
+      "tr_id": "8180d58f-4857-4f5f-87d3-ec2d2a56e782",
+      "name": "Brayan_Sporer24",
+      "email": "Leah.Rempel",
+      "amount": "836.56",
+      "refunded": false,
+      "refunded_at": "2027-05-20T04:16:23.851Z",
+      "created_at": "2027-09-16T11:35:42.766Z"
+    },
+    {
+      "tr_id": "1e703ddd-229b-4a8e-9421-d9ec9ca59982",
+      "name": "Elsie_Lakin",
+      "email": "Laverne_Parker",
+      "amount": "696.66",
+      "refunded": false,
+      "refunded_at": "2026-02-20T00:38:21.109Z",
+      "created_at": "2026-04-16T23:52:41.679Z"
+    },
+    {
+      "tr_id": "0f145105-c6af-46c1-afa7-c9a0f5531b4e",
+      "name": "Jeromy.Gulgowski",
+      "email": "Jovan.Corwin43",
+      "amount": "85.53",
+      "refunded": false,
+      "refunded_at": "2026-02-13T01:35:26.802Z",
+      "created_at": "2027-03-21T01:52:08.912Z"
+    },
+    {
+      "tr_id": "bb626ae1-f126-4e0d-9118-5ca69e759823",
+      "name": "Kathryne_Erdman18",
+      "email": "Thurman94",
+      "amount": "934.12",
+      "refunded": false,
+      "refunded_at": "2027-06-06T14:44:25.509Z",
+      "created_at": "2027-08-23T04:11:51.658Z"
+    },
+    {
+      "tr_id": "d1af5211-cd61-4714-ab42-c2efbdc1f278",
+      "name": "Shawna_Gerlach25",
+      "email": "Valentina59",
+      "amount": "391.19",
+      "refunded": false,
+      "refunded_at": "2027-08-17T17:16:50.519Z",
+      "created_at": "2026-03-28T03:48:40.871Z"
+    },
+    {
+      "tr_id": "1df8df9d-942c-481b-8dd0-c03b90c19c76",
+      "name": "Lennie83",
+      "email": "Donato_Schaefer",
+      "amount": "715.85",
+      "refunded": false,
+      "refunded_at": "2026-08-23T20:12:58.687Z",
+      "created_at": "2026-11-22T19:11:40.100Z"
+    },
+    {
+      "tr_id": "ae11448c-9414-4529-9f34-3e5178512a17",
+      "name": "Tristin_Ledner36",
+      "email": "Neal.Thompson14",
+      "amount": "884.38",
+      "refunded": true,
+      "refunded_at": "2027-07-17T06:24:48.139Z",
+      "created_at": "2026-11-01T09:38:42.554Z"
+    },
+    {
+      "tr_id": "ab2c80dc-f92e-4c46-bec4-fbd946242349",
+      "name": "Granville_Blick33",
+      "email": "Bobbie_Spinka",
+      "amount": "450.39",
+      "refunded": false,
+      "refunded_at": "2025-10-18T06:58:12.963Z",
+      "created_at": "2025-11-14T05:19:26.308Z"
+    },
+    {
+      "tr_id": "01dccfe2-8b79-4029-9bb7-3c7b3e5a98f4",
+      "name": "Chris80",
+      "email": "Allen_Labadie",
+      "amount": "322.54",
+      "refunded": true,
+      "refunded_at": "2026-07-29T04:15:59.980Z",
+      "created_at": "2026-12-04T12:38:13.089Z"
+    },
+    {
+      "tr_id": "e75b5d9a-683c-4ff7-8c71-8e12db7129ac",
+      "name": "Reid74",
+      "email": "Abdiel_Ward",
+      "amount": "145.94",
+      "refunded": true,
+      "refunded_at": "2026-08-30T01:20:47.124Z",
+      "created_at": "2026-07-25T22:25:18.720Z"
+    },
+    {
+      "tr_id": "8cab2fd7-fdf7-42ee-973b-e06df7e18452",
+      "name": "Angelica_Koelpin",
+      "email": "Myrtis_Turner",
+      "amount": "513.71",
+      "refunded": false,
+      "refunded_at": "2027-07-07T10:50:48.513Z",
+      "created_at": "2027-02-24T14:03:40.581Z"
+    },
+    {
+      "tr_id": "036ddc8c-a660-4a7b-aa36-8a0f551e9f87",
+      "name": "Nat90",
+      "email": "Wilson70",
+      "amount": "25.02",
+      "refunded": false,
+      "refunded_at": "2027-05-12T23:50:54.219Z",
+      "created_at": "2027-05-12T12:46:39.304Z"
+    },
+    {
+      "tr_id": "fcf3fb14-d9c5-43e7-b44a-508db6e30cec",
+      "name": "Mercedes_Bauch-Shields51",
+      "email": "Bridget49",
+      "amount": "939.19",
+      "refunded": true,
+      "refunded_at": "2025-12-17T13:21:43.950Z",
+      "created_at": "2026-08-18T08:11:01.088Z"
+    },
+    {
+      "tr_id": "bf086f1d-9864-45ab-b367-cc9d68876d70",
+      "name": "Dennis66",
+      "email": "Nella_Boehm",
+      "amount": "868.37",
+      "refunded": true,
+      "refunded_at": "2027-04-24T16:12:57.515Z",
+      "created_at": "2025-11-01T15:44:47.166Z"
+    },
+    {
+      "tr_id": "df7c4773-d3e7-4e97-9bb7-2f07b0c9823d",
+      "name": "Audie_Heaney56",
+      "email": "Roel.Mante72",
+      "amount": "318.26",
+      "refunded": true,
+      "refunded_at": "2026-10-17T04:42:53.583Z",
+      "created_at": "2027-05-06T18:34:39.070Z"
+    },
+    {
+      "tr_id": "ebe9f7f6-da97-4094-85cf-8fefa60fa2c6",
+      "name": "Marianna74",
+      "email": "Alva_Treutel91",
+      "amount": "395.88",
+      "refunded": false,
+      "refunded_at": "2027-04-06T11:17:39.374Z",
+      "created_at": "2026-10-22T23:13:00.441Z"
+    },
+    {
+      "tr_id": "d0445e9d-2dc2-444f-a95d-108a958bd75e",
+      "name": "Justice_Reichert65",
+      "email": "Lucie32",
+      "amount": "416.49",
+      "refunded": true,
+      "refunded_at": "2026-01-24T00:19:29.757Z",
+      "created_at": "2027-06-08T07:17:38.311Z"
+    },
+    {
+      "tr_id": "5df1e36d-5e74-4dbb-b587-c9dd175f22e8",
+      "name": "Rolando_Trantow",
+      "email": "Clemens80",
+      "amount": "973.62",
+      "refunded": true,
+      "refunded_at": "2026-04-17T12:37:30.582Z",
+      "created_at": "2026-04-17T22:11:45.626Z"
+    },
+    {
+      "tr_id": "a3913ed7-2b7a-4dc6-9c8c-acfbe3133b5b",
+      "name": "Armani66",
+      "email": "Rickie.Gulgowski",
+      "amount": "197.48",
+      "refunded": false,
+      "refunded_at": "2027-06-02T04:01:05.981Z",
+      "created_at": "2026-05-18T23:20:31.898Z"
+    },
+    {
+      "tr_id": "0e8cc882-83a4-41d4-af9b-febbe31707c4",
+      "name": "Ignatius6",
+      "email": "Jeremiah_Howell",
+      "amount": "9.97",
+      "refunded": true,
+      "refunded_at": "2026-05-03T19:09:23.813Z",
+      "created_at": "2026-04-04T23:06:08.434Z"
+    },
+    {
+      "tr_id": "d845a89d-0e98-484e-914e-7374c72c7e3d",
+      "name": "Bethel.Huel39",
+      "email": "Tiara.Runolfsson94",
+      "amount": "50.82",
+      "refunded": false,
+      "refunded_at": "2027-10-01T10:39:57.934Z",
+      "created_at": "2026-03-04T04:37:59.148Z"
+    },
+    {
+      "tr_id": "702d266b-764c-404d-8261-525d746520e8",
+      "name": "Allie.Schuppe38",
+      "email": "Loyce_Runolfsson38",
+      "amount": "982.73",
+      "refunded": true,
+      "refunded_at": "2026-05-28T16:43:36.859Z",
+      "created_at": "2027-03-12T00:11:41.708Z"
+    },
+    {
+      "tr_id": "e692dacc-6465-471d-8d8b-20d78d95868d",
+      "name": "Claudine.Ritchie63",
+      "email": "Hayden_Keebler",
+      "amount": "481.78",
+      "refunded": true,
+      "refunded_at": "2026-05-14T00:01:02.774Z",
+      "created_at": "2025-10-19T06:51:06.572Z"
+    },
+    {
+      "tr_id": "11874bef-3c50-4e61-8831-6d857354c484",
+      "name": "Dorris_Ullrich",
+      "email": "Emelie12",
+      "amount": "518.78",
+      "refunded": false,
+      "refunded_at": "2026-01-29T22:25:55.546Z",
+      "created_at": "2027-05-22T06:56:41.212Z"
+    },
+    {
+      "tr_id": "378d1a71-32e6-4745-aef5-a63e9fdb6af8",
+      "name": "Thelma49",
+      "email": "Loren.Little",
+      "amount": "417.93",
+      "refunded": true,
+      "refunded_at": "2027-07-23T23:31:32.982Z",
+      "created_at": "2026-05-22T01:55:28.959Z"
+    },
+    {
+      "tr_id": "3765aac6-32dd-4524-94b8-dcdff0d40346",
+      "name": "Perry.Jacobs98",
+      "email": "Demario.Mayert",
+      "amount": "850.75",
+      "refunded": true,
+      "refunded_at": "2026-08-13T10:32:57.669Z",
+      "created_at": "2026-03-22T13:18:34.415Z"
+    },
+    {
+      "tr_id": "8d3d558b-8ae3-4765-9d82-7ffb6a2a570f",
+      "name": "Frederic.Spencer17",
+      "email": "Ron86",
+      "amount": "945.20",
+      "refunded": false,
+      "refunded_at": "2027-03-13T02:51:18.344Z",
+      "created_at": "2027-03-16T02:35:49.545Z"
+    },
+    {
+      "tr_id": "9c53aba2-3ecc-4556-a34f-3ecb2ebcef84",
+      "name": "Nichole_Cartwright",
+      "email": "Ashlynn27",
+      "amount": "824.89",
+      "refunded": false,
+      "refunded_at": "2027-04-23T18:12:30.181Z",
+      "created_at": "2025-12-31T14:01:57.318Z"
+    },
+    {
+      "tr_id": "6d562d86-b9ea-4947-a76d-8a055cc83be8",
+      "name": "Alan92",
+      "email": "Elias89",
+      "amount": "27.00",
+      "refunded": true,
+      "refunded_at": "2027-06-30T00:16:16.657Z",
+      "created_at": "2025-10-23T15:29:45.761Z"
+    },
+    {
+      "tr_id": "ad5ebdf3-5f52-47e3-8142-269291895dc6",
+      "name": "Kellie74",
+      "email": "Phyllis21",
+      "amount": "542.94",
+      "refunded": true,
+      "refunded_at": "2026-11-11T04:42:23.666Z",
+      "created_at": "2025-10-13T04:07:04.868Z"
+    },
+    {
+      "tr_id": "82d20fd6-06be-4770-88f5-5537e0b90c95",
+      "name": "Erik.Rice59",
+      "email": "Maiya_Mann",
+      "amount": "126.47",
+      "refunded": false,
+      "refunded_at": "2027-03-08T10:11:28.102Z",
+      "created_at": "2026-07-30T06:04:32.878Z"
+    },
+    {
+      "tr_id": "437da759-af20-4b6c-9084-68f8862c083f",
+      "name": "Roberta34",
+      "email": "Kaden.Skiles",
+      "amount": "342.67",
+      "refunded": true,
+      "refunded_at": "2025-12-15T01:50:42.082Z",
+      "created_at": "2026-06-21T09:13:30.963Z"
+    },
+    {
+      "tr_id": "a2bfdac3-26f9-4c33-970e-a1093f5ddd5e",
+      "name": "Rebekah26",
+      "email": "Shelley.Shanahan71",
+      "amount": "338.28",
+      "refunded": false,
+      "refunded_at": "2026-02-21T13:03:48.329Z",
+      "created_at": "2025-10-30T07:20:43.851Z"
+    },
+    {
+      "tr_id": "a1f16170-f849-42a1-ab11-1b19dd6de4c5",
+      "name": "Kathleen42",
+      "email": "Nora_Wilkinson96",
+      "amount": "40.87",
+      "refunded": true,
+      "refunded_at": "2026-05-28T22:49:55.643Z",
+      "created_at": "2027-06-30T18:43:53.570Z"
+    },
+    {
+      "tr_id": "99924215-15dd-480d-abbf-31c7f1197215",
+      "name": "Ernest11",
+      "email": "Virgie30",
+      "amount": "880.15",
+      "refunded": false,
+      "refunded_at": "2026-03-28T23:07:58.403Z",
+      "created_at": "2026-05-20T07:49:04.920Z"
+    },
+    {
+      "tr_id": "e27d9644-b005-4878-9ad6-e9d424d15504",
+      "name": "Scotty_Lang7",
+      "email": "Monty27",
+      "amount": "931.14",
+      "refunded": true,
+      "refunded_at": "2025-11-02T09:41:29.759Z",
+      "created_at": "2026-02-26T09:27:21.370Z"
+    },
+    {
+      "tr_id": "f379ffc3-4cc2-4633-88f7-8dfa438ff2ee",
+      "name": "Lonny.Jakubowski94",
+      "email": "Cristobal_Mraz-Bruen",
+      "amount": "89.54",
+      "refunded": false,
+      "refunded_at": "2027-05-02T16:55:14.733Z",
+      "created_at": "2025-10-30T19:48:43.980Z"
+    },
+    {
+      "tr_id": "71d8992f-b027-4ffe-ad07-7378dabf12e1",
+      "name": "Julie.Crooks",
+      "email": "Heath.Medhurst49",
+      "amount": "344.36",
+      "refunded": true,
+      "refunded_at": "2026-07-22T01:15:34.133Z",
+      "created_at": "2026-09-04T19:01:11.808Z"
+    },
+    {
+      "tr_id": "9aa5e03c-a1d3-485e-a59a-5de80dbfc4e4",
+      "name": "Dorcas.Gislason",
+      "email": "Sally27",
+      "amount": "515.01",
+      "refunded": true,
+      "refunded_at": "2026-04-29T22:22:49.069Z",
+      "created_at": "2027-06-02T09:53:44.283Z"
+    },
+    {
+      "tr_id": "d9250896-d20f-4261-afaf-4ee09f80d048",
+      "name": "Waino_Bruen",
+      "email": "Milton.Lakin",
+      "amount": "146.93",
+      "refunded": true,
+      "refunded_at": "2027-04-18T08:48:51.401Z",
+      "created_at": "2026-10-06T10:11:55.297Z"
+    },
+    {
+      "tr_id": "e1b885a4-dc7c-4fb5-8980-3b667a89a96b",
+      "name": "Agustina_Hamill85",
+      "email": "Alton5",
+      "amount": "822.03",
+      "refunded": false,
+      "refunded_at": "2026-10-19T11:07:05.208Z",
+      "created_at": "2026-01-08T14:33:24.684Z"
+    },
+    {
+      "tr_id": "a9c1aaca-2052-4959-9d27-0dae026c0d74",
+      "name": "Mervin.Koelpin90",
+      "email": "Nicole46",
+      "amount": "791.60",
+      "refunded": false,
+      "refunded_at": "2025-11-15T00:54:42.284Z",
+      "created_at": "2027-02-11T02:15:41.648Z"
+    },
+    {
+      "tr_id": "5b54b339-06fe-4ede-8068-3f31715ba3a8",
+      "name": "Kamron_Funk86",
+      "email": "Toy.Metz",
+      "amount": "699.50",
+      "refunded": true,
+      "refunded_at": "2027-08-02T19:48:18.167Z",
+      "created_at": "2027-02-18T01:04:41.383Z"
+    },
+    {
+      "tr_id": "e16f4773-6a92-4d18-a674-ccadd5cf2693",
+      "name": "Dillan43",
+      "email": "Dangelo.Boehm86",
+      "amount": "223.92",
+      "refunded": true,
+      "refunded_at": "2026-08-03T04:46:31.849Z",
+      "created_at": "2027-09-06T02:49:05.699Z"
+    },
+    {
+      "tr_id": "776e3142-c67f-4f31-a6fe-6bb31913e0c2",
+      "name": "Marisa_Bode0",
+      "email": "Giovanna70",
+      "amount": "537.08",
+      "refunded": false,
+      "refunded_at": "2026-09-13T05:10:58.635Z",
+      "created_at": "2026-11-20T09:54:13.015Z"
+    },
+    {
+      "tr_id": "aa9aa87e-78b2-4e5a-b50e-00623305d733",
+      "name": "Rosalyn29",
+      "email": "Norwood.Ruecker",
+      "amount": "787.79",
+      "refunded": true,
+      "refunded_at": "2026-02-11T12:07:43.477Z",
+      "created_at": "2027-05-06T21:36:06.612Z"
+    },
+    {
+      "tr_id": "e54a91c4-4000-4641-bd76-b6901c9ef9ed",
+      "name": "Johathan.Borer",
+      "email": "Madelynn_Orn-Prosacco93",
+      "amount": "841.92",
+      "refunded": false,
+      "refunded_at": "2027-01-31T13:05:21.628Z",
+      "created_at": "2027-09-17T02:29:40.031Z"
+    },
+    {
+      "tr_id": "0357c2cc-6b62-4bf9-98e9-2699f5e6a37a",
+      "name": "Justus76",
+      "email": "Brett.Carter16",
+      "amount": "319.59",
+      "refunded": false,
+      "refunded_at": "2026-01-11T22:12:18.573Z",
+      "created_at": "2027-07-04T05:46:05.589Z"
+    },
+    {
+      "tr_id": "7f097f94-aa68-4433-a617-1cc7d26b9084",
+      "name": "Aida95",
+      "email": "Kellie_Kuhn47",
+      "amount": "100.17",
+      "refunded": false,
+      "refunded_at": "2025-10-30T21:32:47.907Z",
+      "created_at": "2026-07-29T23:35:18.443Z"
+    },
+    {
+      "tr_id": "33ccaef5-7786-48f4-b892-af74e682f30d",
+      "name": "Kadin_Prosacco",
+      "email": "Mariana34",
+      "amount": "881.73",
+      "refunded": false,
+      "refunded_at": "2026-10-01T05:04:54.876Z",
+      "created_at": "2027-06-17T22:05:19.254Z"
+    },
+    {
+      "tr_id": "b25ad5c6-3571-42d9-986a-ea3c93edebf4",
+      "name": "Winona_Senger63",
+      "email": "Krystel_Kutch",
+      "amount": "617.60",
+      "refunded": true,
+      "refunded_at": "2027-08-14T07:28:21.924Z",
+      "created_at": "2026-10-16T04:25:08.430Z"
+    },
+    {
+      "tr_id": "86c630b6-4b45-4872-91c5-355d66f40de6",
+      "name": "Ethelyn.Beer2",
+      "email": "Johnny.Mueller9",
+      "amount": "582.10",
+      "refunded": true,
+      "refunded_at": "2026-12-11T10:21:02.407Z",
+      "created_at": "2026-09-26T13:55:56.693Z"
+    },
+    {
+      "tr_id": "27116175-fb5a-4a85-9167-60e5b401dcf0",
+      "name": "Garrett_Farrell66",
+      "email": "Noel_Kunde87",
+      "amount": "676.07",
+      "refunded": false,
+      "refunded_at": "2026-04-02T13:14:13.174Z",
+      "created_at": "2026-11-15T00:11:30.555Z"
+    },
+    {
+      "tr_id": "260b69e2-0caa-45e2-84a3-c4c6b24f9c16",
+      "name": "Shaylee_Buckridge48",
+      "email": "Avery.Gulgowski10",
+      "amount": "707.39",
+      "refunded": true,
+      "refunded_at": "2025-10-26T21:40:21.070Z",
+      "created_at": "2026-01-03T23:12:45.189Z"
+    },
+    {
+      "tr_id": "856d68fe-8a08-4286-92ed-3a4c1d1a5842",
+      "name": "Reagan_Gislason",
+      "email": "Armani.Little47",
+      "amount": "630.82",
+      "refunded": true,
+      "refunded_at": "2026-02-23T06:40:36.509Z",
+      "created_at": "2027-05-17T21:42:56.462Z"
+    },
+    {
+      "tr_id": "24f1f4b5-49de-4626-ba8f-edf8bf6403b4",
+      "name": "Tanner.Hessel",
+      "email": "Deven.Konopelski",
+      "amount": "902.58",
+      "refunded": true,
+      "refunded_at": "2026-10-24T09:32:19.307Z",
+      "created_at": "2025-10-08T14:37:39.104Z"
+    },
+    {
+      "tr_id": "129be950-aadc-4460-9046-b7819ee5d22b",
+      "name": "German20",
+      "email": "Marcelina_Lang71",
+      "amount": "246.69",
+      "refunded": false,
+      "refunded_at": "2026-11-25T15:04:21.407Z",
+      "created_at": "2026-03-19T16:49:58.710Z"
+    },
+    {
+      "tr_id": "3455a1ab-29e4-4b21-ae8f-c88ce9087488",
+      "name": "Peggie.OReilly",
+      "email": "Ashlynn.Bergstrom6",
+      "amount": "993.65",
+      "refunded": true,
+      "refunded_at": "2027-08-25T06:47:36.882Z",
+      "created_at": "2026-10-19T00:08:29.105Z"
+    },
+    {
+      "tr_id": "19d7b7f4-02f2-46bc-81e2-92923ca78597",
+      "name": "Dante_Rosenbaum",
+      "email": "Corine_Romaguera82",
+      "amount": "170.29",
+      "refunded": true,
+      "refunded_at": "2026-08-17T16:06:06.373Z",
+      "created_at": "2027-06-07T20:28:08.664Z"
+    },
+    {
+      "tr_id": "86ee13a1-7caa-440f-9479-bf0818aa78ad",
+      "name": "Helena54",
+      "email": "Marco4",
+      "amount": "410.14",
+      "refunded": false,
+      "refunded_at": "2026-10-19T17:35:56.053Z",
+      "created_at": "2025-10-13T05:10:02.818Z"
+    },
+    {
+      "tr_id": "bd20d19d-fda7-4280-b51a-ab9cd3a0884a",
+      "name": "Esther46",
+      "email": "Johnpaul_Ondricka44",
+      "amount": "526.71",
+      "refunded": true,
+      "refunded_at": "2027-01-09T22:10:36.169Z",
+      "created_at": "2026-02-22T03:51:53.346Z"
+    },
+    {
+      "tr_id": "286ab76c-9d90-4f60-89cd-90a130697472",
+      "name": "Jaunita.Lueilwitz-Cassin80",
+      "email": "Estelle.McGlynn43",
+      "amount": "801.07",
+      "refunded": true,
+      "refunded_at": "2025-12-06T09:58:29.819Z",
+      "created_at": "2026-09-09T16:06:08.577Z"
+    },
+    {
+      "tr_id": "65b537e4-2e64-445a-84a6-27ef30303bbb",
+      "name": "Kevin_Muller96",
+      "email": "Major_Breitenberg",
+      "amount": "929.03",
+      "refunded": true,
+      "refunded_at": "2026-08-27T00:36:23.360Z",
+      "created_at": "2026-06-28T09:49:27.660Z"
+    },
+    {
+      "tr_id": "02e3b58d-e2aa-481b-a704-e5634bf7e279",
+      "name": "Kent6",
+      "email": "Carissa.Gleason",
+      "amount": "211.48",
+      "refunded": false,
+      "refunded_at": "2027-08-23T16:46:36.273Z",
+      "created_at": "2027-07-20T21:49:54.777Z"
+    },
+    {
+      "tr_id": "06f7d3fe-7b67-4c10-9dd5-9f27c5b597df",
+      "name": "Zachary.Armstrong54",
+      "email": "Ervin.Hoppe",
+      "amount": "724.55",
+      "refunded": true,
+      "refunded_at": "2027-02-14T16:26:08.141Z",
+      "created_at": "2026-08-13T13:54:33.683Z"
+    },
+    {
+      "tr_id": "e148c6d1-3429-4a04-97c9-d3ea7ea23baf",
+      "name": "Tyrique12",
+      "email": "Brielle73",
+      "amount": "203.81",
+      "refunded": true,
+      "refunded_at": "2026-07-17T21:04:08.415Z",
+      "created_at": "2026-09-23T12:16:45.647Z"
+    },
+    {
+      "tr_id": "68b0da51-2467-4554-a8e2-f807f14c4d64",
+      "name": "Zoila_Wolf12",
+      "email": "Korbin_Von25",
+      "amount": "667.54",
+      "refunded": true,
+      "refunded_at": "2026-11-03T21:46:50.098Z",
+      "created_at": "2027-04-07T09:56:50.795Z"
+    },
+    {
+      "tr_id": "ee3288ad-f94e-45eb-b8fe-5580b89d8635",
+      "name": "Malcolm_Goodwin21",
+      "email": "Wilfrid_Lesch23",
+      "amount": "990.60",
+      "refunded": true,
+      "refunded_at": "2026-05-21T15:22:57.315Z",
+      "created_at": "2027-05-10T17:40:58.955Z"
+    },
+    {
+      "tr_id": "ff66a968-b45d-416f-a99b-91ea83b9deed",
+      "name": "Andreane.Oberbrunner",
+      "email": "Selena.Mayer96",
+      "amount": "466.68",
+      "refunded": false,
+      "refunded_at": "2025-12-22T11:45:54.858Z",
+      "created_at": "2027-09-23T10:48:49.299Z"
+    },
+    {
+      "tr_id": "9f2a73a7-2034-4cbf-8505-0c4c8f4578ca",
+      "name": "Adriana68",
+      "email": "Percy.Greenholt",
+      "amount": "293.68",
+      "refunded": true,
+      "refunded_at": "2026-05-06T08:00:47.488Z",
+      "created_at": "2027-04-02T13:50:54.751Z"
+    },
+    {
+      "tr_id": "f44e3922-1ade-4df2-b66b-fc2422d4afa5",
+      "name": "Korbin.Koss",
+      "email": "Deron.Farrell27",
+      "amount": "387.19",
+      "refunded": false,
+      "refunded_at": "2027-09-06T17:07:27.095Z",
+      "created_at": "2027-06-09T23:23:35.526Z"
+    },
+    {
+      "tr_id": "cbba370b-d1c1-4a10-807c-1b2384f5ba18",
+      "name": "Chyna20",
+      "email": "Anthony_Kutch",
+      "amount": "562.07",
+      "refunded": false,
+      "refunded_at": "2027-05-16T08:36:27.269Z",
+      "created_at": "2025-11-21T10:55:56.290Z"
+    },
+    {
+      "tr_id": "b15f6077-10ec-43f0-92e2-e95fdfe8e072",
+      "name": "Tommy_Braun",
+      "email": "Nicola_Frami",
+      "amount": "553.82",
+      "refunded": true,
+      "refunded_at": "2027-07-11T00:21:30.373Z",
+      "created_at": "2027-02-13T05:35:50.639Z"
+    },
+    {
+      "tr_id": "51c59a29-24a6-4c82-a96f-ebc19c260c14",
+      "name": "Jamil_Veum",
+      "email": "Dasia_Friesen",
+      "amount": "109.02",
+      "refunded": true,
+      "refunded_at": "2026-03-02T00:10:01.571Z",
+      "created_at": "2027-08-24T14:00:02.860Z"
+    },
+    {
+      "tr_id": "4315b0a7-b09b-4eb2-ba92-f549afbd23d7",
+      "name": "Quinten.Pagac6",
+      "email": "Dell_Champlin57",
+      "amount": "987.13",
+      "refunded": true,
+      "refunded_at": "2026-10-09T13:53:07.846Z",
+      "created_at": "2026-03-02T09:30:14.569Z"
+    },
+    {
+      "tr_id": "43f60659-6dbe-4883-beb5-a37c29f6f767",
+      "name": "Alexander_Wuckert",
+      "email": "Earnestine_Gibson",
+      "amount": "36.21",
+      "refunded": true,
+      "refunded_at": "2026-12-22T05:46:07.218Z",
+      "created_at": "2026-03-04T06:27:01.264Z"
+    },
+    {
+      "tr_id": "6cc8e8c4-cd27-47ce-99a3-aa534420c13a",
+      "name": "Leone_Hudson37",
+      "email": "Savanna_Hammes",
+      "amount": "431.76",
+      "refunded": true,
+      "refunded_at": "2026-02-06T17:50:02.411Z",
+      "created_at": "2026-08-12T17:48:58.449Z"
+    },
+    {
+      "tr_id": "0bf61471-3241-4ac4-8701-1f09f7a15086",
+      "name": "Alyson.Witting",
+      "email": "Iva85",
+      "amount": "25.07",
+      "refunded": false,
+      "refunded_at": "2027-08-12T08:04:58.590Z",
+      "created_at": "2025-12-06T02:43:48.644Z"
+    },
+    {
+      "tr_id": "16e69070-e260-4988-a978-b3369b845893",
+      "name": "Wilmer.Wolff60",
+      "email": "Alda_Nicolas",
+      "amount": "446.85",
+      "refunded": true,
+      "refunded_at": "2027-04-11T20:50:32.531Z",
+      "created_at": "2025-10-14T01:16:59.163Z"
+    },
+    {
+      "tr_id": "d94d8c8c-8bab-4eaa-8b51-5d63ded50bf6",
+      "name": "Mack25",
+      "email": "Ira_Feeney53",
+      "amount": "529.72",
+      "refunded": false,
+      "refunded_at": "2026-07-27T14:43:35.420Z",
+      "created_at": "2026-12-12T12:04:14.852Z"
+    },
+    {
+      "tr_id": "baade899-6431-4f55-8c6d-4048274a7c19",
+      "name": "Wade_Cormier",
+      "email": "Winston_McCullough47",
+      "amount": "102.30",
+      "refunded": false,
+      "refunded_at": "2026-10-21T06:32:41.749Z",
+      "created_at": "2027-03-12T12:11:37.305Z"
+    },
+    {
+      "tr_id": "75084668-1cd4-4bce-b1d4-10d9a6ca76a7",
+      "name": "Abdul_Koepp33",
+      "email": "Cordia.Ernser",
+      "amount": "188.33",
+      "refunded": false,
+      "refunded_at": "2026-11-16T17:08:33.552Z",
+      "created_at": "2026-01-10T03:07:44.274Z"
+    }
+  ],
+  "Attempts": [
+    {
+      "id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "tr_id": "5efdb692-45d5-4425-a8a3-aecdd748f699",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-01-23T11:47:47.744Z",
+      "failure_reason": "lost_card"
+    },
+    {
+      "id": "e74394cd-58dd-4d3a-b81e-1daf51937ce4",
+      "tr_id": "9bfe8834-2844-4500-86bf-63b44817ddc3",
+      "attempt_no": 1,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2027-03-03T05:19:04.115Z",
+      "failure_reason": "transaction_daily_limit_exceeded"
+    },
+    {
+      "id": "d3796b69-935b-4062-a33a-7be8a5ba97a2",
+      "tr_id": "9bfe8834-2844-4500-86bf-63b44817ddc3",
+      "attempt_no": 2,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-03-14T21:47:16.522Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "6aeb5ede-705c-40d0-acb0-a3dafa6a8110",
+      "tr_id": "9bfe8834-2844-4500-86bf-63b44817ddc3",
+      "attempt_no": 3,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-04-16T07:33:50.653Z",
+      "failure_reason": "transaction_daily_limit_exceeded"
+    },
+    {
+      "id": "febffd26-3c0e-438c-8abd-0bed2e0386eb",
+      "tr_id": "fc39e7fe-41da-4e66-bcf5-2e4f1148ee92",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-01-01T09:49:54.445Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "2dd82212-a505-4060-bf0a-842469058dc7",
+      "tr_id": "fc39e7fe-41da-4e66-bcf5-2e4f1148ee92",
+      "attempt_no": 2,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-03-24T15:32:07.489Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "16a54f79-d128-464f-8e06-70e754479310",
+      "tr_id": "fc39e7fe-41da-4e66-bcf5-2e4f1148ee92",
+      "attempt_no": 3,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-04-08T22:22:20.723Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "a1c809e8-0db0-4c37-a521-b61c4f66956f",
+      "tr_id": "3e654510-707c-43cf-97a3-786bc631e13a",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-01-15T14:18:35.871Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "0f180b58-3ed1-436e-af0d-d396f3394a79",
+      "tr_id": "3852a1ae-2efb-4f85-ac1a-d5b3e34e7fab",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-01-27T04:31:01.497Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "e3e2995c-4fd9-43bf-b2d6-6610ebcb3d11",
+      "tr_id": "3a12e010-89d4-47d7-afd6-29aad1708f5d",
+      "attempt_no": 1,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2027-03-28T22:02:52.865Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "2747b632-f224-4547-8cd7-3ef49e1170e2",
+      "tr_id": "3a12e010-89d4-47d7-afd6-29aad1708f5d",
+      "attempt_no": 2,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-08-10T21:43:17.409Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "53985e8c-7444-4af2-a241-3a05dc41e049",
+      "tr_id": "3a12e010-89d4-47d7-afd6-29aad1708f5d",
+      "attempt_no": 3,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2027-09-01T23:25:28.574Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "15de0e91-104d-4f97-829f-f7c0bbc31ef8",
+      "tr_id": "921c77d7-0d97-4891-9ce0-fb1bf62cf036",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-08-26T23:29:23.294Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "067bf7eb-13d8-442f-891a-abd19ec4fce2",
+      "tr_id": "69417ede-7645-455d-8f48-0d5ffecb7e2d",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-10-06T00:28:40.772Z",
+      "failure_reason": "lost_card"
+    },
+    {
+      "id": "980fed6e-f1b5-47ef-9b2f-720d2c8d63a6",
+      "tr_id": "b68f9732-9077-43eb-b965-ca9109048e59",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-08-30T04:00:51.618Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "24be446b-6395-4a26-ac12-ef34b1185fa8",
+      "tr_id": "b68f9732-9077-43eb-b965-ca9109048e59",
+      "attempt_no": 2,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-10-30T03:58:32.145Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "13b7c875-182a-4ed1-b572-58a4a8b2bbe4",
+      "tr_id": "3d0e9f72-91db-43d5-9bd5-2ff35fae21c0",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-11-03T03:00:59.852Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "9650b207-04b3-4a52-9b7b-e72de60ad7a7",
+      "tr_id": "3d0e9f72-91db-43d5-9bd5-2ff35fae21c0",
+      "attempt_no": 2,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-06-23T23:28:58.322Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "90fd6452-1c2b-42f4-b386-4b03764c46bb",
+      "tr_id": "6e2a6830-500c-447e-b231-e9232a6697be",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-08-20T06:03:22.834Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "20997066-07e6-41b9-8615-d8483f33fe64",
+      "tr_id": "aa087820-33e4-4330-b02a-d847da2ec5e1",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-01-21T19:29:21.911Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "8d3b2e61-6605-4c40-a28d-6dc0fdba5313",
+      "tr_id": "aa087820-33e4-4330-b02a-d847da2ec5e1",
+      "attempt_no": 2,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2026-06-12T10:50:00.406Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "4129d61b-6715-4ba3-b21e-6d57f846fec8",
+      "tr_id": "aa087820-33e4-4330-b02a-d847da2ec5e1",
+      "attempt_no": 3,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-01-30T08:16:28.621Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "cde26988-ec3a-4fd9-9429-80e43601774f",
+      "tr_id": "23290336-3497-4990-9748-709528b41daa",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-04-30T15:01:19.687Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "53e82f80-37e4-48fb-af0e-df58bde7b5f8",
+      "tr_id": "face98e8-546e-48b3-a079-806fc4c8ed3a",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-09-15T05:08:49.290Z",
+      "failure_reason": "fraudulent"
+    },
+    {
+      "id": "9c910c2f-9509-453b-92b3-8fd130c68f46",
+      "tr_id": "833ab1be-908e-48e1-a658-953fdc124208",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2027-01-19T07:13:42.247Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "aec245ed-0bf1-4a37-a3e3-073617fd1284",
+      "tr_id": "833ab1be-908e-48e1-a658-953fdc124208",
+      "attempt_no": 2,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-05-18T15:51:40.602Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "71af2e9d-523b-42ee-be53-fc6ed465a89d",
+      "tr_id": "41c8ba80-263e-4e0f-8e9d-67b2f3d0b5f1",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-10-27T17:27:06.154Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "9984b348-4ae8-46bf-94f2-f0540170e208",
+      "tr_id": "66923458-1cd2-45ba-a996-a8da8d5d5b33",
+      "attempt_no": 1,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2026-10-04T15:23:53.347Z",
+      "failure_reason": "merchant_blacklist"
+    },
+    {
+      "id": "8776ab10-1372-457f-99bd-69a42824ec78",
+      "tr_id": "624cb062-59ec-463e-91d0-ad24de210c3d",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-05-29T00:37:17.957Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "7308a78a-3296-46c4-ab55-0f6aaf674c1c",
+      "tr_id": "624cb062-59ec-463e-91d0-ad24de210c3d",
+      "attempt_no": 2,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2027-05-14T17:31:26.622Z",
+      "failure_reason": "fraudulent"
+    },
+    {
+      "id": "d93b0d65-967e-457b-b40b-32eca947e7df",
+      "tr_id": "8180d58f-4857-4f5f-87d3-ec2d2a56e782",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-05-03T17:28:42.317Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "c93cc399-1200-4a6d-a8d4-0d2deb910a4b",
+      "tr_id": "8180d58f-4857-4f5f-87d3-ec2d2a56e782",
+      "attempt_no": 2,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2026-01-08T20:33:46.190Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "0b634078-d872-4342-bd6f-816fa2336e78",
+      "tr_id": "1e703ddd-229b-4a8e-9421-d9ec9ca59982",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-05-26T04:38:01.570Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "0720ab8a-5045-4256-b7d2-486dcc52baf0",
+      "tr_id": "1e703ddd-229b-4a8e-9421-d9ec9ca59982",
+      "attempt_no": 2,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2026-07-09T16:16:12.021Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "e9132320-bd2b-4779-8b5c-d06cf12dab7e",
+      "tr_id": "1e703ddd-229b-4a8e-9421-d9ec9ca59982",
+      "attempt_no": 3,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-07-25T10:32:55.046Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "acd49e6c-4159-4a4e-b5f9-6276a4e7224b",
+      "tr_id": "0f145105-c6af-46c1-afa7-c9a0f5531b4e",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2025-11-04T13:34:34.123Z",
+      "failure_reason": "lost_card"
+    },
+    {
+      "id": "c85e664b-235d-421e-ad30-1c81b8f84dbb",
+      "tr_id": "bb626ae1-f126-4e0d-9118-5ca69e759823",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2027-05-09T19:41:08.291Z",
+      "failure_reason": "fraudulent"
+    },
+    {
+      "id": "61d2d2be-23a0-491b-b840-f0bec549b911",
+      "tr_id": "d1af5211-cd61-4714-ab42-c2efbdc1f278",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2027-03-21T06:50:53.904Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "3b7288c6-a68a-46b9-8567-d71017be7f38",
+      "tr_id": "1df8df9d-942c-481b-8dd0-c03b90c19c76",
+      "attempt_no": 1,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2027-01-27T12:34:52.731Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "c0d0f673-824c-47ac-9cc3-fe6afa55cd64",
+      "tr_id": "1df8df9d-942c-481b-8dd0-c03b90c19c76",
+      "attempt_no": 2,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-06-04T16:34:23.030Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "929d91cf-defd-4e7f-be84-f90f9fcb96d9",
+      "tr_id": "1df8df9d-942c-481b-8dd0-c03b90c19c76",
+      "attempt_no": 3,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-04-25T00:33:30.017Z",
+      "failure_reason": "lost_card"
+    },
+    {
+      "id": "ad5a3ee7-b031-4d0c-8ead-ff50a514fa44",
+      "tr_id": "ae11448c-9414-4529-9f34-3e5178512a17",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-03-22T13:07:22.878Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "cde716da-4a9f-45f2-882e-adc6ffb59e5f",
+      "tr_id": "ab2c80dc-f92e-4c46-bec4-fbd946242349",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2025-10-09T01:01:37.994Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "5a63b51a-c59c-451f-ae17-2ac5c142161a",
+      "tr_id": "ab2c80dc-f92e-4c46-bec4-fbd946242349",
+      "attempt_no": 2,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2026-02-11T19:11:28.024Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "dded0a87-ff09-4a07-b17e-533011f7c02e",
+      "tr_id": "01dccfe2-8b79-4029-9bb7-3c7b3e5a98f4",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-02-14T04:54:22.187Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "cdf990cc-dcc7-42be-8a28-c6a07275d84c",
+      "tr_id": "e75b5d9a-683c-4ff7-8c71-8e12db7129ac",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-07-06T11:40:31.570Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "9636a93d-b7a2-4cba-b9b7-718d7321982a",
+      "tr_id": "e75b5d9a-683c-4ff7-8c71-8e12db7129ac",
+      "attempt_no": 2,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2026-09-03T21:09:53.360Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "33338424-7f75-4b61-acf8-4696d6dc03b5",
+      "tr_id": "e75b5d9a-683c-4ff7-8c71-8e12db7129ac",
+      "attempt_no": 3,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2027-01-22T16:41:20.795Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "18a7011e-68a1-4bd7-974d-0247e656d096",
+      "tr_id": "8cab2fd7-fdf7-42ee-973b-e06df7e18452",
+      "attempt_no": 1,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2027-04-19T18:05:38.412Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "6aa491b1-7733-4193-aef8-930d47042251",
+      "tr_id": "8cab2fd7-fdf7-42ee-973b-e06df7e18452",
+      "attempt_no": 2,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2026-08-30T02:07:37.807Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "b30e57c9-32f0-4bcb-8309-09257c7a9bcd",
+      "tr_id": "036ddc8c-a660-4a7b-aa36-8a0f551e9f87",
+      "attempt_no": 1,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2027-01-17T05:59:49.324Z",
+      "failure_reason": "merchant_blacklist"
+    },
+    {
+      "id": "579c28c5-ffc8-4d49-a33a-621e24d5fc75",
+      "tr_id": "fcf3fb14-d9c5-43e7-b44a-508db6e30cec",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-12-21T00:33:18.411Z",
+      "failure_reason": "fraudulent"
+    },
+    {
+      "id": "42b2aa76-2305-4ccd-8667-87df51bb636d",
+      "tr_id": "bf086f1d-9864-45ab-b367-cc9d68876d70",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-05-11T15:13:02.978Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "9fca788f-46de-4fa9-8bde-8080deb4c7ad",
+      "tr_id": "bf086f1d-9864-45ab-b367-cc9d68876d70",
+      "attempt_no": 2,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2025-10-25T02:38:07.165Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "bc5d6a73-7430-4b9c-a2bc-14b19111e3a7",
+      "tr_id": "df7c4773-d3e7-4e97-9bb7-2f07b0c9823d",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-08-24T21:07:36.729Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "cc07e2d1-514f-47ef-b2b3-3d40cf4b217a",
+      "tr_id": "df7c4773-d3e7-4e97-9bb7-2f07b0c9823d",
+      "attempt_no": 2,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-09-25T12:07:55.782Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "cae3afbb-7188-4dec-b08c-eb5340a6be7a",
+      "tr_id": "df7c4773-d3e7-4e97-9bb7-2f07b0c9823d",
+      "attempt_no": 3,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2025-12-27T08:34:10.246Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "72b29106-3a3e-4625-82c3-1f70cfad260d",
+      "tr_id": "ebe9f7f6-da97-4094-85cf-8fefa60fa2c6",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2027-03-02T11:10:22.366Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "00c27f0f-7c8f-4632-bea4-b4879bda1235",
+      "tr_id": "d0445e9d-2dc2-444f-a95d-108a958bd75e",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-07-19T02:26:52.865Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "2f82a352-14bb-4b12-98b6-0f3da1aea584",
+      "tr_id": "5df1e36d-5e74-4dbb-b587-c9dd175f22e8",
+      "attempt_no": 1,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2026-09-17T00:47:56.472Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "0f718739-87c6-47a6-a26b-3d4a4922b32d",
+      "tr_id": "a3913ed7-2b7a-4dc6-9c8c-acfbe3133b5b",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-09-20T00:32:43.144Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "d7379e1b-0f73-463e-bcd3-2db37a94f799",
+      "tr_id": "a3913ed7-2b7a-4dc6-9c8c-acfbe3133b5b",
+      "attempt_no": 2,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-06-16T11:06:44.096Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "bb159d8f-b46e-4ce7-b5f8-b8b22338c332",
+      "tr_id": "a3913ed7-2b7a-4dc6-9c8c-acfbe3133b5b",
+      "attempt_no": 3,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-01-13T12:01:15.987Z",
+      "failure_reason": "fraudulent"
+    },
+    {
+      "id": "acc75dcc-cb91-4898-a3ba-f5e10efb280a",
+      "tr_id": "0e8cc882-83a4-41d4-af9b-febbe31707c4",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2025-10-05T16:20:03.714Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "b01c3fe0-9048-4f67-8544-398ce412de67",
+      "tr_id": "0e8cc882-83a4-41d4-af9b-febbe31707c4",
+      "attempt_no": 2,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-07-21T10:10:37.069Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "8dd971b8-76ab-4238-bcee-ed4276ebac5a",
+      "tr_id": "d845a89d-0e98-484e-914e-7374c72c7e3d",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-12-01T17:33:57.285Z",
+      "failure_reason": "fraudulent"
+    },
+    {
+      "id": "0a133633-4dbe-4108-aff1-b11c3147918b",
+      "tr_id": "702d266b-764c-404d-8261-525d746520e8",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-06-07T17:36:03.930Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "b3271736-bf75-4e76-b08c-622921a58f1c",
+      "tr_id": "e692dacc-6465-471d-8d8b-20d78d95868d",
+      "attempt_no": 1,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2027-04-27T04:02:45.153Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "4b5891a1-f45d-4d79-b0a0-9408fcaf439b",
+      "tr_id": "11874bef-3c50-4e61-8831-6d857354c484",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-04-08T09:51:41.735Z",
+      "failure_reason": "lost_card"
+    },
+    {
+      "id": "df4c1147-c724-4297-8b3d-f001018f2088",
+      "tr_id": "378d1a71-32e6-4745-aef5-a63e9fdb6af8",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-12-18T19:11:42.236Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "27ccbd22-1eae-4f76-8942-9c4ace175e27",
+      "tr_id": "378d1a71-32e6-4745-aef5-a63e9fdb6af8",
+      "attempt_no": 2,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-10-20T05:18:20.839Z",
+      "failure_reason": "lost_card"
+    },
+    {
+      "id": "6a4e3655-5f6c-4316-8303-d3a303178844",
+      "tr_id": "3765aac6-32dd-4524-94b8-dcdff0d40346",
+      "attempt_no": 1,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2025-12-08T08:55:55.031Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "5a04099b-aba3-460c-b139-a90cbc2442ca",
+      "tr_id": "8d3d558b-8ae3-4765-9d82-7ffb6a2a570f",
+      "attempt_no": 1,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2026-08-14T18:31:41.045Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "6492fcb0-06c6-46ca-8d63-b2cc2d33d6bf",
+      "tr_id": "9c53aba2-3ecc-4556-a34f-3ecb2ebcef84",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-07-16T03:16:55.702Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "1120f7ea-e073-4d1d-bddc-50a868414b13",
+      "tr_id": "9c53aba2-3ecc-4556-a34f-3ecb2ebcef84",
+      "attempt_no": 2,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-01-28T16:54:58.578Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "1bbc2c4f-5b62-4f4d-8984-a14f27dbcc60",
+      "tr_id": "6d562d86-b9ea-4947-a76d-8a055cc83be8",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-03-05T14:43:34.399Z",
+      "failure_reason": "fraudulent"
+    },
+    {
+      "id": "ac83f818-bf9e-45d8-b935-975394669bd8",
+      "tr_id": "ad5ebdf3-5f52-47e3-8142-269291895dc6",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-01-12T07:46:30.624Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "958daef0-84b1-46cd-baba-fa4484155d7c",
+      "tr_id": "ad5ebdf3-5f52-47e3-8142-269291895dc6",
+      "attempt_no": 2,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2027-05-05T18:06:46.258Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "92321f48-ed07-4efa-9379-ac567a06c48a",
+      "tr_id": "ad5ebdf3-5f52-47e3-8142-269291895dc6",
+      "attempt_no": 3,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2026-03-24T20:32:29.455Z",
+      "failure_reason": "fraudulent"
+    },
+    {
+      "id": "6e6c13fb-19cf-49b5-95dd-d66cc1a37123",
+      "tr_id": "82d20fd6-06be-4770-88f5-5537e0b90c95",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-08-17T19:02:47.025Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "cf87cb0a-28bc-4c56-bcd9-a991ee436f9a",
+      "tr_id": "82d20fd6-06be-4770-88f5-5537e0b90c95",
+      "attempt_no": 2,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-08-21T05:08:46.951Z",
+      "failure_reason": "merchant_blacklist"
+    },
+    {
+      "id": "3c632b99-7e23-426e-8295-ea44f6cee11a",
+      "tr_id": "437da759-af20-4b6c-9084-68f8862c083f",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-09-07T20:41:13.341Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "696ccc45-9db9-48bf-b112-52e441da3581",
+      "tr_id": "437da759-af20-4b6c-9084-68f8862c083f",
+      "attempt_no": 2,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-03-24T23:09:28.574Z",
+      "failure_reason": "merchant_blacklist"
+    },
+    {
+      "id": "6801c0aa-43f5-43a9-9973-1c22ebbcbe73",
+      "tr_id": "a2bfdac3-26f9-4c33-970e-a1093f5ddd5e",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-03-09T11:42:57.515Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "4b7fe876-4ff0-46fe-8d06-dc0bda3d0fd3",
+      "tr_id": "a2bfdac3-26f9-4c33-970e-a1093f5ddd5e",
+      "attempt_no": 2,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-01-07T05:38:36.627Z",
+      "failure_reason": "fraudulent"
+    },
+    {
+      "id": "8ae47624-8ac8-4f7f-bd72-bb9c75070263",
+      "tr_id": "a1f16170-f849-42a1-ab11-1b19dd6de4c5",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-05-30T20:04:04.572Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "db25af37-012f-4157-b8ca-66df95fb5d5f",
+      "tr_id": "99924215-15dd-480d-abbf-31c7f1197215",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-07-24T18:11:27.585Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "49e5800d-8e57-4173-8372-7473006bc9cc",
+      "tr_id": "e27d9644-b005-4878-9ad6-e9d424d15504",
+      "attempt_no": 1,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2027-07-31T06:02:16.925Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "fb5eb65a-8f58-488f-a29d-403c696baa52",
+      "tr_id": "e27d9644-b005-4878-9ad6-e9d424d15504",
+      "attempt_no": 2,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2027-05-26T08:03:53.940Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "d5f6d906-c87e-4412-a28b-e32b719935a0",
+      "tr_id": "f379ffc3-4cc2-4633-88f7-8dfa438ff2ee",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-04-29T23:24:09.467Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "7cc1b0ec-8586-40f7-8998-d2d6a7d95e4b",
+      "tr_id": "f379ffc3-4cc2-4633-88f7-8dfa438ff2ee",
+      "attempt_no": 2,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-05-20T06:21:44.499Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "272dae66-d4ca-4fe6-98bf-e4db2a22c7f0",
+      "tr_id": "71d8992f-b027-4ffe-ad07-7378dabf12e1",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-06-28T16:01:28.100Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "7472db59-a96a-41dc-b438-7c034aa52770",
+      "tr_id": "71d8992f-b027-4ffe-ad07-7378dabf12e1",
+      "attempt_no": 2,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-07-25T08:38:45.975Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "b20970e5-01af-4374-810f-fdd1d4794259",
+      "tr_id": "9aa5e03c-a1d3-485e-a59a-5de80dbfc4e4",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-04-25T05:04:19.338Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "ca1da8b1-7b49-49c0-91f4-94d3ce602ee3",
+      "tr_id": "9aa5e03c-a1d3-485e-a59a-5de80dbfc4e4",
+      "attempt_no": 2,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-09-05T03:48:36.226Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "0dcf094e-2aab-4e2d-a58a-9ef3f40939ca",
+      "tr_id": "9aa5e03c-a1d3-485e-a59a-5de80dbfc4e4",
+      "attempt_no": 3,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-02-24T05:19:15.143Z",
+      "failure_reason": "merchant_blacklist"
+    },
+    {
+      "id": "2cd554c2-9e4e-4183-9b06-9be27148eb4d",
+      "tr_id": "d9250896-d20f-4261-afaf-4ee09f80d048",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-09-02T19:56:25.115Z",
+      "failure_reason": "lost_card"
+    },
+    {
+      "id": "1308b014-0662-401d-96ac-6e3023ccae44",
+      "tr_id": "e1b885a4-dc7c-4fb5-8980-3b667a89a96b",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-09-14T18:49:04.485Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "76322e94-47bd-4f54-a0f0-0a3436b60a3c",
+      "tr_id": "a9c1aaca-2052-4959-9d27-0dae026c0d74",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-01-25T00:33:11.728Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "93544c53-b410-4ab6-a0cd-ce673e3835ec",
+      "tr_id": "5b54b339-06fe-4ede-8068-3f31715ba3a8",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-04-25T02:00:50.656Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "8c307a46-a426-49d8-b69d-53b2c887b4bd",
+      "tr_id": "5b54b339-06fe-4ede-8068-3f31715ba3a8",
+      "attempt_no": 2,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2026-04-14T18:47:21.875Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "77aea3e5-a588-4694-973c-fa6eec2296a5",
+      "tr_id": "e16f4773-6a92-4d18-a674-ccadd5cf2693",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-05-15T08:50:37.137Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "29d7b3a4-e32a-4c27-903e-9092d9474499",
+      "tr_id": "776e3142-c67f-4f31-a6fe-6bb31913e0c2",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-09-16T00:53:47.412Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "62490b4f-20c3-48b7-a698-eb22b32eb3a2",
+      "tr_id": "aa9aa87e-78b2-4e5a-b50e-00623305d733",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-01-24T01:59:31.221Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "03d4f88e-40ef-478e-a321-53d5eebd7fca",
+      "tr_id": "aa9aa87e-78b2-4e5a-b50e-00623305d733",
+      "attempt_no": 2,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-07-17T02:18:53.410Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "e944fa97-5536-4549-bfe1-39dc7d0d0ade",
+      "tr_id": "aa9aa87e-78b2-4e5a-b50e-00623305d733",
+      "attempt_no": 3,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-06-30T20:11:09.701Z",
+      "failure_reason": "transaction_daily_limit_exceeded"
+    },
+    {
+      "id": "0f68e692-d647-4650-bbb1-ce2b3a3bc11f",
+      "tr_id": "e54a91c4-4000-4641-bd76-b6901c9ef9ed",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-10-20T05:57:24.382Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "03fc23da-cc24-404f-9cc9-d041050c68c3",
+      "tr_id": "0357c2cc-6b62-4bf9-98e9-2699f5e6a37a",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2025-11-13T21:36:34.891Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "6b6a4439-4466-4a36-b36c-42ac04639815",
+      "tr_id": "7f097f94-aa68-4433-a617-1cc7d26b9084",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2027-02-25T22:09:09.112Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "1ec3b86a-1d69-4bbc-9af7-1ab19c19f5eb",
+      "tr_id": "33ccaef5-7786-48f4-b892-af74e682f30d",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-07-24T06:01:49.126Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "79466fab-6eca-4c93-a133-eafac387cd2d",
+      "tr_id": "33ccaef5-7786-48f4-b892-af74e682f30d",
+      "attempt_no": 2,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-06-20T11:48:51.528Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "7d32ec9b-303a-4d63-a717-cb7adeab8ab7",
+      "tr_id": "b25ad5c6-3571-42d9-986a-ea3c93edebf4",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-06-15T16:10:42.013Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "cd5287ef-2cc1-4256-a63d-83ccd2b5de28",
+      "tr_id": "b25ad5c6-3571-42d9-986a-ea3c93edebf4",
+      "attempt_no": 2,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2027-06-14T00:49:50.889Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "c463f0b3-a39c-44e0-8b4d-7414dd55b3fe",
+      "tr_id": "86c630b6-4b45-4872-91c5-355d66f40de6",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2027-05-23T17:11:13.256Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "84f8cec6-3f11-4de0-bfe7-5905ee03b435",
+      "tr_id": "27116175-fb5a-4a85-9167-60e5b401dcf0",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-11-04T19:35:39.664Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "745aa9ba-f0a5-43c0-bc2e-1a9e383a3fe9",
+      "tr_id": "27116175-fb5a-4a85-9167-60e5b401dcf0",
+      "attempt_no": 2,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-07-18T07:57:44.887Z",
+      "failure_reason": "merchant_blacklist"
+    },
+    {
+      "id": "3e3e469f-3633-4316-a1a6-a76566b9bcbd",
+      "tr_id": "260b69e2-0caa-45e2-84a3-c4c6b24f9c16",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-10-17T22:22:31.155Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "1455cccd-edab-4103-83a6-56ba1fef45cc",
+      "tr_id": "856d68fe-8a08-4286-92ed-3a4c1d1a5842",
+      "attempt_no": 1,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2027-03-21T08:42:20.087Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "38975a91-8918-4f25-8c40-6e2e99f9eff1",
+      "tr_id": "24f1f4b5-49de-4626-ba8f-edf8bf6403b4",
+      "attempt_no": 1,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2027-09-23T09:48:54.810Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "f53bf86e-e8cf-44df-b19a-464e28c5b30e",
+      "tr_id": "129be950-aadc-4460-9046-b7819ee5d22b",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-02-25T22:21:40.760Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "f850e21b-0aee-407c-b9d0-f89182f30232",
+      "tr_id": "3455a1ab-29e4-4b21-ae8f-c88ce9087488",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-08-06T07:21:52.843Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "c507c655-bf85-4fb4-be63-fcc914fd9e32",
+      "tr_id": "19d7b7f4-02f2-46bc-81e2-92923ca78597",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-07-11T06:55:32.662Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "6946491f-afd7-4e04-94e6-ce49ebc269ae",
+      "tr_id": "19d7b7f4-02f2-46bc-81e2-92923ca78597",
+      "attempt_no": 2,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-09-10T07:52:52.390Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "f8e259e7-7fd6-410e-a135-7b92009d728c",
+      "tr_id": "86ee13a1-7caa-440f-9479-bf0818aa78ad",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-01-27T14:22:42.784Z",
+      "failure_reason": "transaction_daily_limit_exceeded"
+    },
+    {
+      "id": "7ec3d1cc-84f4-4c1e-a5cf-fb3e184ef8b2",
+      "tr_id": "86ee13a1-7caa-440f-9479-bf0818aa78ad",
+      "attempt_no": 2,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-06-14T09:17:31.185Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "dfb847be-a97a-4027-82eb-f658d4ae915e",
+      "tr_id": "86ee13a1-7caa-440f-9479-bf0818aa78ad",
+      "attempt_no": 3,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-05-25T15:38:27.023Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "0d81c8f0-0cff-4990-a21d-ca1216d88e34",
+      "tr_id": "bd20d19d-fda7-4280-b51a-ab9cd3a0884a",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-07-11T04:39:56.899Z",
+      "failure_reason": "lost_card"
+    },
+    {
+      "id": "d12ed631-b707-4212-9a4d-6fa14f2d2b20",
+      "tr_id": "286ab76c-9d90-4f60-89cd-90a130697472",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-02-04T12:13:23.105Z",
+      "failure_reason": "transaction_daily_limit_exceeded"
+    },
+    {
+      "id": "edf43e09-87b3-472f-a6a9-a70f4220f7e8",
+      "tr_id": "286ab76c-9d90-4f60-89cd-90a130697472",
+      "attempt_no": 2,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-07-26T15:21:25.724Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "86ea30fd-dac8-4227-9358-859dc248f195",
+      "tr_id": "286ab76c-9d90-4f60-89cd-90a130697472",
+      "attempt_no": 3,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2026-07-09T17:24:44.261Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "b51992e4-827d-4026-b94a-54b3b4cb98aa",
+      "tr_id": "65b537e4-2e64-445a-84a6-27ef30303bbb",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-05-27T01:17:00.119Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "37e8780f-f523-4ab6-98e8-5ffdfe4c24cf",
+      "tr_id": "65b537e4-2e64-445a-84a6-27ef30303bbb",
+      "attempt_no": 2,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-07-08T03:15:13.530Z",
+      "failure_reason": "transaction_daily_limit_exceeded"
+    },
+    {
+      "id": "46434d7a-8031-4db1-9b2d-061633a5a81e",
+      "tr_id": "65b537e4-2e64-445a-84a6-27ef30303bbb",
+      "attempt_no": 3,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2027-02-27T15:17:22.848Z",
+      "failure_reason": "fraudulent"
+    },
+    {
+      "id": "3eb40b2c-836d-4e9b-a08c-a48b17c3d995",
+      "tr_id": "02e3b58d-e2aa-481b-a704-e5634bf7e279",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-06-28T22:50:40.945Z",
+      "failure_reason": "fraudulent"
+    },
+    {
+      "id": "acf4279d-1aad-4ffd-943e-cb060565f01d",
+      "tr_id": "06f7d3fe-7b67-4c10-9dd5-9f27c5b597df",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-11-29T07:39:21.722Z",
+      "failure_reason": "transaction_daily_limit_exceeded"
+    },
+    {
+      "id": "9b31cdd0-d903-42b6-829c-4a8e3c8e7244",
+      "tr_id": "06f7d3fe-7b67-4c10-9dd5-9f27c5b597df",
+      "attempt_no": 2,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2026-10-21T01:32:53.596Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "2ce10519-716c-4d6c-8a0c-91ef47b1c431",
+      "tr_id": "06f7d3fe-7b67-4c10-9dd5-9f27c5b597df",
+      "attempt_no": 3,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-04-23T05:50:22.196Z",
+      "failure_reason": "merchant_blacklist"
+    },
+    {
+      "id": "fa90fcf1-dfbb-4a79-803d-d558e134f36e",
+      "tr_id": "e148c6d1-3429-4a04-97c9-d3ea7ea23baf",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-07-06T07:40:22.030Z",
+      "failure_reason": "merchant_blacklist"
+    },
+    {
+      "id": "9e906944-9009-4aad-9661-885393164422",
+      "tr_id": "68b0da51-2467-4554-a8e2-f807f14c4d64",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-11-21T17:09:18.387Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "13881b1e-29f6-4ce9-9241-761f6922197a",
+      "tr_id": "68b0da51-2467-4554-a8e2-f807f14c4d64",
+      "attempt_no": 2,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2027-07-23T12:17:54.979Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "3f9781a3-9185-4b75-89cf-e958fb4c3396",
+      "tr_id": "68b0da51-2467-4554-a8e2-f807f14c4d64",
+      "attempt_no": 3,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-05-18T12:37:51.401Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "2e71fb22-7be2-4342-bffc-f5577a801fe1",
+      "tr_id": "ee3288ad-f94e-45eb-b8fe-5580b89d8635",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2025-12-19T04:25:51.765Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "b7979573-6130-4cc4-9363-e9ed35c75703",
+      "tr_id": "ff66a968-b45d-416f-a99b-91ea83b9deed",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-08-18T02:57:20.834Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "0a49a091-1711-4e02-8d11-48c39126d90a",
+      "tr_id": "9f2a73a7-2034-4cbf-8505-0c4c8f4578ca",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-05-24T14:30:48.008Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "b451db43-0301-4845-a7e8-06866868efd3",
+      "tr_id": "9f2a73a7-2034-4cbf-8505-0c4c8f4578ca",
+      "attempt_no": 2,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2026-09-14T16:57:54.083Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "d5dcc8fe-bf86-43f3-9258-7fb638883f07",
+      "tr_id": "f44e3922-1ade-4df2-b66b-fc2422d4afa5",
+      "attempt_no": 1,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2026-06-28T01:07:18.718Z",
+      "failure_reason": "fraudulent"
+    },
+    {
+      "id": "a08581f4-c64c-4db6-be08-a1a1f7e7728c",
+      "tr_id": "cbba370b-d1c1-4a10-807c-1b2384f5ba18",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-10-18T11:40:36.220Z",
+      "failure_reason": "lost_card"
+    },
+    {
+      "id": "2fc7cfcc-a1ce-43c4-8ea1-a77b9764ee82",
+      "tr_id": "b15f6077-10ec-43f0-92e2-e95fdfe8e072",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-04-02T21:29:25.162Z",
+      "failure_reason": "fraudulent"
+    },
+    {
+      "id": "7f9e2401-2bde-4053-8182-4f070a32283e",
+      "tr_id": "51c59a29-24a6-4c82-a96f-ebc19c260c14",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-12-14T11:18:11.999Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "f074b67e-d066-4d94-8215-f3a3f91c3975",
+      "tr_id": "4315b0a7-b09b-4eb2-ba92-f549afbd23d7",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2025-10-06T03:07:53.031Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "62f115ef-d4e3-400f-8164-b38c434237cf",
+      "tr_id": "43f60659-6dbe-4883-beb5-a37c29f6f767",
+      "attempt_no": 1,
+      "method": "deposit",
+      "is_Manual_Action": false,
+      "timestamp": "2027-06-17T08:39:54.804Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "4f80196f-9021-4abe-981d-632001e45e28",
+      "tr_id": "6cc8e8c4-cd27-47ce-99a3-aa534420c13a",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2027-04-22T09:02:50.513Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "2c65a013-943b-4bf9-9153-7bbaa5c68caf",
+      "tr_id": "6cc8e8c4-cd27-47ce-99a3-aa534420c13a",
+      "attempt_no": 2,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-02-06T14:19:23.690Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "067f8c21-fe9d-4ebd-a0c7-7fcfebdf6ee6",
+      "tr_id": "6cc8e8c4-cd27-47ce-99a3-aa534420c13a",
+      "attempt_no": 3,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2026-09-24T04:44:21.182Z",
+      "failure_reason": "fraudulent"
+    },
+    {
+      "id": "128b1466-b961-4532-a3c0-1db3c98d2868",
+      "tr_id": "0bf61471-3241-4ac4-8701-1f09f7a15086",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2027-03-07T12:11:49.590Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "4efa289d-4870-4ba0-a9eb-5918c768b4ce",
+      "tr_id": "0bf61471-3241-4ac4-8701-1f09f7a15086",
+      "attempt_no": 2,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2027-01-30T17:04:57.793Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "8a08337d-5141-488b-be7b-5c680a2d641e",
+      "tr_id": "16e69070-e260-4988-a978-b3369b845893",
+      "attempt_no": 1,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-01-26T10:27:58.578Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "646af047-97c7-4f86-bd93-12ca367cf128",
+      "tr_id": "16e69070-e260-4988-a978-b3369b845893",
+      "attempt_no": 2,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2026-08-27T21:28:31.767Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "6d063136-cebc-4d32-a89f-de4a18800891",
+      "tr_id": "16e69070-e260-4988-a978-b3369b845893",
+      "attempt_no": 3,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2026-06-01T06:26:09.171Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "f4e9734e-316e-4618-bf05-0486d21a0538",
+      "tr_id": "d94d8c8c-8bab-4eaa-8b51-5d63ded50bf6",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-07-27T15:54:41.227Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "09385f10-1623-4345-a0f7-5364d1863239",
+      "tr_id": "d94d8c8c-8bab-4eaa-8b51-5d63ded50bf6",
+      "attempt_no": 2,
+      "method": "invoice",
+      "is_Manual_Action": false,
+      "timestamp": "2025-10-03T04:10:31.512Z",
+      "failure_reason": "lost_card"
+    },
+    {
+      "id": "839b5b6d-6428-40a9-a492-bb23cbe3e304",
+      "tr_id": "baade899-6431-4f55-8c6d-4048274a7c19",
+      "attempt_no": 1,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-10-11T15:14:36.940Z",
+      "failure_reason": "lost_card"
+    },
+    {
+      "id": "cfba35b3-3aba-485b-9f7b-ff78adac66e3",
+      "tr_id": "75084668-1cd4-4bce-b1d4-10d9a6ca76a7",
+      "attempt_no": 1,
+      "method": "withdrawal",
+      "is_Manual_Action": false,
+      "timestamp": "2026-04-15T04:17:00.121Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "6ecc4453-c431-48b7-8712-d9cc4c0f546d",
+      "tr_id": "75084668-1cd4-4bce-b1d4-10d9a6ca76a7",
+      "attempt_no": 2,
+      "method": "payment",
+      "is_Manual_Action": false,
+      "timestamp": "2026-03-31T17:15:10.970Z",
+      "failure_reason": "merchant_blacklist"
+    },
+    {
+      "id": "34160253-e8f3-4236-bf71-cba040bd4447",
+      "tr_id": "9bfe8834-2844-4500-86bf-63b44817ddc3",
+      "attempt_no": 3,
+      "method": "payment",
+      "is_Manual_Action": true,
+      "timestamp": "2027-05-25T13:02:56.960Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "7ae02e5d-0c7b-4ceb-9cf8-2c6da0db8a5c",
+      "tr_id": "3a12e010-89d4-47d7-afd6-29aad1708f5d",
+      "attempt_no": 3,
+      "method": "deposit",
+      "is_Manual_Action": true,
+      "timestamp": "2026-12-02T16:37:13.144Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "1b32063a-0ce5-4279-a7a1-f2986c6a1021",
+      "tr_id": "1e703ddd-229b-4a8e-9421-d9ec9ca59982",
+      "attempt_no": 3,
+      "method": "deposit",
+      "is_Manual_Action": true,
+      "timestamp": "2026-07-30T15:36:41.673Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "e9a71c5e-d8fa-4bd4-97b2-9a0de2a832c0",
+      "tr_id": "e75b5d9a-683c-4ff7-8c71-8e12db7129ac",
+      "attempt_no": 3,
+      "method": "withdrawal",
+      "is_Manual_Action": true,
+      "timestamp": "2027-02-18T16:37:34.854Z",
+      "failure_reason": "merchant_blacklist"
+    },
+    {
+      "id": "2e36f8e9-d729-4282-bb5e-a0e7a508c94a",
+      "tr_id": "df7c4773-d3e7-4e97-9bb7-2f07b0c9823d",
+      "attempt_no": 3,
+      "method": "invoice",
+      "is_Manual_Action": true,
+      "timestamp": "2027-09-25T19:03:46.955Z",
+      "failure_reason": "authentication_failed"
+    },
+    {
+      "id": "71afbc39-6c58-4ae3-9cbe-8a29022aff72",
+      "tr_id": "aa9aa87e-78b2-4e5a-b50e-00623305d733",
+      "attempt_no": 3,
+      "method": "deposit",
+      "is_Manual_Action": true,
+      "timestamp": "2026-12-09T02:13:21.169Z",
+      "failure_reason": "insufficient_funds"
+    },
+    {
+      "id": "084c4b2d-3358-4846-aea2-aa43b491160d",
+      "tr_id": "86ee13a1-7caa-440f-9479-bf0818aa78ad",
+      "attempt_no": 3,
+      "method": "deposit",
+      "is_Manual_Action": true,
+      "timestamp": "2026-11-27T01:38:26.682Z",
+      "failure_reason": "payment_cancelled"
+    },
+    {
+      "id": "abef7da6-9e28-4342-a735-3cd4281cbc1c",
+      "tr_id": "286ab76c-9d90-4f60-89cd-90a130697472",
+      "attempt_no": 3,
+      "method": "withdrawal",
+      "is_Manual_Action": true,
+      "timestamp": "2027-07-28T13:43:45.834Z",
+      "failure_reason": "card_not_supported"
+    },
+    {
+      "id": "3fcb26a7-f1f5-48bf-9ecb-13e9d5185a3f",
+      "tr_id": "68b0da51-2467-4554-a8e2-f807f14c4d64",
+      "attempt_no": 3,
+      "method": "withdrawal",
+      "is_Manual_Action": true,
+      "timestamp": "2027-09-10T13:08:57.016Z",
+      "failure_reason": ""
+    },
+    {
+      "id": "6a571214-ba5a-41cb-8708-f4dc76f494f3",
+      "tr_id": "16e69070-e260-4988-a978-b3369b845893",
+      "attempt_no": 3,
+      "method": "deposit",
+      "is_Manual_Action": true,
+      "timestamp": "2025-12-15T17:01:46.547Z",
+      "failure_reason": "fraudulent"
+    }
+  ],
+  "Status": [
+    {
+      "tr": "5efdb692-45d5-4425-a8a3-aecdd748f699",
+      "status": "failed"
+    },
+    {
+      "tr": "9bfe8834-2844-4500-86bf-63b44817ddc3",
+      "status": "failed"
+    },
+    {
+      "tr": "fc39e7fe-41da-4e66-bcf5-2e4f1148ee92",
+      "status": "successfull"
+    },
+    {
+      "tr": "3e654510-707c-43cf-97a3-786bc631e13a",
+      "status": "successfull"
+    },
+    {
+      "tr": "3852a1ae-2efb-4f85-ac1a-d5b3e34e7fab",
+      "status": "successfull"
+    },
+    {
+      "tr": "3a12e010-89d4-47d7-afd6-29aad1708f5d",
+      "status": "failed"
+    },
+    {
+      "tr": "921c77d7-0d97-4891-9ce0-fb1bf62cf036",
+      "status": "successfull"
+    },
+    {
+      "tr": "69417ede-7645-455d-8f48-0d5ffecb7e2d",
+      "status": "failed"
+    },
+    {
+      "tr": "b68f9732-9077-43eb-b965-ca9109048e59",
+      "status": "successfull"
+    },
+    {
+      "tr": "3d0e9f72-91db-43d5-9bd5-2ff35fae21c0",
+      "status": "successfull"
+    },
+    {
+      "tr": "6e2a6830-500c-447e-b231-e9232a6697be",
+      "status": "successfull"
+    },
+    {
+      "tr": "aa087820-33e4-4330-b02a-d847da2ec5e1",
+      "status": "failed"
+    },
+    {
+      "tr": "23290336-3497-4990-9748-709528b41daa",
+      "status": "successfull"
+    },
+    {
+      "tr": "face98e8-546e-48b3-a079-806fc4c8ed3a",
+      "status": "failed"
+    },
+    {
+      "tr": "833ab1be-908e-48e1-a658-953fdc124208",
+      "status": "failed"
+    },
+    {
+      "tr": "41c8ba80-263e-4e0f-8e9d-67b2f3d0b5f1",
+      "status": "successfull"
+    },
+    {
+      "tr": "66923458-1cd2-45ba-a996-a8da8d5d5b33",
+      "status": "failed"
+    },
+    {
+      "tr": "624cb062-59ec-463e-91d0-ad24de210c3d",
+      "status": "failed"
+    },
+    {
+      "tr": "8180d58f-4857-4f5f-87d3-ec2d2a56e782",
+      "status": "successfull"
+    },
+    {
+      "tr": "1e703ddd-229b-4a8e-9421-d9ec9ca59982",
+      "status": "failed"
+    },
+    {
+      "tr": "0f145105-c6af-46c1-afa7-c9a0f5531b4e",
+      "status": "failed"
+    },
+    {
+      "tr": "bb626ae1-f126-4e0d-9118-5ca69e759823",
+      "status": "failed"
+    },
+    {
+      "tr": "d1af5211-cd61-4714-ab42-c2efbdc1f278",
+      "status": "failed"
+    },
+    {
+      "tr": "1df8df9d-942c-481b-8dd0-c03b90c19c76",
+      "status": "failed"
+    },
+    {
+      "tr": "ae11448c-9414-4529-9f34-3e5178512a17",
+      "status": "successfull"
+    },
+    {
+      "tr": "ab2c80dc-f92e-4c46-bec4-fbd946242349",
+      "status": "failed"
+    },
+    {
+      "tr": "01dccfe2-8b79-4029-9bb7-3c7b3e5a98f4",
+      "status": "successfull"
+    },
+    {
+      "tr": "e75b5d9a-683c-4ff7-8c71-8e12db7129ac",
+      "status": "failed"
+    },
+    {
+      "tr": "8cab2fd7-fdf7-42ee-973b-e06df7e18452",
+      "status": "successfull"
+    },
+    {
+      "tr": "036ddc8c-a660-4a7b-aa36-8a0f551e9f87",
+      "status": "failed"
+    },
+    {
+      "tr": "fcf3fb14-d9c5-43e7-b44a-508db6e30cec",
+      "status": "failed"
+    },
+    {
+      "tr": "bf086f1d-9864-45ab-b367-cc9d68876d70",
+      "status": "successfull"
+    },
+    {
+      "tr": "df7c4773-d3e7-4e97-9bb7-2f07b0c9823d",
+      "status": "failed"
+    },
+    {
+      "tr": "ebe9f7f6-da97-4094-85cf-8fefa60fa2c6",
+      "status": "failed"
+    },
+    {
+      "tr": "d0445e9d-2dc2-444f-a95d-108a958bd75e",
+      "status": "successfull"
+    },
+    {
+      "tr": "5df1e36d-5e74-4dbb-b587-c9dd175f22e8",
+      "status": "failed"
+    },
+    {
+      "tr": "a3913ed7-2b7a-4dc6-9c8c-acfbe3133b5b",
+      "status": "failed"
+    },
+    {
+      "tr": "0e8cc882-83a4-41d4-af9b-febbe31707c4",
+      "status": "successfull"
+    },
+    {
+      "tr": "d845a89d-0e98-484e-914e-7374c72c7e3d",
+      "status": "failed"
+    },
+    {
+      "tr": "702d266b-764c-404d-8261-525d746520e8",
+      "status": "failed"
+    },
+    {
+      "tr": "e692dacc-6465-471d-8d8b-20d78d95868d",
+      "status": "successfull"
+    },
+    {
+      "tr": "11874bef-3c50-4e61-8831-6d857354c484",
+      "status": "failed"
+    },
+    {
+      "tr": "378d1a71-32e6-4745-aef5-a63e9fdb6af8",
+      "status": "failed"
+    },
+    {
+      "tr": "3765aac6-32dd-4524-94b8-dcdff0d40346",
+      "status": "failed"
+    },
+    {
+      "tr": "8d3d558b-8ae3-4765-9d82-7ffb6a2a570f",
+      "status": "successfull"
+    },
+    {
+      "tr": "9c53aba2-3ecc-4556-a34f-3ecb2ebcef84",
+      "status": "failed"
+    },
+    {
+      "tr": "6d562d86-b9ea-4947-a76d-8a055cc83be8",
+      "status": "failed"
+    },
+    {
+      "tr": "ad5ebdf3-5f52-47e3-8142-269291895dc6",
+      "status": "failed"
+    },
+    {
+      "tr": "82d20fd6-06be-4770-88f5-5537e0b90c95",
+      "status": "failed"
+    },
+    {
+      "tr": "437da759-af20-4b6c-9084-68f8862c083f",
+      "status": "failed"
+    },
+    {
+      "tr": "a2bfdac3-26f9-4c33-970e-a1093f5ddd5e",
+      "status": "failed"
+    },
+    {
+      "tr": "a1f16170-f849-42a1-ab11-1b19dd6de4c5",
+      "status": "successfull"
+    },
+    {
+      "tr": "99924215-15dd-480d-abbf-31c7f1197215",
+      "status": "successfull"
+    },
+    {
+      "tr": "e27d9644-b005-4878-9ad6-e9d424d15504",
+      "status": "successfull"
+    },
+    {
+      "tr": "f379ffc3-4cc2-4633-88f7-8dfa438ff2ee",
+      "status": "successfull"
+    },
+    {
+      "tr": "71d8992f-b027-4ffe-ad07-7378dabf12e1",
+      "status": "failed"
+    },
+    {
+      "tr": "9aa5e03c-a1d3-485e-a59a-5de80dbfc4e4",
+      "status": "failed"
+    },
+    {
+      "tr": "d9250896-d20f-4261-afaf-4ee09f80d048",
+      "status": "failed"
+    },
+    {
+      "tr": "e1b885a4-dc7c-4fb5-8980-3b667a89a96b",
+      "status": "successfull"
+    },
+    {
+      "tr": "a9c1aaca-2052-4959-9d27-0dae026c0d74",
+      "status": "successfull"
+    },
+    {
+      "tr": "5b54b339-06fe-4ede-8068-3f31715ba3a8",
+      "status": "successfull"
+    },
+    {
+      "tr": "e16f4773-6a92-4d18-a674-ccadd5cf2693",
+      "status": "failed"
+    },
+    {
+      "tr": "776e3142-c67f-4f31-a6fe-6bb31913e0c2",
+      "status": "successfull"
+    },
+    {
+      "tr": "aa9aa87e-78b2-4e5a-b50e-00623305d733",
+      "status": "failed"
+    },
+    {
+      "tr": "e54a91c4-4000-4641-bd76-b6901c9ef9ed",
+      "status": "successfull"
+    },
+    {
+      "tr": "0357c2cc-6b62-4bf9-98e9-2699f5e6a37a",
+      "status": "failed"
+    },
+    {
+      "tr": "7f097f94-aa68-4433-a617-1cc7d26b9084",
+      "status": "successfull"
+    },
+    {
+      "tr": "33ccaef5-7786-48f4-b892-af74e682f30d",
+      "status": "successfull"
+    },
+    {
+      "tr": "b25ad5c6-3571-42d9-986a-ea3c93edebf4",
+      "status": "successfull"
+    },
+    {
+      "tr": "86c630b6-4b45-4872-91c5-355d66f40de6",
+      "status": "failed"
+    },
+    {
+      "tr": "27116175-fb5a-4a85-9167-60e5b401dcf0",
+      "status": "failed"
+    },
+    {
+      "tr": "260b69e2-0caa-45e2-84a3-c4c6b24f9c16",
+      "status": "failed"
+    },
+    {
+      "tr": "856d68fe-8a08-4286-92ed-3a4c1d1a5842",
+      "status": "successfull"
+    },
+    {
+      "tr": "24f1f4b5-49de-4626-ba8f-edf8bf6403b4",
+      "status": "failed"
+    },
+    {
+      "tr": "129be950-aadc-4460-9046-b7819ee5d22b",
+      "status": "failed"
+    },
+    {
+      "tr": "3455a1ab-29e4-4b21-ae8f-c88ce9087488",
+      "status": "failed"
+    },
+    {
+      "tr": "19d7b7f4-02f2-46bc-81e2-92923ca78597",
+      "status": "successfull"
+    },
+    {
+      "tr": "86ee13a1-7caa-440f-9479-bf0818aa78ad",
+      "status": "failed"
+    },
+    {
+      "tr": "bd20d19d-fda7-4280-b51a-ab9cd3a0884a",
+      "status": "failed"
+    },
+    {
+      "tr": "286ab76c-9d90-4f60-89cd-90a130697472",
+      "status": "failed"
+    },
+    {
+      "tr": "65b537e4-2e64-445a-84a6-27ef30303bbb",
+      "status": "failed"
+    },
+    {
+      "tr": "02e3b58d-e2aa-481b-a704-e5634bf7e279",
+      "status": "failed"
+    },
+    {
+      "tr": "06f7d3fe-7b67-4c10-9dd5-9f27c5b597df",
+      "status": "failed"
+    },
+    {
+      "tr": "e148c6d1-3429-4a04-97c9-d3ea7ea23baf",
+      "status": "failed"
+    },
+    {
+      "tr": "68b0da51-2467-4554-a8e2-f807f14c4d64",
+      "status": "failed"
+    },
+    {
+      "tr": "ee3288ad-f94e-45eb-b8fe-5580b89d8635",
+      "status": "failed"
+    },
+    {
+      "tr": "ff66a968-b45d-416f-a99b-91ea83b9deed",
+      "status": "failed"
+    },
+    {
+      "tr": "9f2a73a7-2034-4cbf-8505-0c4c8f4578ca",
+      "status": "failed"
+    },
+    {
+      "tr": "f44e3922-1ade-4df2-b66b-fc2422d4afa5",
+      "status": "failed"
+    },
+    {
+      "tr": "cbba370b-d1c1-4a10-807c-1b2384f5ba18",
+      "status": "failed"
+    },
+    {
+      "tr": "b15f6077-10ec-43f0-92e2-e95fdfe8e072",
+      "status": "failed"
+    },
+    {
+      "tr": "51c59a29-24a6-4c82-a96f-ebc19c260c14",
+      "status": "successfull"
+    },
+    {
+      "tr": "4315b0a7-b09b-4eb2-ba92-f549afbd23d7",
+      "status": "successfull"
+    },
+    {
+      "tr": "43f60659-6dbe-4883-beb5-a37c29f6f767",
+      "status": "failed"
+    },
+    {
+      "tr": "6cc8e8c4-cd27-47ce-99a3-aa534420c13a",
+      "status": "failed"
+    },
+    {
+      "tr": "0bf61471-3241-4ac4-8701-1f09f7a15086",
+      "status": "successfull"
+    },
+    {
+      "tr": "16e69070-e260-4988-a978-b3369b845893",
+      "status": "failed"
+    },
+    {
+      "tr": "d94d8c8c-8bab-4eaa-8b51-5d63ded50bf6",
+      "status": "failed"
+    },
+    {
+      "tr": "baade899-6431-4f55-8c6d-4048274a7c19",
+      "status": "failed"
+    },
+    {
+      "tr": "75084668-1cd4-4bce-b1d4-10d9a6ca76a7",
+      "status": "failed"
+    }
+  ],
+  "Resolved_by": [
+    {
+      "tr": "5efdb692-45d5-4425-a8a3-aecdd748f699",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "9bfe8834-2844-4500-86bf-63b44817ddc3",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "fc39e7fe-41da-4e66-bcf5-2e4f1148ee92",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "3e654510-707c-43cf-97a3-786bc631e13a",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "3852a1ae-2efb-4f85-ac1a-d5b3e34e7fab",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "3a12e010-89d4-47d7-afd6-29aad1708f5d",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "921c77d7-0d97-4891-9ce0-fb1bf62cf036",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "69417ede-7645-455d-8f48-0d5ffecb7e2d",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "b68f9732-9077-43eb-b965-ca9109048e59",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "3d0e9f72-91db-43d5-9bd5-2ff35fae21c0",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "6e2a6830-500c-447e-b231-e9232a6697be",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "aa087820-33e4-4330-b02a-d847da2ec5e1",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "23290336-3497-4990-9748-709528b41daa",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "face98e8-546e-48b3-a079-806fc4c8ed3a",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "833ab1be-908e-48e1-a658-953fdc124208",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "41c8ba80-263e-4e0f-8e9d-67b2f3d0b5f1",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "66923458-1cd2-45ba-a996-a8da8d5d5b33",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "624cb062-59ec-463e-91d0-ad24de210c3d",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "8180d58f-4857-4f5f-87d3-ec2d2a56e782",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "1e703ddd-229b-4a8e-9421-d9ec9ca59982",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "0f145105-c6af-46c1-afa7-c9a0f5531b4e",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "bb626ae1-f126-4e0d-9118-5ca69e759823",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "d1af5211-cd61-4714-ab42-c2efbdc1f278",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "1df8df9d-942c-481b-8dd0-c03b90c19c76",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "ae11448c-9414-4529-9f34-3e5178512a17",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "ab2c80dc-f92e-4c46-bec4-fbd946242349",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "01dccfe2-8b79-4029-9bb7-3c7b3e5a98f4",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "e75b5d9a-683c-4ff7-8c71-8e12db7129ac",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "8cab2fd7-fdf7-42ee-973b-e06df7e18452",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "036ddc8c-a660-4a7b-aa36-8a0f551e9f87",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "fcf3fb14-d9c5-43e7-b44a-508db6e30cec",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "bf086f1d-9864-45ab-b367-cc9d68876d70",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "df7c4773-d3e7-4e97-9bb7-2f07b0c9823d",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "ebe9f7f6-da97-4094-85cf-8fefa60fa2c6",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "d0445e9d-2dc2-444f-a95d-108a958bd75e",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "5df1e36d-5e74-4dbb-b587-c9dd175f22e8",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "a3913ed7-2b7a-4dc6-9c8c-acfbe3133b5b",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "0e8cc882-83a4-41d4-af9b-febbe31707c4",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "d845a89d-0e98-484e-914e-7374c72c7e3d",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "702d266b-764c-404d-8261-525d746520e8",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "e692dacc-6465-471d-8d8b-20d78d95868d",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "11874bef-3c50-4e61-8831-6d857354c484",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "378d1a71-32e6-4745-aef5-a63e9fdb6af8",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "3765aac6-32dd-4524-94b8-dcdff0d40346",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "8d3d558b-8ae3-4765-9d82-7ffb6a2a570f",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "9c53aba2-3ecc-4556-a34f-3ecb2ebcef84",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "6d562d86-b9ea-4947-a76d-8a055cc83be8",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "ad5ebdf3-5f52-47e3-8142-269291895dc6",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "82d20fd6-06be-4770-88f5-5537e0b90c95",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "437da759-af20-4b6c-9084-68f8862c083f",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "a2bfdac3-26f9-4c33-970e-a1093f5ddd5e",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "a1f16170-f849-42a1-ab11-1b19dd6de4c5",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "99924215-15dd-480d-abbf-31c7f1197215",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "e27d9644-b005-4878-9ad6-e9d424d15504",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "f379ffc3-4cc2-4633-88f7-8dfa438ff2ee",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "71d8992f-b027-4ffe-ad07-7378dabf12e1",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "9aa5e03c-a1d3-485e-a59a-5de80dbfc4e4",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "d9250896-d20f-4261-afaf-4ee09f80d048",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "e1b885a4-dc7c-4fb5-8980-3b667a89a96b",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "a9c1aaca-2052-4959-9d27-0dae026c0d74",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "5b54b339-06fe-4ede-8068-3f31715ba3a8",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "e16f4773-6a92-4d18-a674-ccadd5cf2693",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "776e3142-c67f-4f31-a6fe-6bb31913e0c2",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "aa9aa87e-78b2-4e5a-b50e-00623305d733",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "e54a91c4-4000-4641-bd76-b6901c9ef9ed",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "0357c2cc-6b62-4bf9-98e9-2699f5e6a37a",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "7f097f94-aa68-4433-a617-1cc7d26b9084",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "33ccaef5-7786-48f4-b892-af74e682f30d",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "b25ad5c6-3571-42d9-986a-ea3c93edebf4",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "86c630b6-4b45-4872-91c5-355d66f40de6",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "27116175-fb5a-4a85-9167-60e5b401dcf0",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "260b69e2-0caa-45e2-84a3-c4c6b24f9c16",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "856d68fe-8a08-4286-92ed-3a4c1d1a5842",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "24f1f4b5-49de-4626-ba8f-edf8bf6403b4",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "129be950-aadc-4460-9046-b7819ee5d22b",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "3455a1ab-29e4-4b21-ae8f-c88ce9087488",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "19d7b7f4-02f2-46bc-81e2-92923ca78597",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "86ee13a1-7caa-440f-9479-bf0818aa78ad",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "bd20d19d-fda7-4280-b51a-ab9cd3a0884a",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "286ab76c-9d90-4f60-89cd-90a130697472",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "65b537e4-2e64-445a-84a6-27ef30303bbb",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "02e3b58d-e2aa-481b-a704-e5634bf7e279",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "06f7d3fe-7b67-4c10-9dd5-9f27c5b597df",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "e148c6d1-3429-4a04-97c9-d3ea7ea23baf",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "68b0da51-2467-4554-a8e2-f807f14c4d64",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "ee3288ad-f94e-45eb-b8fe-5580b89d8635",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "ff66a968-b45d-416f-a99b-91ea83b9deed",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "9f2a73a7-2034-4cbf-8505-0c4c8f4578ca",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "f44e3922-1ade-4df2-b66b-fc2422d4afa5",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "cbba370b-d1c1-4a10-807c-1b2384f5ba18",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "b15f6077-10ec-43f0-92e2-e95fdfe8e072",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "51c59a29-24a6-4c82-a96f-ebc19c260c14",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "4315b0a7-b09b-4eb2-ba92-f549afbd23d7",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "43f60659-6dbe-4883-beb5-a37c29f6f767",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "6cc8e8c4-cd27-47ce-99a3-aa534420c13a",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "0bf61471-3241-4ac4-8701-1f09f7a15086",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "16e69070-e260-4988-a978-b3369b845893",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "d94d8c8c-8bab-4eaa-8b51-5d63ded50bf6",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "baade899-6431-4f55-8c6d-4048274a7c19",
+      "resolved_by": "sys"
+    },
+    {
+      "tr": "75084668-1cd4-4bce-b1d4-10d9a6ca76a7",
+      "resolved_by": "sys"
+    }
+  ],
+  "Manual_Action": [
+    {
+      "id": "5c1cfc75-33b1-45a9-86e5-d9fe6e6c585f",
+      "tr_id": "5efdb692-45d5-4425-a8a3-aecdd748f699",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "cdf5534b-6e42-43a7-9a70-dda7fcedb3aa",
+      "timestamp": "2026-10-24T18:51:01.476Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "eeadea31-0a86-4ffd-952e-2aa14ecdfcf0",
+      "tr_id": "9bfe8834-2844-4500-86bf-63b44817ddc3",
+      "Attempt_id": "34160253-e8f3-4236-bf71-cba040bd4447",
+      "executive_id": "39631c3b-5167-4255-9e1d-5a982895da72",
+      "timestamp": "2026-01-29T19:30:31.111Z",
+      "Action": "forced_retry"
+    },
+    {
+      "id": "9e3316e1-a01d-4c37-b748-c52ffbbba2c1",
+      "tr_id": "3a12e010-89d4-47d7-afd6-29aad1708f5d",
+      "Attempt_id": "7ae02e5d-0c7b-4ceb-9cf8-2c6da0db8a5c",
+      "executive_id": "ddd729a9-1fd6-46dc-82d9-32d3164fd26b",
+      "timestamp": "2027-05-09T08:46:41.464Z",
+      "Action": "forced_retry"
+    },
+    {
+      "id": "9af9d361-f998-4e49-86e4-138f2d521350",
+      "tr_id": "69417ede-7645-455d-8f48-0d5ffecb7e2d",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "178bb6de-2093-4965-94c1-898108fe6c2c",
+      "timestamp": "2026-10-11T08:15:49.942Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "8696eef6-fd3c-435c-bbb5-675bb318f39b",
+      "tr_id": "aa087820-33e4-4330-b02a-d847da2ec5e1",
+      "Attempt_id": "d3796b69-935b-4062-a33a-7be8a5ba97a2",
+      "executive_id": "9ea5eae8-b217-436d-be73-980e0c478fe9",
+      "timestamp": "2026-11-20T10:40:43.714Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "c6df899f-b9ba-4f8f-85cb-47653d572e4c",
+      "tr_id": "face98e8-546e-48b3-a079-806fc4c8ed3a",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "e5d552ef-f6fb-4c4b-8061-acd287070a54",
+      "timestamp": "2027-01-01T21:03:14.747Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "cf78d735-f8de-4850-bcaf-5f092b9c35ac",
+      "tr_id": "833ab1be-908e-48e1-a658-953fdc124208",
+      "Attempt_id": "e74394cd-58dd-4d3a-b81e-1daf51937ce4",
+      "executive_id": "99f22386-f22b-475c-8d80-0ae84ef12c51",
+      "timestamp": "2026-07-21T02:31:49.719Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "b3a2bfa1-a915-48b6-a3da-5b746499c686",
+      "tr_id": "66923458-1cd2-45ba-a996-a8da8d5d5b33",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "5b588624-6bb7-434a-bd79-f723b3652c5a",
+      "timestamp": "2026-06-02T09:12:03.717Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "adced3d3-ea85-452d-83ef-ca1e9f840cf3",
+      "tr_id": "624cb062-59ec-463e-91d0-ad24de210c3d",
+      "Attempt_id": "e74394cd-58dd-4d3a-b81e-1daf51937ce4",
+      "executive_id": "4741451d-eea8-4e85-bfdb-c3688fd79345",
+      "timestamp": "2026-04-16T03:54:30.419Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "2fbdea1a-9f50-4294-9a84-1da430b882b2",
+      "tr_id": "1e703ddd-229b-4a8e-9421-d9ec9ca59982",
+      "Attempt_id": "1b32063a-0ce5-4279-a7a1-f2986c6a1021",
+      "executive_id": "a5ad4212-f34f-41bb-9873-fcaa73d5c747",
+      "timestamp": "2025-10-08T10:17:27.654Z",
+      "Action": "forced_retry"
+    },
+    {
+      "id": "04cb2c4e-ad68-4ff2-965c-7b6d126df82b",
+      "tr_id": "0f145105-c6af-46c1-afa7-c9a0f5531b4e",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "09a0c087-cc4b-4e9b-afeb-07fe982a4afa",
+      "timestamp": "2026-10-21T04:44:08.326Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "4daadac5-f6e6-478a-81ee-913fd2e6fa51",
+      "tr_id": "bb626ae1-f126-4e0d-9118-5ca69e759823",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "41518518-161e-4a2a-b08a-6541738986d5",
+      "timestamp": "2026-06-08T01:19:25.651Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "f48f7f17-bb23-4f76-869b-eac993b9c972",
+      "tr_id": "d1af5211-cd61-4714-ab42-c2efbdc1f278",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "3ac85e67-658e-4b2e-a04b-d870995c0632",
+      "timestamp": "2027-03-26T13:37:18.121Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "84891326-ccae-41ca-aa88-f157bd8bdf8a",
+      "tr_id": "1df8df9d-942c-481b-8dd0-c03b90c19c76",
+      "Attempt_id": "d3796b69-935b-4062-a33a-7be8a5ba97a2",
+      "executive_id": "203ff9c6-01aa-4002-90e1-a343b4a6e7d4",
+      "timestamp": "2026-01-28T06:31:55.110Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "566eb8b2-c48f-468d-a9c8-90ccc70d0690",
+      "tr_id": "ab2c80dc-f92e-4c46-bec4-fbd946242349",
+      "Attempt_id": "e74394cd-58dd-4d3a-b81e-1daf51937ce4",
+      "executive_id": "045b35b5-0917-49d6-b0a7-9b27b3f8c3d5",
+      "timestamp": "2026-05-07T22:41:22.731Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "8d46de02-f289-4503-ac6f-95b8f272c7ab",
+      "tr_id": "e75b5d9a-683c-4ff7-8c71-8e12db7129ac",
+      "Attempt_id": "e9a71c5e-d8fa-4bd4-97b2-9a0de2a832c0",
+      "executive_id": "8359031f-1f57-44d2-a863-1a97558fb2ed",
+      "timestamp": "2026-10-05T16:20:30.904Z",
+      "Action": "forced_retry"
+    },
+    {
+      "id": "59a2c44c-12a2-49e6-9ca9-8ba198ecc50b",
+      "tr_id": "036ddc8c-a660-4a7b-aa36-8a0f551e9f87",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "0563b557-29c8-4b87-ae9a-a6b089fe10ed",
+      "timestamp": "2026-02-09T15:31:28.107Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "8967054a-cfd6-4a3d-bf62-ec28a83426c0",
+      "tr_id": "fcf3fb14-d9c5-43e7-b44a-508db6e30cec",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "a274091f-d7c4-42bc-b7ed-a24c614762cc",
+      "timestamp": "2027-04-07T12:01:18.407Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "666c7084-0279-49fe-870f-7346c7320f93",
+      "tr_id": "df7c4773-d3e7-4e97-9bb7-2f07b0c9823d",
+      "Attempt_id": "2e36f8e9-d729-4282-bb5e-a0e7a508c94a",
+      "executive_id": "47cdb8d0-af84-4a70-b44c-dad505b84959",
+      "timestamp": "2027-06-16T01:39:56.142Z",
+      "Action": "forced_retry"
+    },
+    {
+      "id": "9e44554e-c4fc-4351-bce3-eebd7a5660dd",
+      "tr_id": "ebe9f7f6-da97-4094-85cf-8fefa60fa2c6",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "bac52f9a-0c12-4beb-9a12-4d6f3a270ef5",
+      "timestamp": "2027-07-19T08:53:09.285Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "7bf8c67f-1ab1-4f03-b11a-d69b43951e92",
+      "tr_id": "5df1e36d-5e74-4dbb-b587-c9dd175f22e8",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "3a062a77-62fa-4992-9499-3c9397a2e260",
+      "timestamp": "2026-07-11T00:24:36.395Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "1be1cb55-29c5-4253-a341-11d17a4d5e9a",
+      "tr_id": "a3913ed7-2b7a-4dc6-9c8c-acfbe3133b5b",
+      "Attempt_id": "d3796b69-935b-4062-a33a-7be8a5ba97a2",
+      "executive_id": "da58d445-86e6-4ed3-9a98-473141f626d7",
+      "timestamp": "2026-05-02T03:26:39.641Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "9de2aa3b-48c8-4ec2-88c6-b8f1b0b6e719",
+      "tr_id": "d845a89d-0e98-484e-914e-7374c72c7e3d",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "020659c9-8447-4bec-9796-1e81a8192925",
+      "timestamp": "2026-09-27T10:07:57.116Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "9220ea86-b039-4aeb-9de2-8b3631e4a836",
+      "tr_id": "702d266b-764c-404d-8261-525d746520e8",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "27d33be9-7932-417d-8e5e-47d4d0fefc96",
+      "timestamp": "2025-10-10T01:15:12.391Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "f0a0ea53-fc57-4b6d-87ea-c1df63968527",
+      "tr_id": "11874bef-3c50-4e61-8831-6d857354c484",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "8ca421f7-cf50-43be-a801-7fa434c3c057",
+      "timestamp": "2027-01-28T22:13:07.570Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "5b60b097-63e3-4131-b6ce-a05b74f68364",
+      "tr_id": "378d1a71-32e6-4745-aef5-a63e9fdb6af8",
+      "Attempt_id": "e74394cd-58dd-4d3a-b81e-1daf51937ce4",
+      "executive_id": "263adb5d-92c2-4070-89cf-db7f81c3537f",
+      "timestamp": "2026-08-15T10:22:32.445Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "471e4b72-fc4e-4def-95f5-9bd541085cb4",
+      "tr_id": "3765aac6-32dd-4524-94b8-dcdff0d40346",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "64418c4d-1f88-4214-8b2a-e230d0ed7aa6",
+      "timestamp": "2027-06-14T08:08:50.769Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "61ff747a-b26a-4abb-804d-2d5dcc510a90",
+      "tr_id": "9c53aba2-3ecc-4556-a34f-3ecb2ebcef84",
+      "Attempt_id": "e74394cd-58dd-4d3a-b81e-1daf51937ce4",
+      "executive_id": "0a46e481-ef14-4141-b93c-bbf247544c31",
+      "timestamp": "2026-04-28T22:28:33.955Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "664b472d-4c74-4881-ad41-fc5a9cc66398",
+      "tr_id": "6d562d86-b9ea-4947-a76d-8a055cc83be8",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "d03b1e22-5119-4341-8b33-c62c234a9f40",
+      "timestamp": "2026-10-28T08:46:51.784Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "dcb9a9ea-49a9-434b-80bd-0e36f2695534",
+      "tr_id": "ad5ebdf3-5f52-47e3-8142-269291895dc6",
+      "Attempt_id": "d3796b69-935b-4062-a33a-7be8a5ba97a2",
+      "executive_id": "56d1e88c-910f-4c11-8607-3f61f54c796c",
+      "timestamp": "2026-10-11T22:57:16.491Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "566391e9-a628-4af0-b318-7551334a7757",
+      "tr_id": "82d20fd6-06be-4770-88f5-5537e0b90c95",
+      "Attempt_id": "e74394cd-58dd-4d3a-b81e-1daf51937ce4",
+      "executive_id": "3c5fa12c-1125-4411-82a6-dd48143f3ada",
+      "timestamp": "2027-02-14T20:22:20.017Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "196425b8-d9df-4b15-9bbe-7c75516faaae",
+      "tr_id": "437da759-af20-4b6c-9084-68f8862c083f",
+      "Attempt_id": "e74394cd-58dd-4d3a-b81e-1daf51937ce4",
+      "executive_id": "b7d3e00b-ba09-472a-b2d3-226846a60558",
+      "timestamp": "2025-11-18T01:23:24.762Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "86461c5b-1147-4219-a292-3c6775737571",
+      "tr_id": "a2bfdac3-26f9-4c33-970e-a1093f5ddd5e",
+      "Attempt_id": "e74394cd-58dd-4d3a-b81e-1daf51937ce4",
+      "executive_id": "138da9eb-ef0a-4ca8-a0e3-ae4b03f254b5",
+      "timestamp": "2026-01-24T19:04:43.428Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "ef54c903-4b39-4c51-9323-a3b52280ac3c",
+      "tr_id": "71d8992f-b027-4ffe-ad07-7378dabf12e1",
+      "Attempt_id": "e74394cd-58dd-4d3a-b81e-1daf51937ce4",
+      "executive_id": "1822e711-2381-489f-b39e-97f2da152e26",
+      "timestamp": "2026-03-28T19:11:54.902Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "3cf8d627-15b0-4490-905d-8eb474d3d78c",
+      "tr_id": "9aa5e03c-a1d3-485e-a59a-5de80dbfc4e4",
+      "Attempt_id": "d3796b69-935b-4062-a33a-7be8a5ba97a2",
+      "executive_id": "acfbff6c-436f-4d2c-a0c2-f6cbf068cae5",
+      "timestamp": "2026-05-19T13:35:05.134Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "b82fc3e7-b9cd-4dee-b39b-72d40162bae4",
+      "tr_id": "d9250896-d20f-4261-afaf-4ee09f80d048",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "705c8852-ffd9-49a0-93bc-a4781ba60333",
+      "timestamp": "2026-09-24T01:14:53.387Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "80c6f579-40cf-4db0-bcfc-119cfd16f4a0",
+      "tr_id": "e16f4773-6a92-4d18-a674-ccadd5cf2693",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "14284888-88ed-4d8c-98b8-1583d008846a",
+      "timestamp": "2027-06-25T09:34:08.572Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "1333031b-7f63-4489-8f9b-5bb32aeb0289",
+      "tr_id": "aa9aa87e-78b2-4e5a-b50e-00623305d733",
+      "Attempt_id": "71afbc39-6c58-4ae3-9cbe-8a29022aff72",
+      "executive_id": "58fcf684-682f-42e5-a7bc-a38a424a9e34",
+      "timestamp": "2025-12-02T06:39:07.402Z",
+      "Action": "forced_retry"
+    },
+    {
+      "id": "2c7f1653-6f9d-4a04-9a04-4c548802bcee",
+      "tr_id": "0357c2cc-6b62-4bf9-98e9-2699f5e6a37a",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "4fbe45c5-b7d9-4829-bbb0-0529b724b874",
+      "timestamp": "2026-06-22T07:36:18.880Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "4e81cc4b-8a38-4012-a387-2b3b16664771",
+      "tr_id": "86c630b6-4b45-4872-91c5-355d66f40de6",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "a7875016-c823-4c56-8e48-5069de2ec286",
+      "timestamp": "2027-08-16T21:52:24.213Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "d87c3fdc-0489-46d9-a54e-7c486ede0463",
+      "tr_id": "27116175-fb5a-4a85-9167-60e5b401dcf0",
+      "Attempt_id": "e74394cd-58dd-4d3a-b81e-1daf51937ce4",
+      "executive_id": "e74b76f4-eca7-4ea8-a840-a912ffffa257",
+      "timestamp": "2027-03-28T13:01:46.377Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "e87471ec-aff1-4023-b7bf-ea1aa187f234",
+      "tr_id": "260b69e2-0caa-45e2-84a3-c4c6b24f9c16",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "29d3677d-ba5e-4f29-a8ca-627b15677480",
+      "timestamp": "2027-02-24T11:45:58.925Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "d5ba2acc-0e37-41a6-a396-9a4ab280f8aa",
+      "tr_id": "24f1f4b5-49de-4626-ba8f-edf8bf6403b4",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "34227e09-5f52-4a1a-84ae-5a3811ca4fb7",
+      "timestamp": "2026-12-31T18:17:44.665Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "67a61035-37fb-46cc-bbf9-82d179ead098",
+      "tr_id": "129be950-aadc-4460-9046-b7819ee5d22b",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "91974d2e-3c89-4d07-b701-e982aec0f7be",
+      "timestamp": "2026-02-01T22:18:19.812Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "cf96fee3-f20b-44cb-9976-56760efe3e8a",
+      "tr_id": "3455a1ab-29e4-4b21-ae8f-c88ce9087488",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "fe42f767-469d-4d9b-9a95-d9864e4237c6",
+      "timestamp": "2027-07-31T08:43:12.505Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "649cc44f-1543-4c66-8d63-9487cd3a7a3b",
+      "tr_id": "86ee13a1-7caa-440f-9479-bf0818aa78ad",
+      "Attempt_id": "084c4b2d-3358-4846-aea2-aa43b491160d",
+      "executive_id": "68a25c27-c842-468a-9a8c-85811f5f8c75",
+      "timestamp": "2027-04-09T14:12:24.215Z",
+      "Action": "forced_retry"
+    },
+    {
+      "id": "7947485b-7275-45b4-aa7c-306d86268ae5",
+      "tr_id": "bd20d19d-fda7-4280-b51a-ab9cd3a0884a",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "1e6cc854-685e-4b77-bcc7-ced0237f4b0c",
+      "timestamp": "2026-10-15T13:24:59.647Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "d46a1c7d-d305-4335-ad44-8751622a616f",
+      "tr_id": "286ab76c-9d90-4f60-89cd-90a130697472",
+      "Attempt_id": "abef7da6-9e28-4342-a735-3cd4281cbc1c",
+      "executive_id": "49bafa0d-40ef-4ab3-a7e3-d1c1f51e855c",
+      "timestamp": "2026-05-04T03:37:57.408Z",
+      "Action": "forced_retry"
+    },
+    {
+      "id": "d4c20942-4234-46d3-aed7-860cf75a8e4a",
+      "tr_id": "65b537e4-2e64-445a-84a6-27ef30303bbb",
+      "Attempt_id": "d3796b69-935b-4062-a33a-7be8a5ba97a2",
+      "executive_id": "1ddd2877-2ac6-41ec-b0a7-4110fdeee45e",
+      "timestamp": "2025-10-10T14:09:22.775Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "09f43fe4-9f67-49bb-89ec-7b38b8bb11e1",
+      "tr_id": "02e3b58d-e2aa-481b-a704-e5634bf7e279",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "ca508a71-04a9-4a05-9246-bca056af6898",
+      "timestamp": "2026-03-07T12:35:34.541Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "ade9fd6e-aa3f-4ec2-a03e-1d3d4cd4db6c",
+      "tr_id": "06f7d3fe-7b67-4c10-9dd5-9f27c5b597df",
+      "Attempt_id": "d3796b69-935b-4062-a33a-7be8a5ba97a2",
+      "executive_id": "66ab1e59-0282-4285-ac3e-420f4a1809fd",
+      "timestamp": "2025-10-19T16:56:39.929Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "08ba2828-3443-44a8-8666-5318e548d4d8",
+      "tr_id": "e148c6d1-3429-4a04-97c9-d3ea7ea23baf",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "6cdb25e0-94ee-491e-8951-cba7dce8c33b",
+      "timestamp": "2027-08-10T20:49:02.819Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "ef9c525c-7e7d-4cfb-a985-3849b0fd2d4d",
+      "tr_id": "68b0da51-2467-4554-a8e2-f807f14c4d64",
+      "Attempt_id": "3fcb26a7-f1f5-48bf-9ecb-13e9d5185a3f",
+      "executive_id": "0b4a5ae8-e08d-4fac-ac7a-7e96fec497ed",
+      "timestamp": "2027-04-11T16:43:49.001Z",
+      "Action": "forced_retry"
+    },
+    {
+      "id": "39c15f48-2ddf-4731-9a7c-3f7821d4d035",
+      "tr_id": "ee3288ad-f94e-45eb-b8fe-5580b89d8635",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "fa53991a-6a08-4543-a2ea-59f5266ebd78",
+      "timestamp": "2027-04-15T09:25:48.937Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "4700bbe7-87df-4a90-9a5a-2ccfc077fc4c",
+      "tr_id": "ff66a968-b45d-416f-a99b-91ea83b9deed",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "e9f890a4-df55-4ed9-9943-dafcadfc2924",
+      "timestamp": "2027-04-28T07:45:37.370Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "c5549cb2-63ae-4bcb-a5c7-0fad9c20582e",
+      "tr_id": "9f2a73a7-2034-4cbf-8505-0c4c8f4578ca",
+      "Attempt_id": "e74394cd-58dd-4d3a-b81e-1daf51937ce4",
+      "executive_id": "d88b0026-9765-4c34-9b3e-ca7e8eed5b36",
+      "timestamp": "2027-08-11T18:06:43.866Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "b21ff9af-61f9-4a3a-808e-527ad8a6b790",
+      "tr_id": "f44e3922-1ade-4df2-b66b-fc2422d4afa5",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "ec626c43-adc5-4f53-8665-bbcc182d1d7a",
+      "timestamp": "2025-10-20T01:33:54.550Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "d28c4eea-dfbc-4045-906a-e124604f41fc",
+      "tr_id": "cbba370b-d1c1-4a10-807c-1b2384f5ba18",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "3399675e-9e6d-4907-be2d-4fa2d49f152e",
+      "timestamp": "2025-10-24T13:44:05.630Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "6fb6d8eb-9017-44cb-b984-408184c7ebfb",
+      "tr_id": "b15f6077-10ec-43f0-92e2-e95fdfe8e072",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "66e2ed81-4c15-4c59-9b49-9ec991872299",
+      "timestamp": "2027-01-30T05:44:39.068Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "a443d58d-6ccc-467c-9da4-9548d2a51790",
+      "tr_id": "43f60659-6dbe-4883-beb5-a37c29f6f767",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "59c0d8fb-cf5b-4847-89b1-0c7cc8c84e3f",
+      "timestamp": "2025-10-17T06:21:54.387Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "3f4d89b9-7250-4673-a186-9d8b0662b73c",
+      "tr_id": "6cc8e8c4-cd27-47ce-99a3-aa534420c13a",
+      "Attempt_id": "d3796b69-935b-4062-a33a-7be8a5ba97a2",
+      "executive_id": "2fb3e32e-92d2-4e03-a3c2-c257cd5a044f",
+      "timestamp": "2026-01-22T02:51:50.790Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "43c656db-96c4-4985-af0a-fdb4f3a7ec5f",
+      "tr_id": "16e69070-e260-4988-a978-b3369b845893",
+      "Attempt_id": "6a571214-ba5a-41cb-8708-f4dc76f494f3",
+      "executive_id": "98fdf808-5c33-4a43-b5da-7f8ed7e703c6",
+      "timestamp": "2027-08-05T18:04:19.461Z",
+      "Action": "forced_retry"
+    },
+    {
+      "id": "c34f3c8b-ead0-4835-9077-e33ce55893b6",
+      "tr_id": "d94d8c8c-8bab-4eaa-8b51-5d63ded50bf6",
+      "Attempt_id": "e74394cd-58dd-4d3a-b81e-1daf51937ce4",
+      "executive_id": "bb1e07f4-9fdc-419b-b1e1-1bbda1fa0599",
+      "timestamp": "2026-01-15T05:07:39.393Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "96b7c71b-22f3-4d9d-882d-8bc883ab2821",
+      "tr_id": "baade899-6431-4f55-8c6d-4048274a7c19",
+      "Attempt_id": "ac2830ff-4674-4b00-94e7-4a96d8520fe5",
+      "executive_id": "2afa88f7-7e43-401f-8fcc-4ab7d8c369ad",
+      "timestamp": "2025-10-06T18:02:00.344Z",
+      "Action": "escalate"
+    },
+    {
+      "id": "275887ec-8970-4134-806a-3cd7c9bda08d",
+      "tr_id": "75084668-1cd4-4bce-b1d4-10d9a6ca76a7",
+      "Attempt_id": "e74394cd-58dd-4d3a-b81e-1daf51937ce4",
+      "executive_id": "04bc7f60-0c01-47e5-87c2-b5e4ee6d2ee2",
+      "timestamp": "2027-09-23T08:48:45.847Z",
+      "Action": "escalate"
+    }
+  ]
+}

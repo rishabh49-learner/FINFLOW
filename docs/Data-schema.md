@@ -43,8 +43,11 @@
 
 
 # derived fields
-->status(pending/failed/successful)-> pending when system/ customer retries even in manual action and fianlly succesfull and failed with resolved_by=sys/exe/customer confirming if its failed or succesfull by system/customer or ops exec
-
+->status(pending/failed/successful)-> 
+  Pending- transaction not succeeded yet but retries are still pending
+  succesfull- atleast one attempt get succeded
+  failed- all the attempts get failed and no more retries possible
+  
 ->auto_retry_exhausted(true/false)- [totalnumber of system attempts<=max auto retries available] 
 
 ->aging bucket-days-now- created_at
