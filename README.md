@@ -18,7 +18,10 @@ involuntary churn accounting for a large share of cancellations.
 
 ## Status
 
-🚧 In progress. Data model is designed and documented; UI is being built next.
+The original V1 data generator and planning documents are retained. The
+current branch adds a small Stripe test-mode event-driven recovery workbench;
+see [`docs/architecture-v2.md`](docs/architecture-v2.md) for the current
+backend, event model, setup, and limitations.
 
 ## What's here right now
 
@@ -47,16 +50,16 @@ V1 is intentionally scoped tight — see [`docs/Future-Ideas.md`](docs/Future-Id
 for planned analytics, revenue-recovery metrics, and other ideas parked
 outside V1's scope on purpose.
 
-## Stack
+## Current stack
 
-React / Next.js, TypeScript, Tailwind CSS — no live backend in V1;
-realistic mock data generated locally (see `generate.js`) to model how
-a real payment ops dataset behaves.
+React 19 and Vite for the workbench, Node.js with the official Stripe SDK for
+raw-body webhook verification, and local SQLite for the event log and case
+projection. The Node backend processes Stripe test-mode events only and never
+initiates payments or retries. The original generator and `data.json` remain
+available as legacy project artifacts but are not used by the event-driven
+workbench.
 
-## Why mock data, not a live payment integration
-
-V1 is scoped as a frontend/data-modeling project, not a backend/infra
-project. The generator produces data with realistic distributions
-(failure reason weights, retry timing, recovery rates) sourced from
-published payment-industry data, rather than random values — the goal
-is a dataset that behaves like a real one, not a live system.
+Use `npm test` for automated tests and `npm run demo` for a repeatable,
+same-PaymentIntent failure-to-success lifecycle without Stripe CLI. Stripe CLI
+setup and the warning about unrelated fixture PaymentIntents are documented in
+[`docs/architecture-v2.md`](docs/architecture-v2.md).
