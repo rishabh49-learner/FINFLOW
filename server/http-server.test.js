@@ -6,6 +6,8 @@ import { join } from 'node:path'
 import test from 'node:test'
 import Stripe from 'stripe'
 import { createHttpServer } from './http-server.js'
+import { createRecoveryService } from './domain/recovery-service.js'
+import { seedDemo } from './seed.js'
 import { createSqliteRepository } from './storage/sqlite-repository.js'
 
 const WEBHOOK_SECRET = `whsec_${'a'.repeat(32)}`
@@ -98,6 +100,7 @@ test('verifies raw-body signatures, deduplicates, and serves sanitized cases/his
   const cases = await fetch(`${baseUrl}/api/cases`).then((response) => response.json())
   assert.equal(cases.length, 1)
   assert.equal('customer' in cases[0], false)
+  assert.equal(cases[0].priority.level, 'standard')
 
   const details = await fetch(`${baseUrl}/api/cases/pi_1`).then((response) => response.json())
   assert.equal(details.events.length, 1)
@@ -153,6 +156,24 @@ test('demo mode starts without a webhook secret and disables webhook requests', 
   const webhook = await fetch(`${baseUrl}/webhook`, { method: 'POST' })
   assert.equal(webhook.status, 404)
   assert.deepEqual(await webhook.json(), { error: 'Webhook disabled' })
+})
+
+test('demo seeding keeps the lifecycle and adds five distinct payment cases', () => {
+  const repository = createSqliteRepository({ dbPath: ':memory:' })
+  const service = createRecoveryService(repository)
+  try {
+    seedDemo(service)
+    const cases = service.listCases()
+    const paymentIds = cases.map((recoveryCase) => recoveryCase.paymentId)
+    assert.equal(cases.length, 6)
+    assert.equal(new Set(paymentIds).size, 6)
+    assert.equal(service.getCase('pi_demo_lifecycle').events.length, 3)
+    assert.equal(service.getCase('pi_demo_lifecycle').recoveryCase.status, 'resolved')
+    assert.equal(service.getCase('pi_demo_unmapped').recoveryCase.status, 'reconciliation_required')
+    assert.equal(service.getCase('pi_demo_hard_decline').recoveryCase.failureCategory, 'hard_decline')
+  } finally {
+    repository.close()
+  }
 })
 
 test('serves SPA fallback and rejects path traversal', async (t) => {

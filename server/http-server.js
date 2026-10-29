@@ -4,6 +4,7 @@ import { extname, isAbsolute, relative, resolve, sep } from 'node:path'
 import Stripe from 'stripe'
 import { normalizeStripeEvent } from './providers/stripe-adapter.js'
 import { createRecoveryService } from './domain/recovery-service.js'
+import { triagePriority } from './domain/decision-engine.js'
 
 const MAX_WEBHOOK_BYTES = 1_048_576
 const CONTENT_TYPES = {
@@ -57,6 +58,7 @@ function publicCase(recoveryCase) {
     recommendedAction: recoveryCase.recommendedAction,
     recommendationReason: recoveryCase.recommendationReason,
     reconciliationReason: recoveryCase.reconciliationReason,
+    priority: triagePriority(recoveryCase),
     updatedAt: recoveryCase.updatedAt,
   }
 }

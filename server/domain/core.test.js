@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { CONFIG } from '../../data/config.js'
-import { projectPaymentEvent } from './decision-engine.js'
+import { projectPaymentEvent, triagePriority } from './decision-engine.js'
 import { mapFailureCode } from './failure-mapping.js'
 import { normalizeStripeEvent } from '../providers/stripe-adapter.js'
 
@@ -166,4 +166,23 @@ test('preserves the newer failure detail but requires reconciliation after succe
   assert.equal(result.status, 'reconciliation_required')
   assert.equal(result.failureCode, 'authentication_required')
   assert.equal(result.failureCategory, 'soft_decline')
+})
+
+test('assigns deterministic triage priorities from status and mapped category', () => {
+  assert.equal(triagePriority({
+    status: 'reconciliation_required',
+    failureCategory: null,
+  }).level, 'urgent')
+  assert.equal(triagePriority({
+    status: 'open',
+    failureCategory: 'hard_decline',
+  }).level, 'high')
+  assert.equal(triagePriority({
+    status: 'open',
+    failureCategory: 'soft_decline',
+  }).level, 'standard')
+  assert.equal(triagePriority({
+    status: 'resolved',
+    failureCategory: null,
+  }).level, 'resolved')
 })

@@ -30,16 +30,27 @@ function formatProviderTime(timestamp) {
   return new Date(timestamp * 1000).toLocaleString()
 }
 
+function filterCases(cases, filter) {
+  if (filter === 'all') return cases
+  const status = filter === 'reconciliation' ? 'reconciliation_required' : filter
+  return cases.filter((recoveryCase) => recoveryCase.status === status)
+}
+
 function App() {
   const [cases, setCases] = useState([])
   const [selectedPaymentId, setSelectedPaymentId] = useState('')
+  const [caseFilter, setCaseFilter] = useState('all')
   const [details, setDetails] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
-  const displayDetails = details?.recoveryCase.paymentId === selectedPaymentId
-    ? details
-    : null
+  const visibleCases = filterCases(cases, caseFilter)
+  const activePaymentId = visibleCases.some(
+    (recoveryCase) => recoveryCase.paymentId === selectedPaymentId,
+  )
+    ? selectedPaymentId
+    : visibleCases[0]?.paymentId ?? ''
+  const visibleDetails = details?.recoveryCase.paymentId === activePaymentId ? details : null
 
   const loadCases = useCallback(async () => {
     setLoading(true)
@@ -47,17 +58,18 @@ function App() {
     try {
       const nextCases = await getJson('/api/cases')
       setCases(nextCases)
+      const nextVisibleCases = filterCases(nextCases, caseFilter)
       setSelectedPaymentId((current) => (
-        nextCases.some((recoveryCase) => recoveryCase.paymentId === current)
+        nextVisibleCases.some((recoveryCase) => recoveryCase.paymentId === current)
           ? current
-          : nextCases[0]?.paymentId ?? ''
+          : nextVisibleCases[0]?.paymentId ?? ''
       ))
     } catch (requestError) {
       setError(requestError.message)
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [caseFilter])
 
   useEffect(() => {
     let active = true
@@ -79,11 +91,19 @@ function App() {
     }
   }, [])
 
+  function selectFilter(filter) {
+    setCaseFilter(filter)
+    const nextVisibleCases = filterCases(cases, filter)
+    if (!nextVisibleCases.some((recoveryCase) => recoveryCase.paymentId === selectedPaymentId)) {
+      setSelectedPaymentId(nextVisibleCases[0]?.paymentId ?? '')
+    }
+  }
+
   useEffect(() => {
-    if (!selectedPaymentId) return undefined
+    if (!activePaymentId) return undefined
 
     let active = true
-    getJson(`/api/cases/${encodeURIComponent(selectedPaymentId)}`)
+    getJson(`/api/cases/${encodeURIComponent(activePaymentId)}`)
       .then((nextDetails) => {
         if (active) setDetails(nextDetails)
       })
@@ -94,7 +114,7 @@ function App() {
     return () => {
       active = false
     }
-  }, [selectedPaymentId, cases])
+  }, [activePaymentId, cases])
 
   return (
     <main className="workbench">
@@ -115,24 +135,53 @@ function App() {
         <aside className="case-panel" aria-label="Recovery cases">
           <div className="panel-heading">
             <h2>Recovery cases</h2>
-            <span>{cases.length}</span>
+            <span>{visibleCases.length}</span>
+          </div>
+          <div className="case-filters" aria-label="Filter recovery cases">
+            {[
+              ['all', 'All'],
+              ['open', 'Open'],
+              ['reconciliation', 'Reconciliation'],
+              ['resolved', 'Resolved'],
+            ].map(([filter, label]) => (
+              <button
+                key={filter}
+                className={`filter-button${caseFilter === filter ? ' selected' : ''}`}
+                type="button"
+                aria-pressed={caseFilter === filter}
+                onClick={() => selectFilter(filter)}
+              >
+                {label}
+              </button>
+            ))}
           </div>
           {loading && cases.length === 0 && <p className="empty-state">Loading cases…</p>}
-          {!loading && cases.length === 0 && (
-            <p className="empty-state">No cases yet. Run the demo or send Stripe test events.</p>
+          {!loading && visibleCases.length === 0 && (
+            <p className="empty-state">
+              {cases.length === 0
+                ? 'No cases yet. Run the demo or send Stripe test events.'
+                : 'No cases match this filter.'}
+            </p>
           )}
           <ul className="case-list">
-            {cases.map((recoveryCase) => (
+            {visibleCases.map((recoveryCase) => (
               <li key={recoveryCase.paymentId}>
                 <button
-                  className={`case-button${selectedPaymentId === recoveryCase.paymentId ? ' selected' : ''}`}
+                  className={`case-button${activePaymentId === recoveryCase.paymentId ? ' selected' : ''}`}
                   type="button"
-                  aria-current={selectedPaymentId === recoveryCase.paymentId ? 'true' : undefined}
+                  aria-current={activePaymentId === recoveryCase.paymentId ? 'true' : undefined}
                   onClick={() => setSelectedPaymentId(recoveryCase.paymentId)}
                 >
                   <span className="case-button-top">
                     <span className="case-id">{recoveryCase.paymentId}</span>
-                    <span className={`status status-${recoveryCase.status}`}>{recoveryCase.status.replaceAll('_', ' ')}</span>
+                    <span className="case-badges">
+                      <span className={`priority priority-${recoveryCase.priority.level}`}>
+                        {recoveryCase.priority.level}
+                      </span>
+                      <span className={`status status-${recoveryCase.status}`}>
+                        {recoveryCase.status.replaceAll('_', ' ')}
+                      </span>
+                    </span>
                   </span>
                   <span className="case-amount">
                     {formatAmount(recoveryCase.amount, recoveryCase.currency)}
@@ -144,45 +193,52 @@ function App() {
         </aside>
 
         <section className="detail-panel" aria-live="polite">
-          {!displayDetails && (
+          {!visibleDetails && (
             <div className="empty-detail">
               <h2>Select a recovery case</h2>
               <p>Payment state, recommendation, and event history will appear here.</p>
             </div>
           )}
-          {displayDetails && (
+          {visibleDetails && (
             <>
               <div className="detail-heading">
                 <div>
                   <p className="eyebrow">PAYMENTINTENT</p>
-                  <h2>{displayDetails.recoveryCase.paymentId}</h2>
+                  <h2>{visibleDetails.recoveryCase.paymentId}</h2>
                   <p className="detail-amount">
-                    {formatAmount(displayDetails.recoveryCase.amount, displayDetails.recoveryCase.currency)}
+                    {formatAmount(visibleDetails.recoveryCase.amount, visibleDetails.recoveryCase.currency)}
                   </p>
                 </div>
-                <span className={`status status-${displayDetails.recoveryCase.status}`}>
-                  {displayDetails.recoveryCase.status.replaceAll('_', ' ')}
+                <span className={`status status-${visibleDetails.recoveryCase.status}`}>
+                  {visibleDetails.recoveryCase.status.replaceAll('_', ' ')}
                 </span>
               </div>
 
               <div className="case-facts">
                 <div>
+                  <span className="fact-label">Triage priority</span>
+                  <span className={`priority priority-${visibleDetails.recoveryCase.priority.level}`}>
+                    {visibleDetails.recoveryCase.priority.level}
+                  </span>
+                  <small className="priority-reason">{visibleDetails.recoveryCase.priority.reason}</small>
+                </div>
+                <div>
                   <span className="fact-label">Failure code</span>
-                  <code>{displayDetails.recoveryCase.failureCode ?? '—'}</code>
+                  <code>{visibleDetails.recoveryCase.failureCode ?? '—'}</code>
                 </div>
                 <div>
                   <span className="fact-label">Mapped category</span>
-                  <span>{displayDetails.recoveryCase.failureCategory?.replaceAll('_', ' ') ?? '—'}</span>
+                  <span>{visibleDetails.recoveryCase.failureCategory?.replaceAll('_', ' ') ?? '—'}</span>
                 </div>
               </div>
 
               <article className="recommendation">
                 <p className="eyebrow">RECOMMENDED ACTION</p>
-                <h3>{displayDetails.recoveryCase.recommendedAction.replaceAll('_', ' ')}</h3>
-                <p>{displayDetails.recoveryCase.recommendationReason}</p>
-                {displayDetails.recoveryCase.reconciliationReason && (
+                <h3>{visibleDetails.recoveryCase.recommendedAction.replaceAll('_', ' ')}</h3>
+                <p>{visibleDetails.recoveryCase.recommendationReason}</p>
+                {visibleDetails.recoveryCase.reconciliationReason && (
                   <p className="reconciliation-note">
-                    Reconciliation required: {displayDetails.recoveryCase.reconciliationReason}
+                    Reconciliation required: {visibleDetails.recoveryCase.reconciliationReason}
                   </p>
                 )}
               </article>
@@ -190,11 +246,11 @@ function App() {
               <section className="history-section">
                 <div className="panel-heading">
                   <h3>Event history</h3>
-                  <span>{displayDetails.events.length}</span>
+                  <span>{visibleDetails.events.length}</span>
                 </div>
-                {displayDetails.events.length === 0 && <p className="empty-state">No events recorded.</p>}
+                {visibleDetails.events.length === 0 && <p className="empty-state">No events recorded.</p>}
                 <ol className="event-list">
-                  {displayDetails.events.map((event) => (
+                  {visibleDetails.events.map((event) => (
                     <li key={event.eventId} className="event-item">
                       <div className="event-topline">
                         <strong>{event.eventType}</strong>

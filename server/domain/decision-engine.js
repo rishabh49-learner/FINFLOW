@@ -114,3 +114,35 @@ export function projectPaymentEvent(existingCase, event) {
     lastEventCurrency: event.currency,
   }
 }
+
+export function triagePriority(recoveryCase) {
+  if (recoveryCase.status === 'reconciliation_required') {
+    return {
+      level: 'urgent',
+      rank: 1,
+      reason: 'Reconcile the payment state or failure code before taking a recovery action.',
+    }
+  }
+
+  if (recoveryCase.status === 'resolved') {
+    return {
+      level: 'resolved',
+      rank: 4,
+      reason: 'Stripe reported success; no recovery action is needed.',
+    }
+  }
+
+  if (recoveryCase.failureCategory === 'hard_decline') {
+    return {
+      level: 'high',
+      rank: 2,
+      reason: 'A hard decline should not be retried automatically; follow its mapped action.',
+    }
+  }
+
+  return {
+    level: 'standard',
+    rank: 3,
+    reason: 'The mapped soft decline has an explicit recommended next step.',
+  }
+}
