@@ -18,13 +18,14 @@ function payload({
   created = 1_700_000_000,
   paymentId = 'pi_1',
   failureCode = 'insufficient_funds',
+  customerId = 'cus_private',
 } = {}) {
   const intent = {
     id: paymentId,
     object: 'payment_intent',
     amount: 2400,
     currency: 'usd',
-    customer: 'cus_private',
+    customer: customerId,
   }
   if (type === 'payment_intent.payment_failed') {
     intent.last_payment_error = { code: failureCode }
@@ -99,13 +100,54 @@ test('verifies raw-body signatures, deduplicates, and serves sanitized cases/his
 
   const cases = await fetch(`${baseUrl}/api/cases`).then((response) => response.json())
   assert.equal(cases.length, 1)
-  assert.equal('customer' in cases[0], false)
+  assert.equal(cases[0].customerId, 'cus_private')
+  assert.deepEqual(Object.keys(cases[0]).sort(), [
+    'amount',
+    'currency',
+    'customerId',
+    'failureCategory',
+    'failureCode',
+    'paymentId',
+    'priority',
+    'recommendationReason',
+    'recommendedAction',
+    'reconciliationReason',
+    'status',
+    'updatedAt',
+  ])
   assert.equal(cases[0].priority.level, 'standard')
 
   const details = await fetch(`${baseUrl}/api/cases/pi_1`).then((response) => response.json())
   assert.equal(details.events.length, 1)
   assert.equal(details.events[0].details.failureCode, 'insufficient_funds')
-  assert.equal(JSON.stringify(details).includes('cus_private'), false)
+  assert.equal(details.events[0].details.customerId, 'cus_private')
+  assert.deepEqual(Object.keys(details.events[0].details).sort(), [
+    'amount',
+    'currency',
+    'customerId',
+    'failureCode',
+  ])
+})
+
+test('retains the latest non-null customerId when a later event has none', async (t) => {
+  const baseUrl = await startServer(t)
+  const first = await postSigned(baseUrl, payload({
+    id: 'evt_customer',
+    paymentId: 'pi_customer',
+    customerId: 'cus_retained',
+  }))
+  const later = await postSigned(baseUrl, payload({
+    id: 'evt_customer_missing',
+    created: 1_700_000_001,
+    paymentId: 'pi_customer',
+    customerId: null,
+  }))
+  assert.equal(first.status, 200)
+  assert.equal(later.status, 200)
+
+  const cases = await fetch(`${baseUrl}/api/cases`).then((response) => response.json())
+  assert.equal(cases.length, 1)
+  assert.equal(cases[0].customerId, 'cus_retained')
 })
 
 test('rejects signed malformed PaymentIntent data and acknowledges unsupported events', async (t) => {

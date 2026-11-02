@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
 import test from 'node:test'
 import { CONFIG } from '../../data/config.js'
 import { projectPaymentEvent, triagePriority } from './decision-engine.js'
@@ -13,12 +14,14 @@ function stripeEvent({
   amount = 2400,
   currency = 'usd',
   failureCode = 'insufficient_funds',
+  customerId = null,
 } = {}) {
   const intent = {
     id: paymentId,
     object: 'payment_intent',
     amount,
     currency,
+    customer: customerId,
   }
   if (type === 'payment_intent.payment_failed') {
     intent.last_payment_error = { code: failureCode }
@@ -58,7 +61,42 @@ test('normalizes PaymentIntent events without exposing the full provider object'
     amount: 2400,
     currency: 'usd',
     failureCode: 'insufficient_funds',
+    customerId: null,
   })
+})
+
+test('normalizes customerId from an in-memory lifecycle fixture copy', () => {
+  const [fixture] = JSON.parse(readFileSync(
+    new URL('../../fixtures/payment-lifecycle.json', import.meta.url),
+    'utf8',
+  ))
+  const fixtureWithCustomer = {
+    ...fixture,
+    data: {
+      ...fixture.data,
+      object: { ...fixture.data.object, customer: 'cus_fixture' },
+    },
+  }
+
+  assert.equal(normalizeStripeEvent(fixtureWithCustomer).event.customerId, 'cus_fixture')
+  assert.equal(normalizeStripeEvent(fixture).event.customerId, null)
+})
+
+test('maps generic_decline as a soft decline without failure-code reconciliation', () => {
+  const event = stripeEvent({ failureCode: 'generic_decline' })
+  event.data.object.last_payment_error = {
+    decline_code: 'generic_decline',
+    advice_code: 'try_again_later',
+  }
+  const normalized = normalizeStripeEvent(event).event
+  normalized.receivedAt = '2026-10-25T12:00:00.000Z'
+  const recoveryCase = projectPaymentEvent(null, normalized)
+  const mapping = CONFIG.failureReasonMapping.generic_decline
+
+  assert.equal(recoveryCase.failureCategory, 'soft_decline')
+  assert.notEqual(recoveryCase.recommendedAction, 'reconcile_failure_code')
+  assert.equal(mapping.nextStep, 'Wait for the scheduled retry, then ask the customer to contact their card issuer or use another payment method')
+  assert.equal(mapping.source, 'Stripe dashboard decline explanation plus advice_code try_again_later')
 })
 
 test('rejects malformed supported events and safely ignores unsupported types', () => {

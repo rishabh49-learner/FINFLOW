@@ -6,6 +6,13 @@ export const CONFIG = {
     payment_cancelled: 0.25,
   },
   failureReasonMapping: {
+    generic_decline: {
+      category: 'soft_decline',
+      action: 'retry_after_scheduled_retry',
+      nextStep: 'Wait for the scheduled retry, then ask the customer to contact their card issuer or use another payment method',
+      reason: 'A scheduled retry is pending for this generic decline.',
+      source: 'Stripe dashboard decline explanation plus advice_code try_again_later',
+    },
     insufficient_funds: {
       category: 'soft_decline',
       action: 'retry_after_customer_update',

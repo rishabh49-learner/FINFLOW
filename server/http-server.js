@@ -50,6 +50,7 @@ function publicCase(recoveryCase) {
   if (!recoveryCase) return null
   return {
     paymentId: recoveryCase.paymentId,
+    customerId: recoveryCase.customerId,
     status: recoveryCase.status,
     amount: recoveryCase.amount,
     currency: recoveryCase.currency,

@@ -6,6 +6,7 @@ function caseFromRow(row) {
   if (!row) return null
   return {
     paymentId: row.payment_id,
+    customerId: row.customer_id,
     status: row.status,
     amount: row.amount,
     currency: row.currency,
@@ -63,6 +64,15 @@ export function createSqliteRepository({
     );
   `)
 
+  const customerIdProjection = `(
+    SELECT json_extract(normalized_payload, '$.customerId')
+    FROM payment_events
+    WHERE provider = 'stripe'
+      AND payment_events.payment_id = recovery_cases.payment_id
+      AND json_extract(normalized_payload, '$.customerId') IS NOT NULL
+    ORDER BY received_at DESC, provider_created DESC, event_id DESC
+    LIMIT 1
+  ) AS customer_id`
   const insertEvent = database.prepare(`
     INSERT OR IGNORE INTO payment_events (
       provider, event_id, payment_id, event_type, provider_created,
@@ -70,7 +80,9 @@ export function createSqliteRepository({
     ) VALUES (?, ?, ?, ?, ?, ?, ?)
   `)
   const selectCase = database.prepare(
-    'SELECT * FROM recovery_cases WHERE payment_id = ?',
+    `SELECT recovery_cases.*, ${customerIdProjection}
+    FROM recovery_cases
+    WHERE payment_id = ?`,
   )
   const upsertCase = database.prepare(`
     INSERT INTO recovery_cases (
@@ -116,6 +128,7 @@ export function createSqliteRepository({
             amount: event.amount,
             currency: event.currency,
             failureCode: event.failureCode,
+            customerId: event.customerId,
           }),
         )
 
@@ -152,7 +165,9 @@ export function createSqliteRepository({
 
     listCases() {
       return database.prepare(
-        'SELECT * FROM recovery_cases ORDER BY updated_at DESC, payment_id ASC',
+        `SELECT recovery_cases.*, ${customerIdProjection}
+        FROM recovery_cases
+        ORDER BY updated_at DESC, payment_id ASC`,
       ).all().map(caseFromRow)
     },
 

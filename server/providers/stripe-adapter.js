@@ -56,6 +56,11 @@ export function normalizeStripeEvent(event) {
     throw new TypeError('Malformed Stripe PaymentIntent event.')
   }
 
+  const customerId = paymentIntent.customer ?? null
+  if (typeof customerId !== 'string' && customerId !== null) {
+    throw new TypeError('PaymentIntent customer must be a string or null.')
+  }
+
   let failureCode = null
   if (eventType === 'payment_failed') {
     const error = paymentIntent.last_payment_error
@@ -81,6 +86,7 @@ export function normalizeStripeEvent(event) {
       providerEventType: event.type,
       eventType,
       paymentId: paymentIntent.id,
+      customerId,
       providerCreated: event.created,
       amount: optionalAmount(paymentIntent, eventType),
       currency: optionalCurrency(paymentIntent),
