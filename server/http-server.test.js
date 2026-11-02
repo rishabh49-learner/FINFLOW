@@ -7,6 +7,7 @@ import test from 'node:test'
 import Stripe from 'stripe'
 import { createHttpServer } from './http-server.js'
 import { createRecoveryService } from './domain/recovery-service.js'
+import { normalizeStripeEvent } from './providers/stripe-adapter.js'
 import { seedDemo } from './seed.js'
 import { createSqliteRepository } from './storage/sqlite-repository.js'
 
@@ -40,7 +41,8 @@ function payload({
 }
 
 async function startServer(t, options = {}) {
-  const repository = createSqliteRepository({ dbPath: ':memory:' })
+  const repository = options.repository ?? createSqliteRepository({ dbPath: ':memory:' })
+  const ownsRepository = !options.repository
   const server = createHttpServer({
     webhookSecret: WEBHOOK_SECRET,
     repository,
@@ -52,7 +54,7 @@ async function startServer(t, options = {}) {
   const address = server.address()
   t.after(async () => {
     await new Promise((resolve) => server.close(resolve))
-    repository.close()
+    if (ownsRepository) repository.close()
   })
   return `http://127.0.0.1:${address.port}`
 }
@@ -123,6 +125,7 @@ test('verifies raw-body signatures, deduplicates, and serves sanitized cases/his
   assert.equal(details.events[0].details.customerId, 'cus_private')
   assert.deepEqual(Object.keys(details.events[0].details).sort(), [
     'amount',
+    'chargeId',
     'currency',
     'customerId',
     'failureCode',
@@ -198,6 +201,219 @@ test('demo mode starts without a webhook secret and disables webhook requests', 
   const webhook = await fetch(`${baseUrl}/webhook`, { method: 'POST' })
   assert.equal(webhook.status, 404)
   assert.deepEqual(await webhook.json(), { error: 'Webhook disabled' })
+})
+
+async function postDemo(baseUrl, body, headers = {}) {
+  return fetch(`${baseUrl}/api/demo/play`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', ...headers },
+    body: JSON.stringify(body),
+  })
+}
+
+async function waitForCase(baseUrl, paymentId, expectedEvents) {
+  for (let attempt = 0; attempt < 500; attempt += 1) {
+    const response = await fetch(`${baseUrl}/api/cases/${encodeURIComponent(paymentId)}`)
+    if (response.ok) {
+      const details = await response.json()
+      if (details.events.length === expectedEvents) return details
+    }
+    await new Promise((resolve) => setImmediate(resolve))
+  }
+  assert.fail(`Timed out waiting for ${expectedEvents} events for ${paymentId}`)
+}
+
+test('each demo scenario emits its expected recovery case', async (t) => {
+  const baseUrl = await startDemoServer(t, { demoDelayScale: 0 })
+  const scenarios = [
+    { scenario: 'insufficient-funds-then-paid', status: 'resolved', events: 3, failures: 2 },
+    { scenario: 'generic-decline', status: 'open', events: 3, failures: 3 },
+    { scenario: 'lost-card', status: 'open', events: 1, failures: 1 },
+  ]
+
+  for (const expected of scenarios) {
+    const response = await postDemo(baseUrl, { scenario: expected.scenario })
+    assert.equal(response.status, 202)
+    const started = await response.json()
+    assert.match(started.paymentId, /^pi_sim_/)
+    const details = await waitForCase(baseUrl, started.paymentId, expected.events)
+    assert.equal(details.recoveryCase.status, expected.status)
+    assert.equal(details.events.filter((event) =>
+      event.eventType.endsWith('payment_failed')).length, expected.failures)
+    const chargeIds = details.events.map((event) => event.details.chargeId)
+    assert.equal(chargeIds.every((chargeId) => chargeId.startsWith('ch_sim_')), true)
+    assert.equal(new Set(chargeIds).size, expected.events)
+    const failedChargeIds = details.events
+      .filter((event) => event.eventType.endsWith('payment_failed'))
+      .map((event) => event.details.chargeId)
+    assert.equal(failedChargeIds.every((chargeId) => chargeId.startsWith('ch_sim_')), true)
+    assert.equal(new Set(failedChargeIds).size, expected.failures)
+    if (expected.scenario === 'generic-decline') {
+      assert.equal(details.recoveryCase.failureCode, 'generic_decline')
+      assert.equal(details.recoveryCase.failureCategory, 'soft_decline')
+    }
+    if (expected.scenario === 'lost-card') {
+      assert.equal(details.recoveryCase.failureCode, 'lost_card')
+      assert.equal(details.recoveryCase.failureCategory, 'hard_decline')
+    }
+  }
+})
+
+test('out-of-order demo scenario has the same result in forward and reversed delivery', async (t) => {
+  const baseUrl = await startDemoServer(t, { demoDelayScale: 0 })
+  const results = []
+
+  for (const outOfOrder of [false, true]) {
+    const response = await postDemo(baseUrl, {
+      scenario: 'success-then-failure',
+      outOfOrder,
+    })
+    assert.equal(response.status, 202)
+    const started = await response.json()
+    const details = await waitForCase(baseUrl, started.paymentId, 2)
+    results.push({
+      status: details.recoveryCase.status,
+      failureCode: details.recoveryCase.failureCode,
+      recommendedAction: details.recoveryCase.recommendedAction,
+    })
+  }
+
+  assert.equal(results[0].status, 'reconciliation_required')
+  assert.deepEqual(results[1], results[0])
+})
+
+test('demo simulator routes return 404 outside demo mode', async (t) => {
+  const baseUrl = await startServer(t)
+
+  const play = await postDemo(baseUrl, { scenario: 'lost-card' })
+  const reset = await fetch(`${baseUrl}/api/demo/reset`, { method: 'POST' })
+
+  assert.equal(play.status, 404)
+  assert.equal(reset.status, 404)
+})
+
+test('limits play requests per forwarded client IP and reports seconds to wait', async (t) => {
+  let now = 1_800_000_000_000
+  const baseUrl = await startDemoServer(t, {
+    demoDelayScale: 0,
+    trustProxyHops: 1,
+    now: () => now,
+  })
+  const forwardedIp = '198.51.100.27'
+
+  for (let request = 0; request < 10; request += 1) {
+    const response = await postDemo(baseUrl, { scenario: 'lost-card' }, {
+      'x-forwarded-for': forwardedIp,
+    })
+    assert.equal(response.status, 202)
+  }
+
+  const limited = await postDemo(baseUrl, { scenario: 'lost-card' }, {
+    'x-forwarded-for': forwardedIp,
+  })
+  assert.equal(limited.status, 429)
+  const body = await limited.json()
+  assert.equal(Number.isInteger(body.retryAfterSeconds), true)
+  assert.ok(body.retryAfterSeconds > 0)
+  assert.match(body.error, new RegExp(`${body.retryAfterSeconds} seconds`))
+  assert.equal(limited.headers.get('retry-after'), String(body.retryAfterSeconds))
+
+  now += 60_001
+  const afterWindow = await postDemo(baseUrl, { scenario: 'lost-card' }, {
+    'x-forwarded-for': forwardedIp,
+  })
+  assert.equal(afterWindow.status, 202)
+
+  const otherIp = await postDemo(baseUrl, { scenario: 'lost-card' }, {
+    'x-forwarded-for': '198.51.100.28',
+  })
+  assert.equal(otherIp.status, 202)
+})
+
+test('reset cancels a pending demo delivery timer', async (t) => {
+  const scheduledTimers = []
+  const cancelledTimers = []
+  const baseUrl = await startDemoServer(t, {
+    demoDelayScale: 0,
+    demoScheduleTimer: (callback) => {
+      scheduledTimers.push(callback)
+      return scheduledTimers.length
+    },
+    demoCancelTimer: (timerId) => cancelledTimers.push(timerId),
+  })
+  const play = await postDemo(baseUrl, { scenario: 'generic-decline' })
+  assert.equal(play.status, 202)
+  const started = await play.json()
+
+  for (let attempt = 0; attempt < 50 && scheduledTimers.length === 0; attempt += 1) {
+    await new Promise((resolve) => setImmediate(resolve))
+  }
+  assert.equal(scheduledTimers.length, 1)
+
+  const reset = await fetch(`${baseUrl}/api/demo/reset`, { method: 'POST' })
+  assert.equal(reset.status, 200)
+  assert.deepEqual(cancelledTimers, [1])
+  const caseResponse = await fetch(`${baseUrl}/api/cases/${started.paymentId}`)
+  assert.equal(caseResponse.status, 404)
+})
+
+test('caps simulator cases and reset preserves non-simulator cases and events', async (t) => {
+  let timestamp = 1_700_000_000
+  const repository = createSqliteRepository({
+    dbPath: ':memory:',
+    clock: () => new Date(timestamp++ * 1000).toISOString(),
+  })
+  t.after(() => repository.close())
+  const service = createRecoveryService(repository)
+  const baseUrl = await startDemoServer(t, {
+    repository,
+    demoDelayScale: 0,
+  })
+
+  function ingestFailure(eventId, paymentId, created) {
+    const stripeEvent = {
+      id: eventId,
+      type: 'payment_intent.payment_failed',
+      created,
+      livemode: false,
+      data: {
+        object: {
+          id: paymentId,
+          object: 'payment_intent',
+          amount: 1000,
+          currency: 'usd',
+          last_payment_error: { code: 'insufficient_funds' },
+        },
+      },
+    }
+    service.ingest(normalizeStripeEvent(stripeEvent))
+  }
+
+  ingestFailure('evt_keep', 'pi_keep', 1_700_000_000)
+  for (let index = 0; index < 50; index += 1) {
+    ingestFailure(`evt_sim_seed_${index}`, `pi_sim_seed_${index}`, 1_700_000_001 + index)
+  }
+
+  const play = await postDemo(baseUrl, { scenario: 'lost-card' })
+  assert.equal(play.status, 202)
+  const started = await play.json()
+  await waitForCase(baseUrl, started.paymentId, 1)
+
+  const simulatorCases = repository.listCases()
+    .filter((recoveryCase) => recoveryCase.paymentId.startsWith('pi_sim_'))
+  assert.equal(simulatorCases.length, 50)
+  assert.equal(repository.getCase('pi_sim_seed_0'), null)
+
+  const reset = await fetch(`${baseUrl}/api/demo/reset`, { method: 'POST' })
+  assert.equal(reset.status, 200)
+  const resetResult = await reset.json()
+  assert.equal(resetResult.reset, true)
+  assert.equal(resetResult.removedCases, 50)
+  assert.equal(repository.getCase('pi_sim_seed_1'), null)
+  assert.equal(repository.getCase(started.paymentId), null)
+  assert.ok(repository.getCase('pi_keep'))
+  assert.equal(repository.listEvents('pi_keep').length, 1)
+  assert.equal(repository.listEvents('pi_sim_seed_1').length, 0)
 })
 
 test('demo seeding keeps the lifecycle and adds five distinct payment cases', () => {

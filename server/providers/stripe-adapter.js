@@ -27,6 +27,13 @@ function optionalCurrency(object) {
   return currency.toLowerCase()
 }
 
+function optionalReferenceId(value, field) {
+  if (value === undefined || value === null) return null
+  if (typeof value === 'string') return value
+  if (isRecord(value) && typeof value.id === 'string') return value.id
+  throw new TypeError(`PaymentIntent ${field} must be a string, expanded object, or null.`)
+}
+
 export function normalizeStripeEvent(event) {
   if (!isRecord(event)
     || typeof event.id !== 'string'
@@ -62,6 +69,7 @@ export function normalizeStripeEvent(event) {
   }
 
   let failureCode = null
+  let chargeId = optionalReferenceId(paymentIntent.latest_charge, 'latest_charge')
   if (eventType === 'payment_failed') {
     const error = paymentIntent.last_payment_error
     if (!isRecord(error)) {
@@ -76,6 +84,7 @@ export function normalizeStripeEvent(event) {
     if (!failureCode) {
       throw new TypeError('Failed PaymentIntent is missing a failure code.')
     }
+    chargeId = optionalReferenceId(error.charge, 'charge')
   }
 
   return {
@@ -87,6 +96,7 @@ export function normalizeStripeEvent(event) {
       eventType,
       paymentId: paymentIntent.id,
       customerId,
+      chargeId,
       providerCreated: event.created,
       amount: optionalAmount(paymentIntent, eventType),
       currency: optionalCurrency(paymentIntent),

@@ -1,12 +1,20 @@
 import { createServer } from 'node:http'
 import { readFile, realpath, stat } from 'node:fs/promises'
+import { isIP } from 'node:net'
 import { extname, isAbsolute, relative, resolve, sep } from 'node:path'
 import Stripe from 'stripe'
 import { normalizeStripeEvent } from './providers/stripe-adapter.js'
 import { createRecoveryService } from './domain/recovery-service.js'
 import { triagePriority } from './domain/decision-engine.js'
+import {
+  getDemoScenario,
+  startScenarioDelivery,
+} from './demo-simulator.js'
 
 const MAX_WEBHOOK_BYTES = 1_048_576
+const DEMO_PLAY_LIMIT = 10
+const DEMO_PLAY_WINDOW_MS = 60_000
+const DEMO_CASE_LIMIT = 50
 const CONTENT_TYPES = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
@@ -44,6 +52,35 @@ function readRawBody(request) {
     })
     request.on('error', reject)
   })
+}
+
+function getClientIp(request, trustProxyHops) {
+  const socketAddress = request.socket.remoteAddress ?? 'unknown'
+  if (trustProxyHops === 0) return socketAddress
+
+  const forwardedFor = request.headers['x-forwarded-for']
+  if (typeof forwardedFor !== 'string') return socketAddress
+  const addresses = forwardedFor.split(',').map((address) => address.trim())
+  if (addresses.length < trustProxyHops || addresses.some((address) => !isIP(address))) {
+    return socketAddress
+  }
+
+  return addresses[addresses.length - trustProxyHops]
+}
+
+function parseJsonBody(rawBody) {
+  try {
+    const body = JSON.parse(rawBody.toString('utf8'))
+    if (body === null || typeof body !== 'object' || Array.isArray(body)) {
+      throw new TypeError('Request body must be a JSON object.')
+    }
+    return body
+  } catch (error) {
+    if (error instanceof SyntaxError || error instanceof TypeError) {
+      throw Object.assign(new Error('Request body must be a JSON object.'), { statusCode: 400 })
+    }
+    throw error
+  }
 }
 
 function publicCase(recoveryCase) {
@@ -107,12 +144,49 @@ export function createHttpServer({
   service,
   demoMode = false,
   staticDir,
+  trustProxyHops = 0,
+  demoDelayScale = 1,
+  demoScheduleTimer = setTimeout,
+  demoCancelTimer = clearTimeout,
+  now = Date.now,
   stripeClient = new Stripe(`webhook-verification-${process.pid}`),
 }) {
   if (!webhookSecret && !demoMode) throw new Error('STRIPE_WEBHOOK_SECRET is required.')
+  if (!Number.isSafeInteger(trustProxyHops) || trustProxyHops < 0) {
+    throw new RangeError('TRUST_PROXY_HOPS must be a non-negative integer.')
+  }
+  if (typeof demoDelayScale !== 'number' || !Number.isFinite(demoDelayScale) || demoDelayScale < 0) {
+    throw new RangeError('Demo delay scale must be a non-negative number.')
+  }
   const recoveryService = service ?? createRecoveryService(repository)
+  const demoPlayRequests = new Map()
+  const activeDemoPlays = new Map()
 
-  return createServer(async (request, response) => {
+  function checkDemoRateLimit(clientIp) {
+    const currentTime = now()
+    for (const [ip, timestamps] of demoPlayRequests) {
+      const recentTimestamps = timestamps.filter((timestamp) =>
+        timestamp > currentTime - DEMO_PLAY_WINDOW_MS)
+      if (recentTimestamps.length) demoPlayRequests.set(ip, recentTimestamps)
+      else demoPlayRequests.delete(ip)
+    }
+
+    const timestamps = demoPlayRequests.get(clientIp) ?? []
+    if (timestamps.length >= DEMO_PLAY_LIMIT) {
+      return Math.max(1, Math.ceil(
+        (timestamps[0] + DEMO_PLAY_WINDOW_MS - currentTime) / 1000,
+      ))
+    }
+    timestamps.push(currentTime)
+    demoPlayRequests.set(clientIp, timestamps)
+    return null
+  }
+
+  function normalizeAndIngest(stripeEvent) {
+    return recoveryService.ingest(normalizeStripeEvent(stripeEvent))
+  }
+
+  const server = createServer(async (request, response) => {
     try {
       let url
       let decodedPathname
@@ -126,6 +200,85 @@ export function createHttpServer({
 
       if (request.method === 'GET' && url.pathname === '/api/health') {
         sendJson(response, 200, { status: 'ok', demoMode })
+        return
+      }
+
+      if (request.method === 'POST'
+        && (url.pathname === '/api/demo/play' || url.pathname === '/api/demo/reset')) {
+        if (!demoMode) {
+          sendJson(response, 404, { error: 'Not found.' })
+          return
+        }
+
+        if (url.pathname === '/api/demo/reset') {
+          for (const play of activeDemoPlays.values()) play.cancel()
+          activeDemoPlays.clear()
+          const removedCases = repository.resetSimulatorData()
+          sendJson(response, 200, { reset: true, removedCases })
+          return
+        }
+
+        let body
+        try {
+          body = parseJsonBody(await readRawBody(request))
+        } catch (error) {
+          sendJson(response, error.statusCode ?? 400, { error: error.message })
+          return
+        }
+
+        if (typeof body.scenario !== 'string'
+          || (body.outOfOrder !== undefined && typeof body.outOfOrder !== 'boolean')) {
+          sendJson(response, 400, { error: 'Scenario and outOfOrder are invalid.' })
+          return
+        }
+        const scenario = getDemoScenario(body.scenario)
+        if (!scenario) {
+          sendJson(response, 400, { error: 'Unknown demo scenario.' })
+          return
+        }
+
+        const retryAfterSeconds = checkDemoRateLimit(getClientIp(request, trustProxyHops))
+        if (retryAfterSeconds !== null) {
+          response.writeHead(429, {
+            'content-type': 'application/json; charset=utf-8',
+            'retry-after': String(retryAfterSeconds),
+          })
+          response.end(JSON.stringify({
+            error: `Too many demo plays. Wait ${retryAfterSeconds} seconds before trying again.`,
+            retryAfterSeconds,
+          }))
+          return
+        }
+
+        const play = startScenarioDelivery({
+          scenario,
+          outOfOrder: body.outOfOrder ?? false,
+          delayScale: demoDelayScale,
+          ingest: (stripeEvent) => {
+            const result = normalizeAndIngest(stripeEvent)
+            repository.pruneSimulatorCases(DEMO_CASE_LIMIT)
+            return result
+          },
+          onComplete: () => {
+            activeDemoPlays.delete(play.paymentId)
+            repository.pruneSimulatorCases(DEMO_CASE_LIMIT)
+          },
+          onError: (error) => {
+            activeDemoPlays.delete(play.paymentId)
+            console.error('Demo scenario delivery failed:', error)
+          },
+          scheduleTimer: demoScheduleTimer,
+          cancelTimer: demoCancelTimer,
+        })
+        activeDemoPlays.set(play.paymentId, play)
+        sendJson(response, 202, {
+          accepted: true,
+          scenario: scenario.id,
+          paymentId: play.paymentId,
+        })
+        setImmediate(() => {
+          if (activeDemoPlays.has(play.paymentId)) play.run()
+        })
         return
       }
 
@@ -223,16 +376,15 @@ export function createHttpServer({
         return
       }
 
-      let normalized
+      let result
       try {
-        normalized = normalizeStripeEvent(stripeEvent)
+        result = normalizeAndIngest(stripeEvent)
       } catch (error) {
         console.error('Stripe event normalization failed:', error.message)
         sendJson(response, 400, { error: error.message })
         return
       }
 
-      const result = recoveryService.ingest(normalized)
       if (result.ignored) {
         sendJson(response, 200, { received: true, ignored: true })
         return
@@ -252,4 +404,11 @@ export function createHttpServer({
       sendJson(response, 500, { error: 'Internal error' })
     }
   })
+
+  server.on('close', () => {
+    for (const play of activeDemoPlays.values()) play.cancel()
+    activeDemoPlays.clear()
+  })
+
+  return server
 }

@@ -143,8 +143,17 @@ not inserted into the payment event log.
 - `GET /api/cases/:paymentIntentId/events` returns just the history.
 - `POST /webhook` verifies the raw body and Stripe signature using
   `STRIPE_WEBHOOK_SECRET`.
+- With `DEMO_MODE=true`, `POST /api/demo/play` accepts
+  `{"scenario":"<scenario-id>","outOfOrder":false}` and returns HTTP 202 while
+  the selected scenario is processed in the background. Scenarios are data in
+  `server/demo-scenarios.json`; play is limited to 10 requests per client IP
+  per minute, and the simulator retains at most 50 cases.
+- With `DEMO_MODE=true`, `POST /api/demo/reset` cancels pending scenario
+  deliveries and removes simulator cases and events without affecting other
+  records. `TRUST_PROXY_HOPS` defaults to `0`; configure it only for the number
+  of trusted reverse proxies in front of the backend.
 
 The API excludes secrets and full customer/payment objects. This prototype
 does not include authentication, production deployment, customer contact,
 automatic retry, API reconciliation with Stripe, or a hosted database. Use
-only Stripe test mode; live-mode webhook events are rejected.
+only Stripe test mode; live-mode webhook events are rejected. Demo mode serves only synthetic data. Its simulator endpoints are unauthenticated by design and are rate-limited, capped at 50 cases, and can reset only simulator rows. Never run demo mode with real customer data or a real webhook secret.

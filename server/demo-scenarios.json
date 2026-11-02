@@ -1,0 +1,111 @@
+[
+  {
+    "id": "insufficient-funds-then-paid",
+    "name": "Insufficient funds, then paid",
+    "description": "Two failed attempts are followed by a successful payment.",
+    "steps": [
+      {
+        "delayMs": 0,
+        "type": "payment_intent.payment_failed",
+        "decline_code": "insufficient_funds",
+        "advice_code": null,
+        "amount": 1299,
+        "currency": "usd",
+        "customer": true
+      },
+      {
+        "delayMs": 250,
+        "type": "payment_intent.payment_failed",
+        "decline_code": "insufficient_funds",
+        "advice_code": null,
+        "amount": 1299,
+        "currency": "usd",
+        "customer": true
+      },
+      {
+        "delayMs": 250,
+        "type": "payment_intent.succeeded",
+        "decline_code": null,
+        "advice_code": null,
+        "amount": 1299,
+        "currency": "usd",
+        "customer": true
+      }
+    ]
+  },
+  {
+    "id": "generic-decline",
+    "name": "Generic decline",
+    "description": "Three generic declines advise waiting for the scheduled retry.",
+    "steps": [
+      {
+        "delayMs": 0,
+        "type": "payment_intent.payment_failed",
+        "decline_code": "generic_decline",
+        "advice_code": "try_again_later",
+        "amount": 1299,
+        "currency": "usd",
+        "customer": true
+      },
+      {
+        "delayMs": 250,
+        "type": "payment_intent.payment_failed",
+        "decline_code": "generic_decline",
+        "advice_code": "try_again_later",
+        "amount": 1299,
+        "currency": "usd",
+        "customer": true
+      },
+      {
+        "delayMs": 250,
+        "type": "payment_intent.payment_failed",
+        "decline_code": "generic_decline",
+        "advice_code": "try_again_later",
+        "amount": 1299,
+        "currency": "usd",
+        "customer": true
+      }
+    ]
+  },
+  {
+    "id": "lost-card",
+    "name": "Lost card",
+    "description": "A lost-card decline requires a replacement payment method.",
+    "steps": [
+      {
+        "delayMs": 0,
+        "type": "payment_intent.payment_failed",
+        "decline_code": "lost_card",
+        "advice_code": null,
+        "amount": 1299,
+        "currency": "usd",
+        "customer": true
+      }
+    ]
+  },
+  {
+    "id": "success-then-failure",
+    "name": "Success, then later failure",
+    "description": "A later failure after success requires reconciliation, independent of delivery order.",
+    "steps": [
+      {
+        "delayMs": 0,
+        "type": "payment_intent.succeeded",
+        "decline_code": null,
+        "advice_code": null,
+        "amount": 1299,
+        "currency": "usd",
+        "customer": true
+      },
+      {
+        "delayMs": 250,
+        "type": "payment_intent.payment_failed",
+        "decline_code": "insufficient_funds",
+        "advice_code": null,
+        "amount": 1299,
+        "currency": "usd",
+        "customer": true
+      }
+    ]
+  }
+]

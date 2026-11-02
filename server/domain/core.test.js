@@ -62,6 +62,7 @@ test('normalizes PaymentIntent events without exposing the full provider object'
     currency: 'usd',
     failureCode: 'insufficient_funds',
     customerId: null,
+    chargeId: null,
   })
 })
 

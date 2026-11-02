@@ -1,6 +1,7 @@
 import { mkdirSync } from 'node:fs'
 import { dirname } from 'node:path'
 import { DatabaseSync } from 'node:sqlite'
+import { rebuildCase } from '../domain/rebuild-case.js'
 
 function caseFromRow(row) {
   if (!row) return null
@@ -84,7 +85,7 @@ export function createSqliteRepository({
     FROM recovery_cases
     WHERE payment_id = ?`,
   )
-  const upsertCase = database.prepare(`
+  const upsertCaseStatement = database.prepare(`
     INSERT INTO recovery_cases (
       payment_id, status, amount, currency, failure_code, failure_category,
       recommended_action, recommendation_reason, reconciliation_reason,
@@ -108,12 +109,76 @@ export function createSqliteRepository({
       last_event_currency = excluded.last_event_currency
   `)
 
+  const selectEvents = database.prepare(`
+    SELECT event_id, payment_id, event_type, provider_created,
+      received_at, normalized_payload
+    FROM payment_events
+    WHERE provider = 'stripe' AND payment_id = ?
+  `)
+  const selectPaymentIds = database.prepare(
+    'SELECT DISTINCT payment_id FROM payment_events',
+  )
+  const simulatorPaymentPrefix = "substr(payment_id, 1, 7) = 'pi_sim_'"
+
+  function loadEvents(paymentId) {
+    return selectEvents.all(paymentId).map((row) => {
+      const eventType = {
+        'payment_intent.payment_failed': 'payment_failed',
+        'payment_intent.succeeded': 'payment_succeeded',
+      }[row.event_type]
+      if (!eventType) {
+        throw new TypeError(`Unsupported stored Stripe event type: ${row.event_type}`)
+      }
+
+      const details = JSON.parse(row.normalized_payload)
+      return {
+        provider: 'stripe',
+        eventId: row.event_id,
+        providerEventType: row.event_type,
+        eventType,
+        paymentId: row.payment_id,
+        providerCreated: row.provider_created,
+        receivedAt: row.received_at,
+        amount: details.amount,
+        currency: details.currency,
+        failureCode: details.failureCode,
+        customerId: details.customerId ?? null,
+        chargeId: details.chargeId ?? null,
+      }
+    })
+  }
+
+  function upsertCase(recoveryCase) {
+    upsertCaseStatement.run(
+      recoveryCase.paymentId,
+      recoveryCase.status,
+      recoveryCase.amount,
+      recoveryCase.currency,
+      recoveryCase.failureCode,
+      recoveryCase.failureCategory,
+      recoveryCase.recommendedAction,
+      recoveryCase.recommendationReason,
+      recoveryCase.reconciliationReason,
+      recoveryCase.updatedAt,
+      recoveryCase.lastEventCreated,
+      recoveryCase.lastEventType,
+      recoveryCase.lastEventFailureCode,
+      recoveryCase.lastEventAmount,
+      recoveryCase.lastEventCurrency,
+    )
+  }
+
+  function rebuildPaymentCase(paymentId) {
+    const recoveryCase = rebuildCase(loadEvents(paymentId))
+    if (recoveryCase) upsertCase(recoveryCase)
+  }
+
   function getCase(paymentId) {
     return caseFromRow(selectCase.get(paymentId))
   }
 
   return {
-    applyEvent(inputEvent, project) {
+    applyEvent(inputEvent) {
       const event = { ...inputEvent, receivedAt: clock() }
       database.exec('BEGIN IMMEDIATE')
       try {
@@ -129,6 +194,7 @@ export function createSqliteRepository({
             currency: event.currency,
             failureCode: event.failureCode,
             customerId: event.customerId,
+            chargeId: event.chargeId,
           }),
         )
 
@@ -137,26 +203,80 @@ export function createSqliteRepository({
           return { duplicate: true, case: getCase(event.paymentId) }
         }
 
-        const nextCase = project(getCase(event.paymentId), event)
-        upsertCase.run(
-          nextCase.paymentId,
-          nextCase.status,
-          nextCase.amount,
-          nextCase.currency,
-          nextCase.failureCode,
-          nextCase.failureCategory,
-          nextCase.recommendedAction,
-          nextCase.recommendationReason,
-          nextCase.reconciliationReason,
-          nextCase.updatedAt,
-          nextCase.lastEventCreated,
-          nextCase.lastEventType,
-          nextCase.lastEventFailureCode,
-          nextCase.lastEventAmount,
-          nextCase.lastEventCurrency,
-        )
+        const nextCase = rebuildCase(loadEvents(event.paymentId))
+        upsertCase(nextCase)
         database.exec('COMMIT')
-        return { duplicate: false, case: nextCase }
+        return { duplicate: false, case: getCase(event.paymentId) }
+      } catch (error) {
+        database.exec('ROLLBACK')
+        throw error
+      }
+    },
+
+    rebuildAllCases() {
+      database.exec('BEGIN IMMEDIATE')
+      try {
+        for (const { payment_id: paymentId } of selectPaymentIds.all()) {
+          rebuildPaymentCase(paymentId)
+        }
+        database.exec('COMMIT')
+      } catch (error) {
+        database.exec('ROLLBACK')
+        throw error
+      }
+    },
+
+    pruneSimulatorCases(maxCases = 50) {
+      if (!Number.isSafeInteger(maxCases) || maxCases < 0) {
+        throw new RangeError('Simulator case limit must be a non-negative integer.')
+      }
+
+      database.exec('BEGIN IMMEDIATE')
+      try {
+        const oldestCases = database.prepare(`
+          SELECT payment_id
+          FROM recovery_cases
+          WHERE ${simulatorPaymentPrefix}
+          ORDER BY updated_at DESC, payment_id DESC
+          LIMIT -1 OFFSET ?
+        `).all(maxCases).map((row) => row.payment_id)
+
+        if (oldestCases.length) {
+          const placeholders = oldestCases.map(() => '?').join(', ')
+          database.prepare(`
+            DELETE FROM payment_events
+            WHERE payment_id IN (${placeholders})
+          `).run(...oldestCases)
+          database.prepare(`
+            DELETE FROM recovery_cases
+            WHERE payment_id IN (${placeholders})
+          `).run(...oldestCases)
+        }
+
+        database.exec('COMMIT')
+        return oldestCases.length
+      } catch (error) {
+        database.exec('ROLLBACK')
+        throw error
+      }
+    },
+
+    resetSimulatorData() {
+      database.exec('BEGIN IMMEDIATE')
+      try {
+        const { count } = database.prepare(`
+          SELECT COUNT(*) AS count
+          FROM recovery_cases
+          WHERE ${simulatorPaymentPrefix}
+        `).get()
+        database.exec(`
+          DELETE FROM payment_events
+          WHERE substr(payment_id, 1, 7) = 'pi_sim_';
+          DELETE FROM recovery_cases
+          WHERE ${simulatorPaymentPrefix};
+        `)
+        database.exec('COMMIT')
+        return count
       } catch (error) {
         database.exec('ROLLBACK')
         throw error
