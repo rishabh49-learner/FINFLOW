@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import test from 'node:test'
 import Stripe from 'stripe'
+import { CONFIG } from '../data/config.js'
 import { createHttpServer } from './http-server.js'
 import { createRecoveryService } from './domain/recovery-service.js'
 import { normalizeStripeEvent } from './providers/stripe-adapter.js'
@@ -103,12 +104,14 @@ test('verifies raw-body signatures, deduplicates, and serves sanitized cases/his
   const cases = await fetch(`${baseUrl}/api/cases`).then((response) => response.json())
   assert.equal(cases.length, 1)
   assert.equal(cases[0].customerId, 'cus_private')
+  assert.equal(cases[0].firstFailedAt, 1_700_000_000)
   assert.deepEqual(Object.keys(cases[0]).sort(), [
     'amount',
     'currency',
     'customerId',
     'failureCategory',
     'failureCode',
+    'firstFailedAt',
     'paymentId',
     'priority',
     'recommendationReason',
@@ -120,6 +123,7 @@ test('verifies raw-body signatures, deduplicates, and serves sanitized cases/his
   assert.equal(cases[0].priority.level, 'standard')
 
   const details = await fetch(`${baseUrl}/api/cases/pi_1`).then((response) => response.json())
+  assert.equal(details.recoveryCase.firstFailedAt, 1_700_000_000)
   assert.equal(details.events.length, 1)
   assert.equal(details.events[0].details.failureCode, 'insufficient_funds')
   assert.equal(details.events[0].details.customerId, 'cus_private')
@@ -227,9 +231,10 @@ test('each demo scenario emits its expected recovery case', async (t) => {
   const baseUrl = await startDemoServer(t, { demoDelayScale: 0 })
   const scenarios = [
     { scenario: 'insufficient-funds-then-paid', status: 'resolved', events: 3, failures: 2 },
-    { scenario: 'generic-decline', status: 'open', events: 1, failures: 1 },
+    { scenario: 'generic-decline', status: 'open', events: 3, failures: 3 },
     { scenario: 'authentication-required', status: 'open', events: 1, failures: 1 },
     { scenario: 'lost-card', status: 'open', events: 1, failures: 1 },
+    { scenario: 'unrecognized-decline', status: 'reconciliation_required', events: 1, failures: 1 },
   ]
 
   for (const expected of scenarios) {
@@ -261,6 +266,10 @@ test('each demo scenario emits its expected recovery case', async (t) => {
     if (expected.scenario === 'lost-card') {
       assert.equal(details.recoveryCase.failureCode, 'lost_card')
       assert.equal(details.recoveryCase.failureCategory, 'hard_decline')
+    }
+    if (expected.scenario === 'unrecognized-decline') {
+      assert.equal(details.recoveryCase.failureCode, 'invalid_account')
+      assert.equal(details.recoveryCase.failureCategory, null)
     }
   }
 })
@@ -300,19 +309,20 @@ test('demo simulator routes return 404 outside demo mode', async (t) => {
   assert.equal(reset.status, 404)
 })
 
-test('lists demo scenarios using only id, title, and description', async (t) => {
+test('lists all six demo scenarios using only id, title, and description', async (t) => {
   const baseUrl = await startDemoServer(t)
 
   const response = await fetch(`${baseUrl}/api/demo/scenarios`)
   assert.equal(response.status, 200)
   const scenarios = await response.json()
-  assert.equal(scenarios.length, 5)
+  assert.equal(scenarios.length, 6)
   assert.deepEqual(Object.keys(scenarios[0]).sort(), ['description', 'id', 'title'])
   assert.deepEqual(scenarios[0], {
     id: 'insufficient-funds-then-paid',
     title: 'Pays on its own',
     description: 'A payment succeeds after two insufficient-funds failures.',
   })
+  assert.ok(scenarios.some((scenario) => scenario.id === 'unrecognized-decline'))
 })
 
 test('limits play requests per forwarded client IP and reports seconds to wait', async (t) => {
@@ -380,7 +390,7 @@ test('reset cancels a pending demo delivery timer', async (t) => {
   assert.equal(caseResponse.status, 404)
 })
 
-test('caps simulator cases and reset preserves non-simulator cases and events', async (t) => {
+test('caps simulator cases and reset preserves five seeded cases and non-simulator data', async (t) => {
   let timestamp = 1_700_000_000
   const repository = createSqliteRepository({
     dbPath: ':memory:',
@@ -396,7 +406,7 @@ test('caps simulator cases and reset preserves non-simulator cases and events', 
     repository,
     demoDelayScale: 0,
   })
-  assert.equal(seededDemoIds.length, 4)
+  assert.equal(seededDemoIds.length, 5)
 
   function ingestFailure(eventId, paymentId, created) {
     const stripeEvent = {
@@ -445,7 +455,7 @@ test('caps simulator cases and reset preserves non-simulator cases and events', 
   assert.equal(repository.listEvents('pi_sim_seed_1').length, 0)
 })
 
-test('demo seeding creates four dated, varied scenario cases with Reset-safe IDs', () => {
+test('demo seeding creates five dated scenario cases with an unmapped Needs review case', () => {
   const repository = createSqliteRepository({ dbPath: ':memory:' })
   const service = createRecoveryService(repository)
   const now = Date.parse('2026-11-04T04:28:30+05:30')
@@ -453,8 +463,8 @@ test('demo seeding creates four dated, varied scenario cases with Reset-safe IDs
     seedDemo(service, { now })
     const cases = service.listCases()
     const paymentIds = cases.map((recoveryCase) => recoveryCase.paymentId)
-    assert.equal(cases.length, 4)
-    assert.equal(new Set(paymentIds).size, 4)
+    assert.equal(cases.length, 5)
+    assert.equal(new Set(paymentIds).size, 5)
     assert.ok(paymentIds.every((paymentId) => /^pi_demo_[0-9a-f]{8}$/.test(paymentId)))
 
     const seeded = cases.map((recoveryCase) => service.getCase(recoveryCase.paymentId))
@@ -466,31 +476,37 @@ test('demo seeding creates four dated, varied scenario cases with Reset-safe IDs
       'generic_decline',
       'authentication_required',
       'lost_card',
+      'invalid_account',
     ])
+    assert.equal(CONFIG.failureReasonMapping.invalid_account, undefined)
     assert.ok(events.every((event) => /^evt_demo_[0-9a-f]{8}$/.test(event.eventId)))
     assert.ok(events.every((event) => event.details.failureCode === null
       || stripeDeclineCodes.has(event.details.failureCode)))
     assert.ok(events.every((event) =>
       new Date(event.providerCreated * 1000).toISOString().slice(0, 10)
       === new Date(now).toISOString().slice(0, 10)))
-    assert.equal(events.length, 6)
-    assert.equal(new Set(firstEvents.map((event) => event.details.amount)).size, 4)
-    assert.equal(new Set(firstEvents.map((event) => event.details.currency)).size, 4)
+    assert.equal(events.length, 9)
+    assert.equal(new Set(firstEvents.map((event) => event.details.amount)).size, 5)
+    assert.ok(firstEvents.every((event) => ['usd', 'eur'].includes(event.details.currency)))
+    assert.ok(new Set(firstEvents.map((event) => event.details.currency)).size <= 2)
     assert.ok(events.every((event) => /^cus_demo_[0-9a-f]{8}$/.test(event.details.customerId)))
     assert.deepEqual(
       Object.values(firstEvents.reduce((counts, event) => {
         counts[event.details.customerId] = (counts[event.details.customerId] ?? 0) + 1
         return counts
       }, {})).sort(),
-      [1, 1, 2],
+      [1, 1, 1, 2],
     )
     assert.equal(cases.filter((recoveryCase) =>
-      recoveryCase.status === 'reconciliation_required').length, 0)
+      recoveryCase.status === 'reconciliation_required').length, 1)
+    assert.ok(cases.some((recoveryCase) =>
+      recoveryCase.status === 'reconciliation_required'
+      && recoveryCase.failureCode === 'invalid_account'))
     assert.ok(cases.some((recoveryCase) => recoveryCase.failureCode === 'generic_decline'))
     assert.ok(cases.some((recoveryCase) => recoveryCase.status === 'resolved'))
 
     assert.equal(repository.resetSimulatorData(), 0)
-    assert.equal(service.listCases().length, 4)
+    assert.equal(service.listCases().length, 5)
   } finally {
     repository.close()
   }

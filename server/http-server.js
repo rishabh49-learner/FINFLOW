@@ -99,6 +99,7 @@ function publicCase(recoveryCase) {
     reconciliationReason: recoveryCase.reconciliationReason,
     priority: triagePriority(recoveryCase),
     updatedAt: recoveryCase.updatedAt,
+    firstFailedAt: recoveryCase.firstFailedAt,
   }
 }
 

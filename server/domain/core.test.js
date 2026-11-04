@@ -107,7 +107,8 @@ test('maps generic_decline as a soft decline without failure-code reconciliation
   assert.equal(recoveryCase.failureCategory, 'soft_decline')
   assert.notEqual(recoveryCase.recommendedAction, 'reconcile_failure_code')
   assert.equal(mapping.nextStep,
-    'Wait for the scheduled retry. If it does not succeed, ask the customer to contact their card issuer.')
+    'Stripe may retry automatically. If it does not succeed, ask the customer to contact their card issuer.')
+  assert.equal(mapping.reason, 'The bank declined without giving a reason.')
   assert.equal(mapping.sourceUrl, 'https://docs.stripe.com/declines/codes')
   assert.equal(mapping.adviceCodeSourceUrl, 'https://docs.stripe.com/declines/card')
   assert.equal(mapping.retryBehavior, 'stripe_retries')
@@ -117,12 +118,13 @@ test('keeps decline reasons and next steps as complete Stripe-aligned sentences'
   for (const rule of Object.values(CONFIG.failureReasonMapping)) {
     assert.match(rule.reason, /^[A-Z].*\.$/)
     assert.match(rule.nextStep, /^[A-Z].*\.$/)
-    assert.doesNotMatch(rule.reason, /FINFLOW|existing rules classify/i)
-    assert.doesNotMatch(rule.nextStep, /FINFLOW|existing rules classify/i)
+    assert.doesNotMatch(rule.reason, /FINFLOW|existing rules classify|scheduled retry is pending/i)
+    assert.doesNotMatch(rule.nextStep, /FINFLOW|existing rules classify|scheduled retry is pending/i)
+    assert.doesNotMatch(rule.nextStep, /_[a-z]/)
   }
 
   assert.equal(CONFIG.failureReasonMapping.generic_decline.reason,
-    'The card was declined for an unknown reason, or Stripe Radar or Adaptive Acceptance blocked the payment.')
+    'The bank declined without giving a reason.')
   assert.equal(CONFIG.failureReasonMapping.insufficient_funds.reason,
     'The card has insufficient funds to complete the purchase.')
   assert.equal(CONFIG.failureReasonMapping.authentication_required.reason,

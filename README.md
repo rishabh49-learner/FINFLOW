@@ -1,65 +1,45 @@
-# FINFLOW — Payment Operations Dashboard
+# FinFlow
 
-A dashboard for payment ops executives to see why transactions fail,
-track recovery/retry status, and know what still needs attention —
-built to understand how real fintech platforms (Stripe, Razorpay) handle
-failed payments and revenue recovery.
+Failed-payment triage for small subscription teams. Stripe retries failed
+card payments on its own. FinFlow shows what is left afterwards: which
+payments need a person, why they failed, and what to do next. It only
+recommends. It never retries a charge, moves money, or contacts customers.
 
-## Problem
+Status: portfolio project on Stripe test-mode events. Whether small teams
+need this is not validated yet.
 
-Payment ops executives lose visibility into why transactions fail and
-whether recovery attempts are working, leading to unrecovered revenue.
-This dashboard gives them a single place to search transactions,
-understand failure patterns, and track retry/recovery status.
+Try it: https://finflow-tpcu.onrender.com/. Pick a scenario on the Overview page, watch the case
+appear, and open it to see the next step, the rule and its Stripe source.
 
-Failed payments are a real, measurable revenue leak — industry estimates
-put it at roughly 9–10% of ARR for subscription businesses, with
-involuntary churn accounting for a large share of cancellations.
+## What is simulated and what is real
+- Deployed site: simulated events built from the shape of real Stripe
+  sandbox events I recorded. They go through the same adapter, event store,
+  case rebuild and rules as a real webhook. Only the signature check is
+  skipped.
+- Locally: real signed Stripe sandbox events via the Stripe CLI, same pipeline.
+- Live-mode events are rejected. No login. Demo data is shared by all
+  visitors and resets when the service restarts.
 
-## Status
+## How it works
+(Mermaid diagram)
+Tradeoff: events are stored and the case is derived from all of them in time
+order, so delivery order cannot corrupt a case. Cost: one rebuild per event.
+An attempt means an executed charge.
 
-The original V1 data generator and planning documents are retained. The
-current branch adds a small Stripe test-mode event-driven recovery workbench;
-see [`docs/architecture-v2.md`](docs/architecture-v2.md) for the current
-backend, event model, setup, and limitations.
+## Rules and evidence
+Each rule cites Stripe's documentation. Stripe's retry docs list nine hard
+declines it will not retry; that is the boundary of "needs a person". The
+rules encode documented guidance, not measured recovery rates. Unknown codes
+go to Needs review with no suggested action.
 
-## What's here right now
+## Run it
+(demo, local sandbox and Render steps, env vars: DEMO_MODE, TRUST_PROXY_HOPS,
+STRIPE_WEBHOOK_SECRET, PORT, DATABASE_PATH, NODE_VERSION)
 
-- [`docs/Project-Purpose.md`](docs/Project-Purpose.md) — problem statement,
-  locked V1 feature scope, and what's explicitly out of scope
-- [`docs/Data-schema.md`](docs/Data-schema.md) — the full data model
-  (Transaction / Attempt / ManualAction), including which fields are
-  stored vs. derived, and why
-- [`docs/Build-log.md`](docs/Build-log.md) — the actual design decisions
-  made while building this, with reasoning (not just a changelog)
-- [`docs/Future-Ideas.md`](docs/Future-Ideas.md) — V2/V3 ideas intentionally
-  parked out of V1's scope
+## Limitations
+No login or multi-tenant support. No API backfill for missed webhooks. The
+retry schedule is unknown without invoice events. Demo data is shared.
 
-## V1 planned features
-
-1. **Transaction table** — search and filter all transactions
-2. **Failure reason analysis** — breakdown of why payments fail, soft vs.
-   hard declines
-3. **Retry / recovery queue** — transactions where automatic retries are
-   exhausted and no one has acted yet
-4. **Aging buckets** — how long unresolved transactions have been stuck
-
-## What's next (V2+)
-
-V1 is intentionally scoped tight — see [`docs/Future-Ideas.md`](docs/Future-Ideas.md)
-for planned analytics, revenue-recovery metrics, and other ideas parked
-outside V1's scope on purpose.
-
-## Current stack
-
-React 19 and Vite for the workbench, Node.js with the official Stripe SDK for
-raw-body webhook verification, and local SQLite for the event log and case
-projection. The Node backend processes Stripe test-mode events only and never
-initiates payments or retries. The original generator and `data.json` remain
-available as legacy project artifacts but are not used by the event-driven
-workbench.
-
-Use `npm test` for automated tests and `npm run demo` for a repeatable,
-same-PaymentIntent failure-to-success lifecycle without Stripe CLI. Stripe CLI
-setup and the warning about unrelated fixture PaymentIntents are documented in
-[`docs/architecture-v2.md`](docs/architecture-v2.md).
+## Next steps
+Login and per-merchant accounts, API backfill, invoice and subscription
+events, visitor-run sandbox, founder validation.

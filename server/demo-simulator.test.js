@@ -5,15 +5,17 @@ import {
   buildScenarioEvents,
   startScenarioDelivery,
 } from './demo-simulator.js'
+import { CONFIG } from '../data/config.js'
 
-test('scenario data contains five plain-language descriptions and valid event steps', () => {
-  assert.equal(DEMO_SCENARIOS.length, 5)
+test('scenario data contains six plain-language descriptions and valid event steps', () => {
+  assert.equal(DEMO_SCENARIOS.length, 6)
   assert.deepEqual(DEMO_SCENARIOS.map((scenario) => scenario.name), [
     'Pays on its own',
     'Bank gives no reason',
     'Customer must confirm',
     'Card reported lost',
     'Events arrive out of order',
+    'Unrecognized decline',
   ])
   for (const scenario of DEMO_SCENARIOS) {
     assert.ok(scenario.name)
@@ -26,6 +28,7 @@ test('scenario data contains five plain-language descriptions and valid event st
       assert.ok(step.type)
       assert.ok(step.amount > 0)
       assert.match(step.currency, /^[a-z]{3}$/)
+      assert.ok(['usd', 'eur'].includes(step.currency))
       assert.equal(step.customer, true)
       if (step.type === 'payment_intent.payment_failed') {
         assert.ok([
@@ -33,10 +36,18 @@ test('scenario data contains five plain-language descriptions and valid event st
           'generic_decline',
           'authentication_required',
           'lost_card',
+          'invalid_account',
         ].includes(step.decline_code))
       }
     }
   }
+  assert.equal(CONFIG.failureReasonMapping.invalid_account, undefined)
+  assert.equal(DEMO_SCENARIOS.find((item) => item.id === 'generic-decline').description,
+    'The bank declines three times without giving a reason.')
+  assert.equal(DEMO_SCENARIOS.find((item) => item.id === 'success-then-failure').description,
+    'Events reach FinFlow in the wrong order. FinFlow still reaches the same conclusion.')
+  const unmappedScenario = DEMO_SCENARIOS.find((item) => item.id === 'unrecognized-decline')
+  assert.equal(unmappedScenario.steps[0].decline_code, 'invalid_account')
   assert.equal(JSON.stringify(DEMO_SCENARIOS).includes('cus_'), false)
   assert.equal(JSON.stringify(DEMO_SCENARIOS).includes('pi_'), false)
   assert.equal(JSON.stringify(DEMO_SCENARIOS).includes('evt_'), false)

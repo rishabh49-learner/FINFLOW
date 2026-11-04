@@ -7,6 +7,7 @@ const seededScenarioIds = [
   'generic-decline',
   'authentication-required',
   'lost-card',
+  'unrecognized-decline',
 ]
 
 function shortId() {

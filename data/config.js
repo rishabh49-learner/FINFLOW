@@ -9,8 +9,8 @@ export const CONFIG = {
     generic_decline: {
       category: 'soft_decline',
       action: 'retry_after_scheduled_retry',
-      nextStep: 'Wait for the scheduled retry. If it does not succeed, ask the customer to contact their card issuer.',
-      reason: 'The card was declined for an unknown reason, or Stripe Radar or Adaptive Acceptance blocked the payment.',
+      nextStep: 'Stripe may retry automatically. If it does not succeed, ask the customer to contact their card issuer.',
+      reason: 'The bank declined without giving a reason.',
       source: 'Stripe dashboard decline explanation plus advice_code try_again_later',
       sourceUrl: 'https://docs.stripe.com/declines/codes',
       adviceCodeSourceUrl: 'https://docs.stripe.com/declines/card',

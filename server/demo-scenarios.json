@@ -36,10 +36,28 @@
   {
     "id": "generic-decline",
     "name": "Bank gives no reason",
-    "description": "The issuer declines without a usable reason, so the case needs review.",
+    "description": "The bank declines three times without giving a reason.",
     "steps": [
       {
         "delayMs": 0,
+        "type": "payment_intent.payment_failed",
+        "decline_code": "generic_decline",
+        "advice_code": "try_again_later",
+        "amount": 2400,
+        "currency": "eur",
+        "customer": true
+      },
+      {
+        "delayMs": 250,
+        "type": "payment_intent.payment_failed",
+        "decline_code": "generic_decline",
+        "advice_code": "try_again_later",
+        "amount": 2400,
+        "currency": "eur",
+        "customer": true
+      },
+      {
+        "delayMs": 250,
         "type": "payment_intent.payment_failed",
         "decline_code": "generic_decline",
         "advice_code": "try_again_later",
@@ -60,7 +78,7 @@
         "decline_code": "authentication_required",
         "advice_code": null,
         "amount": 4999,
-        "currency": "gbp",
+        "currency": "eur",
         "customer": true
       }
     ]
@@ -76,7 +94,7 @@
         "decline_code": "lost_card",
         "advice_code": null,
         "amount": 8200,
-        "currency": "cad",
+        "currency": "usd",
         "customer": true
       }
     ]
@@ -84,7 +102,7 @@
   {
     "id": "success-then-failure",
     "name": "Events arrive out of order",
-    "description": "A later failure is delivered before the earlier success event.",
+    "description": "Events reach FinFlow in the wrong order. FinFlow still reaches the same conclusion.",
     "outOfOrder": true,
     "steps": [
       {
@@ -103,6 +121,22 @@
         "advice_code": null,
         "amount": 3300,
         "currency": "usd",
+        "customer": true
+      }
+    ]
+  },
+  {
+    "id": "unrecognized-decline",
+    "name": "Unrecognized decline",
+    "description": "Stripe returns an unrecognized account decline code that needs review.",
+    "steps": [
+      {
+        "delayMs": 0,
+        "type": "payment_intent.payment_failed",
+        "decline_code": "invalid_account",
+        "advice_code": null,
+        "amount": 6150,
+        "currency": "eur",
         "customer": true
       }
     ]

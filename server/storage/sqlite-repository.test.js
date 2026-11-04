@@ -85,7 +85,11 @@ test('rebuildAllCases repairs stale rows and is idempotent', (t) => {
   const expected = rebuildCase(events)
   repository.rebuildAllCases()
   const rebuilt = repository.getCase('pi_rebuild_all')
-  assert.deepEqual(rebuilt, { ...expected, customerId: null })
+  assert.deepEqual(rebuilt, {
+    ...expected,
+    customerId: null,
+    firstFailedAt: 1_700_000_010,
+  })
 
   repository.rebuildAllCases()
   assert.deepEqual(repository.getCase('pi_rebuild_all'), rebuilt)

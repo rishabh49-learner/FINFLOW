@@ -22,6 +22,7 @@ function caseFromRow(row) {
     lastEventFailureCode: row.last_event_failure_code,
     lastEventAmount: row.last_event_amount,
     lastEventCurrency: row.last_event_currency,
+    firstFailedAt: row.first_failed_at ?? null,
   }
 }
 
@@ -74,6 +75,13 @@ export function createSqliteRepository({
     ORDER BY received_at DESC, provider_created DESC, event_id DESC
     LIMIT 1
   ) AS customer_id`
+  const firstFailureProjection = `(
+    SELECT MIN(provider_created)
+    FROM payment_events
+    WHERE provider = 'stripe'
+      AND payment_events.payment_id = recovery_cases.payment_id
+      AND event_type = 'payment_intent.payment_failed'
+  ) AS first_failed_at`
   const insertEvent = database.prepare(`
     INSERT OR IGNORE INTO payment_events (
       provider, event_id, payment_id, event_type, provider_created,
@@ -81,7 +89,7 @@ export function createSqliteRepository({
     ) VALUES (?, ?, ?, ?, ?, ?, ?)
   `)
   const selectCase = database.prepare(
-    `SELECT recovery_cases.*, ${customerIdProjection}
+    `SELECT recovery_cases.*, ${customerIdProjection}, ${firstFailureProjection}
     FROM recovery_cases
     WHERE payment_id = ?`,
   )
@@ -285,7 +293,7 @@ export function createSqliteRepository({
 
     listCases() {
       return database.prepare(
-        `SELECT recovery_cases.*, ${customerIdProjection}
+        `SELECT recovery_cases.*, ${customerIdProjection}, ${firstFailureProjection}
         FROM recovery_cases
         ORDER BY updated_at DESC, payment_id ASC`,
       ).all().map(caseFromRow)

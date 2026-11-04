@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { CONFIG } from '../data/config.js'
 import { customerMessage } from './customer-message.js'
-import { formatProviderTime } from './format-time.js'
+import { formatActivityLabel } from './activity-label.js'
+import { getDemoPlayStatus } from './demo-play-status.js'
+import { formatCaseTimes } from './format-time.js'
 import { LABELS, PRIORITY_RULES } from './labels.js'
 import './App.css'
 
@@ -40,11 +42,6 @@ function formatAmount(amount, currency) {
   }
 }
 
-function formatTime(timestamp) {
-  const date = new Date(timestamp)
-  return Number.isNaN(date.getTime()) ? LABELS.unknownTime : date.toLocaleString()
-}
-
 function priorityName(priority) {
   return LABELS.priorityNames[priority] ?? LABELS.standard
 }
@@ -56,6 +53,12 @@ function priorityClass(priority) {
 function failureRule(failureCode) {
   if (!failureCode || !Object.hasOwn(CONFIG.failureReasonMapping, failureCode)) return null
   return CONFIG.failureReasonMapping[failureCode]
+}
+
+function caseNextStep(recoveryCase) {
+  if (recoveryCase.status === 'resolved') return LABELS.noActionNeeded
+  if (recoveryCase.status === 'reconciliation_required') return LABELS.checkPaymentInStripe
+  return failureRule(recoveryCase.failureCode)?.nextStep ?? LABELS.reviewPaymentInStripe
 }
 
 function customerId(recoveryCase) {
@@ -126,15 +129,13 @@ function SummaryStrip({ cases }) {
 
 function CaseLink({ recoveryCase, onOpen, showCustomer = false, isNew = false }) {
   const rule = failureRule(recoveryCase.failureCode)
+  const firstFailure = formatCaseTimes(recoveryCase.firstFailedAt)
   const reason = recoveryCase.status === 'reconciliation_required'
     ? recoveryCase.recommendationReason
     : rule?.reason ?? recoveryCase.recommendationReason
   return (
     <article className="case-card">
       <div className="case-card-top">
-        <button className="text-link case-id" type="button" onClick={onOpen}>
-          {recoveryCase.paymentId}
-        </button>
         {isNew && <span className="new-case-badge">{LABELS.newCase}</span>}
         <StatusBadge recoveryCase={recoveryCase} />
       </div>
@@ -142,15 +143,17 @@ function CaseLink({ recoveryCase, onOpen, showCustomer = false, isNew = false })
       <strong className="case-card-amount">
         {formatAmount(recoveryCase.amount, recoveryCase.currency)}
       </strong>
+      <button className="text-link case-id" type="button" onClick={onOpen}>
+        {recoveryCase.paymentId}
+      </button>
+      <time className="case-first-failed" title={firstFailure.absolute}>
+        {firstFailure.relative}
+      </time>
       <p className="case-card-reason">
         {reason}
       </p>
       <p className="case-card-action">
-        {recoveryCase.status === 'resolved'
-          ? LABELS.noActionNeeded
-          : recoveryCase.status === 'reconciliation_required'
-            ? LABELS.checkPaymentInStripe
-            : rule?.nextStep ?? recoveryCase.recommendedAction?.replaceAll('_', ' ')}
+        {caseNextStep(recoveryCase)}
       </p>
       <button className="subtle-link" type="button" onClick={onOpen}>
         {LABELS.viewCase}
@@ -204,7 +207,14 @@ function HomeView({ cases, onNavigate }) {
   )
 }
 
-function DemoScenarioPanel({ scenarios, onPlay, onReset, playing }) {
+function DemoScenarioPanel({
+  scenarios,
+  onPlay,
+  onReset,
+  onOpen,
+  playStatus,
+  readyPaymentId,
+}) {
   return (
     <section className="panel demo-scenarios-panel">
       <div className="section-heading">
@@ -216,7 +226,16 @@ function DemoScenarioPanel({ scenarios, onPlay, onReset, playing }) {
       <ol className="demo-instructions">
         {LABELS.demoInstructions.map((instruction) => <li key={instruction}>{instruction}</li>)}
       </ol>
-      {playing && <p className="playing-status" role="status">{LABELS.playingScenario}</p>}
+      {playStatus === 'playing' && (
+        <p className="playing-status" role="status">{LABELS.playingScenario}</p>
+      )}
+      {playStatus === 'ready' && (
+        <p className="playing-status" role="status">
+          <button className="text-link" type="button" onClick={() => onOpen(readyPaymentId)}>
+            {LABELS.caseReady}
+          </button>
+        </p>
+      )}
       <div className="demo-scenario-list">
         {scenarios.map((scenario) => (
           <article className="demo-scenario" key={scenario.id}>
@@ -243,7 +262,8 @@ function OverviewView({
   demoScenarios,
   onPlayScenario,
   onResetDemo,
-  playing,
+  playStatus,
+  readyPaymentId,
   newPaymentId,
 }) {
   const ordered = sortCases(cases)
@@ -271,7 +291,9 @@ function OverviewView({
           scenarios={demoScenarios}
           onPlay={onPlayScenario}
           onReset={onResetDemo}
-          playing={playing}
+          onOpen={(id) => onOpen(id)}
+          playStatus={playStatus}
+          readyPaymentId={readyPaymentId}
         />
       )}
       <section className="section-block">
@@ -299,7 +321,12 @@ function OverviewView({
           </div>}
       </section>
       <section className="section-block">
-        <h2>{LABELS.waitingOnRetry}</h2>
+        <div className="section-heading">
+          <div>
+            <h2>{LABELS.waitingOnRetry}</h2>
+            <p>{LABELS.waitingOnRetrySubtitle}</p>
+          </div>
+        </div>
         {waitingCases.length === 0
           ? <p className="empty-state">{LABELS.noWaitingCases}</p>
           : <div className="case-card-grid">
@@ -327,10 +354,10 @@ function OverviewView({
             {recentEvents.map((event) => (
               <li key={`${event.paymentId}-${event.eventId}`}>
                 <time dateTime={new Date(event.providerCreated * 1000).toISOString()}>
-                  {formatProviderTime(event.providerCreated)}
+                  {formatCaseTimes(event.providerCreated, event.receivedAt).absolute}
                 </time>
                 <button className="text-link" type="button" onClick={() => onOpen(event.paymentId)}>
-                  {event.eventType.replaceAll('_', ' ')} · {event.paymentId}
+                  {formatActivityLabel(event.eventType)} · {event.paymentId}
                 </button>
                 <span>{event.details.failureCode ?? LABELS.noFailureCode}</span>
               </li>
@@ -396,21 +423,23 @@ function QueueView({ cases, eventsByCase, onOpen }) {
                   return (
                     <tr key={item.paymentId}>
                       <td>
+                        <span className="table-amount">{formatAmount(item.amount, item.currency)}</span>
                         <button className="text-link payment-link" type="button" onClick={() => onOpen(item.paymentId)}>
                           {item.paymentId}
                         </button>
-                        <span className="table-amount">{formatAmount(item.amount, item.currency)}</span>
+                        <time
+                          className="table-first-failed"
+                          title={formatCaseTimes(item.firstFailedAt).absolute}
+                        >
+                          {formatCaseTimes(item.firstFailedAt).relative}
+                        </time>
                       </td>
                       <td className="customer-cell">{customerId(item)}</td>
                       <td>{failures}</td>
                       <td>{item.status === 'reconciliation_required'
                         ? item.recommendationReason
                         : rule?.reason ?? item.recommendationReason}</td>
-                      <td>{item.status === 'resolved'
-                        ? LABELS.noActionNeeded
-                        : item.status === 'reconciliation_required'
-                          ? LABELS.checkPaymentInStripe
-                          : rule?.nextStep ?? item.recommendedAction?.replaceAll('_', ' ') ?? LABELS.none}</td>
+                      <td>{caseNextStep(item)}</td>
                       <td><StatusBadge recoveryCase={item} /></td>
                     </tr>
                   )
@@ -452,7 +481,7 @@ function RuleApplied({ recoveryCase }) {
           <h2><code>{recoveryCase.failureCode}</code> · {rule.category.replaceAll('_', ' ')}</h2>
           <p>{rule.reason}</p>
           <dl className="rule-facts">
-            <div><dt>{LABELS.nextStep}</dt><dd>{rule.nextStep ?? rule.action.replaceAll('_', ' ')}</dd></div>
+            <div><dt>{LABELS.nextStep}</dt><dd>{rule.nextStep ?? LABELS.reviewPaymentInStripe}</dd></div>
             {rule.source && <div><dt>{LABELS.source}</dt><dd>{rule.source}</dd></div>}
             {rule.sourceUrl && (
               <div>
@@ -509,7 +538,7 @@ function AttemptsTimeline({ events }) {
                         : event.eventType.replaceAll('_', ' ')}
                     </strong>
                     <time dateTime={new Date(event.providerCreated * 1000).toISOString()}>
-                      {formatProviderTime(event.providerCreated)}
+                      {formatCaseTimes(event.providerCreated, event.receivedAt).absolute}
                     </time>
                   </div>
                   <p>{event.details.failureCode
@@ -547,6 +576,13 @@ function CaseView({
     ? cases.filter((item) => item.customerId === recoveryCase.customerId && item.paymentId !== recoveryCase.paymentId)
     : []
   const followUp = recoveryCase ? followUps[recoveryCase.paymentId] ?? {} : {}
+  const firstFailedEvent = events
+    .filter((event) => event.eventType.endsWith('payment_failed'))
+    .sort((a, b) => a.providerCreated - b.providerCreated)[0]
+  const firstFailureTimes = formatCaseTimes(
+    firstFailedEvent?.providerCreated ?? recoveryCase?.firstFailedAt,
+    firstFailedEvent?.receivedAt,
+  )
 
   async function copyMessage() {
     if (!message) return
@@ -591,18 +627,15 @@ function CaseView({
             <div className="case-metadata">
               <div><span>{LABELS.customer}</span><strong>{customerId(recoveryCase)}</strong></div>
               <div><span>{LABELS.attempts}</span><strong>{events.filter((item) => item.eventType.endsWith('payment_failed')).length}</strong></div>
-              <div><span>{LABELS.lastUpdated}</span><strong>{formatTime(recoveryCase.updatedAt)}</strong></div>
+              <div>
+                <span>{LABELS.lastUpdated}</span>
+                <strong>{formatCaseTimes(Date.parse(recoveryCase.updatedAt) / 1000).absolute}</strong>
+              </div>
             </div>
           </section>
           <section className="panel next-step-panel">
             <p className="eyebrow">{LABELS.nextStep}</p>
-            <h2>{recoveryCase.status === 'resolved'
-              ? LABELS.noActionNeeded
-              : recoveryCase.status === 'reconciliation_required'
-                ? LABELS.checkPaymentInStripe
-                : failureRule(recoveryCase.failureCode)?.nextStep
-                  ?? recoveryCase.recommendedAction?.replaceAll('_', ' ')
-                  ?? LABELS.none}</h2>
+            <h2>{caseNextStep(recoveryCase)}</h2>
             <p>{recoveryCase.status === 'reconciliation_required'
               ? recoveryCase.recommendationReason
               : failureRule(recoveryCase.failureCode)?.reason ?? recoveryCase.recommendationReason}</p>
@@ -663,9 +696,13 @@ function CaseView({
             {technicalOpen && (
               <dl className="technical-details">
                 <div><dt>{LABELS.paymentId}</dt><dd>{recoveryCase.paymentId}</dd></div>
+                <div>
+                  <dt>{LABELS.firstFailed}</dt>
+                  <dd>{firstFailureTimes.relative} · {firstFailureTimes.absolute}</dd>
+                </div>
                 <div><dt>{LABELS.failureCode}</dt><dd>{recoveryCase.failureCode ?? LABELS.none}</dd></div>
                 <div><dt>{LABELS.status}</dt><dd>{recoveryCase.status}</dd></div>
-                <div><dt>{LABELS.recommendedAction}</dt><dd>{recoveryCase.recommendedAction}</dd></div>
+                <div><dt>{LABELS.recommendedAction}</dt><dd>{caseNextStep(recoveryCase)}</dd></div>
                 {events.map((event) => (
                   <div key={event.eventId}>
                     <dt>{event.eventType} · {LABELS.eventId}</dt>
@@ -675,7 +712,7 @@ function CaseView({
                 {events.map((event) => (
                   <div key={`${event.eventId}-received`}>
                     <dt>{LABELS.received} · {event.eventType}</dt>
-                    <dd>{formatTime(event.receivedAt)}</dd>
+                    <dd>{formatCaseTimes(event.providerCreated, event.receivedAt).received}</dd>
                   </div>
                 ))}
               </dl>
@@ -724,7 +761,7 @@ function RulesView() {
               </div>
               <p>{rule.reason}</p>
               <dl className="rule-facts">
-                <div><dt>{LABELS.nextStep}</dt><dd>{rule.nextStep ?? rule.action.replaceAll('_', ' ')}</dd></div>
+                <div><dt>{LABELS.nextStep}</dt><dd>{rule.nextStep ?? LABELS.reviewPaymentInStripe}</dd></div>
                 {rule.source && <div><dt>{LABELS.source}</dt><dd>{rule.source}</dd></div>}
                 {rule.sourceUrl && (
                   <div>
@@ -838,7 +875,6 @@ function App() {
   const [clockNow, setClockNow] = useState(0)
   const [followUps, setFollowUps] = useState({})
   const requestInFlight = useRef(false)
-  const playingPaymentIdRef = useRef('')
 
   const refresh = useCallback(async ({ silent = false } = {}) => {
     if (requestInFlight.current) return
@@ -848,11 +884,6 @@ function App() {
       const nextCases = await getJson('/api/cases')
       setCases(nextCases)
       setLastUpdated(Date.now())
-      if (playingPaymentIdRef.current
-        && nextCases.some((item) => item.paymentId === playingPaymentIdRef.current)) {
-        playingPaymentIdRef.current = ''
-        setPlayingPaymentId('')
-      }
       setError('')
     } catch {
       setError(LABELS.wakingUp)
@@ -946,12 +977,15 @@ function App() {
   }, [selectedPaymentId, view])
 
   const selectedCase = cases.find((item) => item.paymentId === selectedPaymentId) ?? null
+  const demoPlayStatus = getDemoPlayStatus(playingPaymentId, cases)
   const selectedEvents = eventsByCase[selectedPaymentId] ?? []
   const detailLoading = view === 'case' && detailState.paymentId !== selectedPaymentId
   const detailError = detailState.paymentId === selectedPaymentId ? detailState.error : ''
 
   async function playScenario(scenarioId) {
     setError('')
+    setPlayingPaymentId('')
+    setNewPaymentId('')
     try {
       const response = await fetch('/api/demo/play', {
         method: 'POST',
@@ -970,7 +1004,6 @@ function App() {
         setError(LABELS.wakingUp)
         return
       }
-      playingPaymentIdRef.current = result.paymentId
       setPlayingPaymentId(result.paymentId)
       setNewPaymentId(result.paymentId)
       setFastPollUntil(Date.now() + FAST_POLL_DURATION)
@@ -987,7 +1020,6 @@ function App() {
         setError(LABELS.wakingUp)
         return
       }
-      playingPaymentIdRef.current = ''
       setPlayingPaymentId('')
       setNewPaymentId('')
       await refresh()
@@ -1099,7 +1131,8 @@ function App() {
           demoScenarios={demoScenarios}
           onPlayScenario={playScenario}
           onResetDemo={resetDemo}
-          playing={Boolean(playingPaymentId)}
+          playStatus={demoPlayStatus}
+          readyPaymentId={demoPlayStatus === 'ready' ? playingPaymentId : ''}
           newPaymentId={newPaymentId}
         />
       )}

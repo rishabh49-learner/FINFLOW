@@ -426,9 +426,21 @@ button {
 }
 
 .case-id {
+  display: block;
+  margin-top: 3px;
   overflow: hidden;
+  color: #68738a;
   font-family: ui-monospace, Consolas, monospace;
+  font-size: 10px;
   text-overflow: ellipsis;
+}
+
+.case-first-failed,
+.table-first-failed {
+  display: block;
+  margin-top: 3px;
+  color: #68738a;
+  font-size: 10px;
 }
 
 .case-customer {
@@ -445,7 +457,13 @@ button {
   font-size: 17px;
 }
 
-.case-card-reason,
+.case-card-reason {
+  margin: 7px 0;
+  color: #25324b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
 .case-card-action {
   margin: 7px 0;
   color: #596780;
@@ -669,8 +687,9 @@ button {
 
 .table-amount {
   display: block;
-  margin-top: 5px;
-  color: #65728c;
+  color: #25324b;
+  font-size: 13px;
+  font-weight: 700;
   white-space: nowrap;
 }
 
@@ -685,6 +704,11 @@ button {
 .queue-table td:nth-child(5) {
   min-width: 160px;
   color: #596780;
+}
+
+.queue-table td:nth-child(4) {
+  color: #25324b;
+  font-weight: 600;
 }
 
 .queue-table td:nth-child(6) {
