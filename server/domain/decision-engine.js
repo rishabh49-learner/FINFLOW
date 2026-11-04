@@ -1,7 +1,6 @@
 import { mapFailureCode } from './failure-mapping.js'
 
 function reconciliationCase(existingCase, event, reason) {
-  
   const failureMapping = mapFailureCode(event.failureCode)
   return {
     ...(existingCase ?? {}),
@@ -41,7 +40,7 @@ export function projectPaymentEvent(existingCase, event) {
     return reconciliationCase(
       existingCase,
       event,
-      'Distinct PaymentIntent events have the same provider timestamp and cannot be ordered reliably.',
+      'Distinct PaymentIntent events have the same timestamp, so their order cannot be determined.',
     )
   }
 
@@ -71,7 +70,7 @@ export function projectPaymentEvent(existingCase, event) {
     return reconciliationCase(
       existingCase,
       event,
-      'A newer failure event followed a success event. Preserve both events and reconcile the PaymentIntent state.',
+      'A failure was recorded after a success for this payment. Check the payment in Stripe.',
     )
   }
 
@@ -85,8 +84,8 @@ export function projectPaymentEvent(existingCase, event) {
       failureCode: event.failureCode,
       failureCategory: null,
       recommendedAction: 'reconcile_failure_code',
-      recommendationReason: `Failure code "${event.failureCode ?? 'missing'}" is not in the existing FINFLOW mapping; do not infer a recovery action.`,
-      reconciliationReason: `Unmapped Stripe failure code: ${event.failureCode ?? 'missing'}.`,
+      recommendationReason: 'Stripe returned an unrecognized decline code. Check the payment in Stripe before taking action.',
+      reconciliationReason: 'Stripe returned an unrecognized decline code. Check the payment in Stripe before taking action.',
       updatedAt: event.receivedAt,
       lastEventCreated: event.providerCreated,
       lastEventType: event.eventType,
@@ -120,7 +119,7 @@ export function triagePriority(recoveryCase) {
     return {
       level: 'urgent',
       rank: 1,
-      reason: 'Reconcile the payment state or failure code before taking a recovery action.',
+      reason: 'Check the payment in Stripe before taking a recovery action.',
     }
   }
 
@@ -128,7 +127,7 @@ export function triagePriority(recoveryCase) {
     return {
       level: 'resolved',
       rank: 4,
-      reason: 'Stripe reported success; no recovery action is needed.',
+      reason: 'The payment succeeded. No action is needed.',
     }
   }
 
@@ -136,13 +135,13 @@ export function triagePriority(recoveryCase) {
     return {
       level: 'high',
       rank: 2,
-      reason: 'A hard decline should not be retried automatically; follow its mapped action.',
+      reason: 'This decline should not be retried automatically. Follow the recommended next step.',
     }
   }
 
   return {
     level: 'standard',
     rank: 3,
-    reason: 'The mapped soft decline has an explicit recommended next step.',
+    reason: 'This decline has an explicit recommended next step.',
   }
 }

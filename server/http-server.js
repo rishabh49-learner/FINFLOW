@@ -7,6 +7,7 @@ import { normalizeStripeEvent } from './providers/stripe-adapter.js'
 import { createRecoveryService } from './domain/recovery-service.js'
 import { triagePriority } from './domain/decision-engine.js'
 import {
+  DEMO_SCENARIOS,
   getDemoScenario,
   startScenarioDelivery,
 } from './demo-simulator.js'
@@ -203,6 +204,19 @@ export function createHttpServer({
         return
       }
 
+      if (request.method === 'GET' && url.pathname === '/api/demo/scenarios') {
+        if (!demoMode) {
+          sendJson(response, 404, { error: 'Not found.' })
+          return
+        }
+        sendJson(response, 200, DEMO_SCENARIOS.map(({ id, name, description }) => ({
+          id,
+          title: name,
+          description,
+        })))
+        return
+      }
+
       if (request.method === 'POST'
         && (url.pathname === '/api/demo/play' || url.pathname === '/api/demo/reset')) {
         if (!demoMode) {
@@ -252,7 +266,7 @@ export function createHttpServer({
 
         const play = startScenarioDelivery({
           scenario,
-          outOfOrder: body.outOfOrder ?? false,
+          outOfOrder: body.outOfOrder ?? scenario.outOfOrder,
           delayScale: demoDelayScale,
           ingest: (stripeEvent) => {
             const result = normalizeAndIngest(stripeEvent)

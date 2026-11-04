@@ -44,6 +44,12 @@ button {
   border-bottom: 1px solid #e1e6f0;
 }
 
+.last-updated {
+  color: #758098;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
 .brand,
 .nav-link,
 .text-link,
@@ -247,8 +253,7 @@ button {
 }
 
 .primary-button,
-.secondary-button,
-.refresh-button {
+.secondary-button {
   padding: 10px 15px;
   border: 1px solid #d5dbea;
   border-radius: 9px;
@@ -269,7 +274,7 @@ button {
 }
 
 .secondary-button:hover,
-.refresh-button:hover {
+.secondary-button:focus-visible {
   border-color: #aab6d1;
   background: #f9faff;
 }
@@ -488,6 +493,66 @@ button {
   padding: 19px;
 }
 
+.demo-scenarios-panel {
+  margin-top: 22px;
+  padding: 19px;
+}
+
+.demo-instructions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px 22px;
+  margin: 0 0 16px;
+  padding-left: 22px;
+  color: #596780;
+  font-size: 12px;
+}
+
+.demo-scenario-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.demo-scenario {
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #edf0f6;
+  border-radius: 9px;
+}
+
+.demo-scenario .secondary-button {
+  max-width: 100%;
+  padding: 7px 10px;
+  color: #354b9b;
+  font-size: 12px;
+  font-weight: 650;
+  text-align: left;
+}
+
+.demo-scenario p {
+  margin: 7px 0 0;
+  color: #68738a;
+  font-size: 11px;
+}
+
+.playing-status {
+  margin: 0 0 13px;
+  color: #354b9b;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.new-case-badge {
+  flex: 0 0 auto;
+  padding: 3px 7px;
+  border-radius: 99px;
+  background: #e1f5eb;
+  color: #20724b;
+  font-size: 10px;
+  font-weight: 750;
+}
+
 .activity-list {
   display: grid;
   gap: 0;
@@ -523,8 +588,7 @@ button {
   border-bottom: 1px solid #edf0f6;
 }
 
-.filter-list,
-.queue-options {
+.filter-list {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -561,29 +625,6 @@ button {
   font-size: 10px;
 }
 
-.sort-control,
-.toggle-control {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  color: #596780;
-  font-size: 12px;
-}
-
-.sort-control select {
-  max-width: 160px;
-  padding: 6px 8px;
-  border: 1px solid #dfe4ef;
-  border-radius: 7px;
-  background: white;
-  color: #25324b;
-  font-size: 12px;
-}
-
-.toggle-control input {
-  accent-color: #536cdb;
-}
-
 .table-scroll {
   overflow-x: auto;
 }
@@ -610,7 +651,7 @@ button {
   text-transform: uppercase;
 }
 
-.queue-table tbody tr:not(.customer-group-row):hover {
+.queue-table tbody tr:hover {
   background: #f8f9fd;
 }
 
@@ -648,19 +689,6 @@ button {
 
 .queue-table td:nth-child(6) {
   min-width: 100px;
-}
-
-.customer-group-row th {
-  background: #f6f8fc;
-  color: #35415a;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.customer-group-row span {
-  margin-left: 9px;
-  color: #758098;
-  font-weight: 500;
 }
 
 .queue-note {
@@ -943,14 +971,44 @@ button {
 }
 
 .details-toggle {
+  display: flex;
   width: 100%;
-  padding: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
   border: 0;
+  border-bottom: 1px solid #edf0f6;
   background: transparent;
-  color: #435bc5;
-  font-weight: 650;
+  color: #35415a;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
   text-align: left;
   cursor: pointer;
+}
+
+.details-toggle::after {
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  content: "";
+  transform: rotate(45deg);
+  transition: transform 120ms ease;
+}
+
+.details-toggle[aria-expanded="true"]::after {
+  transform: rotate(225deg);
+}
+
+.details-toggle:focus-visible {
+  outline: 2px solid #536cdb;
+  outline-offset: 3px;
+}
+
+.details-panel .technical-details {
+  margin-top: 0;
+  padding-top: 14px;
 }
 
 .technical-details {
@@ -1089,20 +1147,6 @@ button {
   font-size: 11px;
 }
 
-.refresh-button {
-  position: fixed;
-  right: 18px;
-  bottom: 16px;
-  padding: 7px 11px;
-  box-shadow: 0 3px 12px rgb(31 47 80 / 12%);
-  font-size: 11px;
-}
-
-.refresh-button:disabled {
-  cursor: wait;
-  opacity: 0.7;
-}
-
 @media (max-width: 820px) {
   .workbench {
     width: min(100% - 32px, 720px);
@@ -1142,6 +1186,9 @@ button {
 
   .site-header {
     min-height: 62px;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 0;
   }
 
   .page {
@@ -1160,9 +1207,9 @@ button {
     flex-direction: column;
   }
 
-  .queue-options {
-    width: 100%;
-    justify-content: space-between;
+  .demo-instructions,
+  .demo-scenario-list {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .activity-list li {
@@ -1186,8 +1233,7 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .refresh-button {
-    right: 12px;
-    bottom: 12px;
+  .last-updated {
+    margin-left: auto;
   }
 }

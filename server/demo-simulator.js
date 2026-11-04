@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto'
+import { randomBytes } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 
 export const DEMO_SCENARIOS = JSON.parse(readFileSync(
@@ -11,11 +11,20 @@ export function getDemoScenario(scenarioId) {
 }
 
 export function buildScenarioEvents(scenario, { now = Date.now() } = {}) {
-  const paymentId = `pi_sim_${randomUUID()}`
-  const customerId = `cus_sim_${randomUUID()}`
+  const generatedIds = new Set()
+  const createId = (prefix) => {
+    let id
+    do {
+      id = `${prefix}_${randomBytes(4).toString('hex')}`
+    } while (generatedIds.has(id))
+    generatedIds.add(id)
+    return id
+  }
+  const paymentId = createId('pi_sim')
+  const customerId = createId('cus_sim')
   const firstCreated = Math.floor(now / 1000) - scenario.steps.length
   const events = scenario.steps.map((step, index) => {
-    const chargeId = `ch_sim_${randomUUID()}`
+    const chargeId = createId('ch_sim')
     const paymentIntent = {
       id: paymentId,
       object: 'payment_intent',
@@ -39,7 +48,7 @@ export function buildScenarioEvents(scenario, { now = Date.now() } = {}) {
     }
 
     return {
-      id: `evt_sim_${randomUUID()}`,
+      id: createId('evt_sim'),
       type: step.type,
       created: firstCreated + index,
       livemode: false,
@@ -65,7 +74,7 @@ function waitForStep(delayMs, delayScale, playState, scheduleTimer) {
 
 export function startScenarioDelivery({
   scenario,
-  outOfOrder = false,
+  outOfOrder = scenario.outOfOrder ?? false,
   delayScale = 1,
   ingest,
   onComplete,

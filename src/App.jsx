@@ -1,10 +1,13 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { CONFIG } from '../data/config.js'
 import { customerMessage } from './customer-message.js'
+import { formatProviderTime } from './format-time.js'
 import { LABELS, PRIORITY_RULES } from './labels.js'
 import './App.css'
 
-const POLL_INTERVAL = 15_000
+const POLL_INTERVAL = 5_000
+const FAST_POLL_INTERVAL = 2_000
+const FAST_POLL_DURATION = 15_000
 const QUEUE_FILTERS = [
   ['all', LABELS.allCases],
   ['needs-review', LABELS.needsReview],
@@ -42,10 +45,6 @@ function formatTime(timestamp) {
   return Number.isNaN(date.getTime()) ? LABELS.unknownTime : date.toLocaleString()
 }
 
-function formatProviderTime(timestamp) {
-  return formatTime(timestamp * 1000)
-}
-
 function priorityName(priority) {
   return LABELS.priorityNames[priority] ?? LABELS.standard
 }
@@ -67,16 +66,8 @@ function needsReview(recoveryCase) {
   return recoveryCase.status === 'reconciliation_required'
 }
 
-function sortCases(cases, sortBy) {
+function sortCases(cases) {
   return [...cases].sort((a, b) => {
-    if (sortBy === 'amount') {
-      const currencyOrder = (a.currency ?? '').localeCompare(b.currency ?? '')
-      if (currencyOrder !== 0) return currencyOrder
-      return (b.amount ?? -1) - (a.amount ?? -1)
-    }
-    if (sortBy === 'updated') {
-      return new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
-    }
     return (a.priority?.rank ?? 3) - (b.priority?.rank ?? 3)
       || new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
   })
@@ -133,14 +124,18 @@ function SummaryStrip({ cases }) {
   )
 }
 
-function CaseLink({ recoveryCase, onOpen, showCustomer = false }) {
+function CaseLink({ recoveryCase, onOpen, showCustomer = false, isNew = false }) {
   const rule = failureRule(recoveryCase.failureCode)
+  const reason = recoveryCase.status === 'reconciliation_required'
+    ? recoveryCase.recommendationReason
+    : rule?.reason ?? recoveryCase.recommendationReason
   return (
     <article className="case-card">
       <div className="case-card-top">
         <button className="text-link case-id" type="button" onClick={onOpen}>
           {recoveryCase.paymentId}
         </button>
+        {isNew && <span className="new-case-badge">{LABELS.newCase}</span>}
         <StatusBadge recoveryCase={recoveryCase} />
       </div>
       {showCustomer && <p className="case-customer">{customerId(recoveryCase)}</p>}
@@ -148,10 +143,14 @@ function CaseLink({ recoveryCase, onOpen, showCustomer = false }) {
         {formatAmount(recoveryCase.amount, recoveryCase.currency)}
       </strong>
       <p className="case-card-reason">
-        {rule?.reason ?? recoveryCase.reconciliationReason ?? recoveryCase.recommendationReason}
+        {reason}
       </p>
       <p className="case-card-action">
-        {rule?.nextStep ?? recoveryCase.recommendedAction?.replaceAll('_', ' ')}
+        {recoveryCase.status === 'resolved'
+          ? LABELS.noActionNeeded
+          : recoveryCase.status === 'reconciliation_required'
+            ? LABELS.checkPaymentInStripe
+            : rule?.nextStep ?? recoveryCase.recommendedAction?.replaceAll('_', ' ')}
       </p>
       <button className="subtle-link" type="button" onClick={onOpen}>
         {LABELS.viewCase}
@@ -161,7 +160,7 @@ function CaseLink({ recoveryCase, onOpen, showCustomer = false }) {
 }
 
 function HomeView({ cases, onNavigate }) {
-  const example = sortCases(cases, 'priority')[0]
+  const example = sortCases(cases)[0]
   return (
     <div className="page home-page">
       <section className="home-hero">
@@ -188,7 +187,9 @@ function HomeView({ cases, onNavigate }) {
             <StatusBadge recoveryCase={example} />
           </div>
           <p className="example-amount">{formatAmount(example.amount, example.currency)}</p>
-          <p>{failureRule(example.failureCode)?.reason ?? example.recommendationReason}</p>
+          <p>{example.status === 'reconciliation_required'
+            ? example.recommendationReason
+            : failureRule(example.failureCode)?.reason ?? example.recommendationReason}</p>
           <button
             className="subtle-link"
             type="button"
@@ -203,9 +204,55 @@ function HomeView({ cases, onNavigate }) {
   )
 }
 
-function OverviewView({ cases, eventsByCase, onOpen, onNavigate }) {
-  const ordered = sortCases(cases, 'priority')
-  const prioritiesFirst = ordered.filter((item) => item.status !== 'resolved')
+function DemoScenarioPanel({ scenarios, onPlay, onReset, playing }) {
+  return (
+    <section className="panel demo-scenarios-panel">
+      <div className="section-heading">
+        <h2>{LABELS.howToTryIt}</h2>
+        <button className="subtle-link" type="button" onClick={onReset}>
+          {LABELS.resetDemo}
+        </button>
+      </div>
+      <ol className="demo-instructions">
+        {LABELS.demoInstructions.map((instruction) => <li key={instruction}>{instruction}</li>)}
+      </ol>
+      {playing && <p className="playing-status" role="status">{LABELS.playingScenario}</p>}
+      <div className="demo-scenario-list">
+        {scenarios.map((scenario) => (
+          <article className="demo-scenario" key={scenario.id}>
+            <button
+              className="secondary-button"
+              type="button"
+              onClick={() => onPlay(scenario.id)}
+            >
+              {scenario.title}
+            </button>
+            <p>{scenario.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function OverviewView({
+  cases,
+  eventsByCase,
+  onOpen,
+  onNavigate,
+  demoScenarios,
+  onPlayScenario,
+  onResetDemo,
+  playing,
+  newPaymentId,
+}) {
+  const ordered = sortCases(cases)
+  const priorityCases = ordered.filter((item) =>
+    (item.status === 'open' || needsReview(item))
+    && ['urgent', 'high'].includes(item.priority?.level))
+  const waitingCases = ordered.filter((item) =>
+    item.status === 'open'
+    && !['urgent', 'high'].includes(item.priority?.level))
   const recentEvents = Object.entries(eventsByCase)
     .flatMap(([paymentId, events]) => events.map((event) => ({ ...event, paymentId })))
     .sort((a, b) => b.providerCreated - a.providerCreated)
@@ -219,6 +266,14 @@ function OverviewView({ cases, eventsByCase, onOpen, onNavigate }) {
         description={LABELS.overviewDescription}
       />
       <SummaryStrip cases={cases} />
+      {demoScenarios !== null && (
+        <DemoScenarioPanel
+          scenarios={demoScenarios}
+          onPlay={onPlayScenario}
+          onReset={onResetDemo}
+          playing={playing}
+        />
+      )}
       <section className="section-block">
         <div className="section-heading">
           <div>
@@ -229,14 +284,31 @@ function OverviewView({ cases, eventsByCase, onOpen, onNavigate }) {
             {LABELS.openFullQueue}
           </button>
         </div>
-        {prioritiesFirst.length === 0
-          ? <p className="empty-state">{LABELS.noCases}</p>
+        {priorityCases.length === 0
+          ? <p className="empty-state">{LABELS.noHighPriorityCases}</p>
           : <div className="case-card-grid">
-            {prioritiesFirst.slice(0, 4).map((item) => (
+            {priorityCases.map((item) => (
               <CaseLink
                 key={item.paymentId}
                 recoveryCase={item}
                 showCustomer
+                isNew={item.paymentId === newPaymentId}
+                onOpen={() => onOpen(item.paymentId)}
+              />
+            ))}
+          </div>}
+      </section>
+      <section className="section-block">
+        <h2>{LABELS.waitingOnRetry}</h2>
+        {waitingCases.length === 0
+          ? <p className="empty-state">{LABELS.noWaitingCases}</p>
+          : <div className="case-card-grid">
+            {waitingCases.map((item) => (
+              <CaseLink
+                key={item.paymentId}
+                recoveryCase={item}
+                showCustomer
+                isNew={item.paymentId === newPaymentId}
                 onOpen={() => onOpen(item.paymentId)}
               />
             ))}
@@ -271,21 +343,7 @@ function OverviewView({ cases, eventsByCase, onOpen, onNavigate }) {
 
 function QueueView({ cases, eventsByCase, onOpen }) {
   const [filter, setFilter] = useState('all')
-  const [sortBy, setSortBy] = useState('priority')
-  const [groupByCustomer, setGroupByCustomer] = useState(false)
-  const visible = useMemo(
-    () => sortCases(caseFilter(cases, filter), sortBy),
-    [cases, filter, sortBy],
-  )
-  const groups = useMemo(() => {
-    if (!groupByCustomer) return [[null, visible]]
-    const grouped = new Map()
-    visible.forEach((item) => {
-      const id = customerId(item)
-      grouped.set(id, [...(grouped.get(id) ?? []), item])
-    })
-    return [...grouped.entries()]
-  }, [groupByCustomer, visible])
+  const visible = sortCases(caseFilter(cases, filter))
 
   return (
     <div className="page">
@@ -313,24 +371,6 @@ function QueueView({ cases, eventsByCase, onOpen }) {
               </button>
             ))}
           </div>
-          <div className="queue-options">
-            <label className="sort-control">
-              {LABELS.sortBy}
-              <select value={sortBy} onChange={(event) => setSortBy(event.target.value)}>
-                <option value="priority">{LABELS.sortPriority}</option>
-                <option value="updated">{LABELS.sortUpdated}</option>
-                <option value="amount">{LABELS.sortAmount}</option>
-              </select>
-            </label>
-            <label className="toggle-control">
-              <input
-                type="checkbox"
-                checked={groupByCustomer}
-                onChange={(event) => setGroupByCustomer(event.target.checked)}
-              />
-              {LABELS.groupByCustomer}
-            </label>
-          </div>
         </div>
         {visible.length === 0
           ? <p className="empty-state">{cases.length ? LABELS.noMatchingCases : LABELS.noCases}</p>
@@ -346,40 +386,36 @@ function QueueView({ cases, eventsByCase, onOpen }) {
                   <th scope="col">{LABELS.priority}</th>
                 </tr>
               </thead>
-              {groups.map(([groupId, items]) => (
-                <tbody key={groupId ?? 'all-cases'}>
-                  {groupId !== null && (
-                    <tr className="customer-group-row">
-                      <th colSpan="6" scope="rowgroup">
-                        {LABELS.customer}: {groupId}
-                        <span>{items.length} {items.length === 1 ? LABELS.case : LABELS.cases}</span>
-                      </th>
+              <tbody>
+                {visible.map((item) => {
+                  const rule = failureRule(item.failureCode)
+                  const events = eventsByCase[item.paymentId]
+                  const failures = events
+                    ? events.filter((event) => event.eventType.endsWith('payment_failed')).length
+                    : LABELS.attemptCountUnavailable
+                  return (
+                    <tr key={item.paymentId}>
+                      <td>
+                        <button className="text-link payment-link" type="button" onClick={() => onOpen(item.paymentId)}>
+                          {item.paymentId}
+                        </button>
+                        <span className="table-amount">{formatAmount(item.amount, item.currency)}</span>
+                      </td>
+                      <td className="customer-cell">{customerId(item)}</td>
+                      <td>{failures}</td>
+                      <td>{item.status === 'reconciliation_required'
+                        ? item.recommendationReason
+                        : rule?.reason ?? item.recommendationReason}</td>
+                      <td>{item.status === 'resolved'
+                        ? LABELS.noActionNeeded
+                        : item.status === 'reconciliation_required'
+                          ? LABELS.checkPaymentInStripe
+                          : rule?.nextStep ?? item.recommendedAction?.replaceAll('_', ' ') ?? LABELS.none}</td>
+                      <td><StatusBadge recoveryCase={item} /></td>
                     </tr>
-                  )}
-                  {items.map((item) => {
-                    const rule = failureRule(item.failureCode)
-                    const events = eventsByCase[item.paymentId]
-                    const failures = events
-                      ? events.filter((event) => event.eventType.endsWith('payment_failed')).length
-                      : LABELS.attemptCountUnavailable
-                    return (
-                      <tr key={item.paymentId}>
-                        <td>
-                          <button className="text-link payment-link" type="button" onClick={() => onOpen(item.paymentId)}>
-                            {item.paymentId}
-                          </button>
-                          <span className="table-amount">{formatAmount(item.amount, item.currency)}</span>
-                        </td>
-                        <td className="customer-cell">{customerId(item)}</td>
-                        <td>{failures}</td>
-                        <td>{rule?.reason ?? item.reconciliationReason ?? item.recommendationReason}</td>
-                        <td>{rule?.nextStep ?? item.recommendedAction?.replaceAll('_', ' ') ?? LABELS.none}</td>
-                        <td><StatusBadge recoveryCase={item} /></td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              ))}
+                  )
+                })}
+              </tbody>
             </table>
           </div>}
       </section>
@@ -390,6 +426,24 @@ function QueueView({ cases, eventsByCase, onOpen }) {
 
 function RuleApplied({ recoveryCase }) {
   const rule = failureRule(recoveryCase.failureCode)
+  if (recoveryCase.status === 'resolved') {
+    return (
+      <section className="panel rule-applied">
+        <p className="eyebrow">{LABELS.ruleApplied}</p>
+        <h2>{LABELS.noRuleNeeded}</h2>
+        <p>{recoveryCase.recommendationReason}</p>
+      </section>
+    )
+  }
+  if (recoveryCase.status === 'reconciliation_required') {
+    return (
+      <section className="panel rule-applied">
+        <p className="eyebrow">{LABELS.ruleApplied}</p>
+        <h2>{LABELS.noRuleApplied}</h2>
+        <p>{recoveryCase.recommendationReason}</p>
+      </section>
+    )
+  }
   return (
     <section className="panel rule-applied">
       <p className="eyebrow">{LABELS.ruleApplied}</p>
@@ -400,6 +454,20 @@ function RuleApplied({ recoveryCase }) {
           <dl className="rule-facts">
             <div><dt>{LABELS.nextStep}</dt><dd>{rule.nextStep ?? rule.action.replaceAll('_', ' ')}</dd></div>
             {rule.source && <div><dt>{LABELS.source}</dt><dd>{rule.source}</dd></div>}
+            {rule.sourceUrl && (
+              <div>
+                <dt>{LABELS.source}</dt>
+                <dd><a href={rule.sourceUrl} target="_blank" rel="noopener noreferrer">{rule.sourceUrl}</a></dd>
+              </div>
+            )}
+            {rule.adviceCodeSourceUrl && (
+              <div>
+                <dt>{LABELS.adviceCodeSource}</dt>
+                <dd><a href={rule.adviceCodeSourceUrl} target="_blank" rel="noopener noreferrer">
+                  {rule.adviceCodeSourceUrl}
+                </a></dd>
+              </div>
+            )}
           </dl>
         </>
         : <>
@@ -453,7 +521,6 @@ function AttemptsTimeline({ events }) {
                     ? ` · ${formatAmount(event.details.amount, event.details.currency)}`
                     : ''}
                   </p>
-                  <small>{LABELS.received}: {formatTime(event.receivedAt)}</small>
                 </div>
               </li>
             )
@@ -529,13 +596,16 @@ function CaseView({
           </section>
           <section className="panel next-step-panel">
             <p className="eyebrow">{LABELS.nextStep}</p>
-            <h2>{failureRule(recoveryCase.failureCode)?.nextStep
-              ?? recoveryCase.recommendedAction?.replaceAll('_', ' ')
-              ?? LABELS.none}</h2>
-            <p>{recoveryCase.recommendationReason}</p>
-            {recoveryCase.reconciliationReason && (
-              <p className="reconciliation-note">{recoveryCase.reconciliationReason}</p>
-            )}
+            <h2>{recoveryCase.status === 'resolved'
+              ? LABELS.noActionNeeded
+              : recoveryCase.status === 'reconciliation_required'
+                ? LABELS.checkPaymentInStripe
+                : failureRule(recoveryCase.failureCode)?.nextStep
+                  ?? recoveryCase.recommendedAction?.replaceAll('_', ' ')
+                  ?? LABELS.none}</h2>
+            <p>{recoveryCase.status === 'reconciliation_required'
+              ? recoveryCase.recommendationReason
+              : failureRule(recoveryCase.failureCode)?.reason ?? recoveryCase.recommendationReason}</p>
           </section>
           <AttemptsTimeline events={events} />
           <section className="panel message-panel">
@@ -602,6 +672,12 @@ function CaseView({
                     <dd>{event.eventId}</dd>
                   </div>
                 ))}
+                {events.map((event) => (
+                  <div key={`${event.eventId}-received`}>
+                    <dt>{LABELS.received} · {event.eventType}</dt>
+                    <dd>{formatTime(event.receivedAt)}</dd>
+                  </div>
+                ))}
               </dl>
             )}
           </section>
@@ -650,6 +726,20 @@ function RulesView() {
               <dl className="rule-facts">
                 <div><dt>{LABELS.nextStep}</dt><dd>{rule.nextStep ?? rule.action.replaceAll('_', ' ')}</dd></div>
                 {rule.source && <div><dt>{LABELS.source}</dt><dd>{rule.source}</dd></div>}
+                {rule.sourceUrl && (
+                  <div>
+                    <dt>{LABELS.source}</dt>
+                    <dd><a href={rule.sourceUrl} target="_blank" rel="noopener noreferrer">{rule.sourceUrl}</a></dd>
+                  </div>
+                )}
+                {rule.adviceCodeSourceUrl && (
+                  <div>
+                    <dt>{LABELS.adviceCodeSource}</dt>
+                    <dd><a href={rule.adviceCodeSourceUrl} target="_blank" rel="noopener noreferrer">
+                      {rule.adviceCodeSourceUrl}
+                    </a></dd>
+                  </div>
+                )}
               </dl>
             </article>
           ))}
@@ -740,23 +830,32 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [demoMode, setDemoMode] = useState(false)
+  const [demoScenarios, setDemoScenarios] = useState(null)
+  const [playingPaymentId, setPlayingPaymentId] = useState('')
+  const [newPaymentId, setNewPaymentId] = useState('')
+  const [fastPollUntil, setFastPollUntil] = useState(0)
+  const [lastUpdated, setLastUpdated] = useState(null)
+  const [clockNow, setClockNow] = useState(0)
   const [followUps, setFollowUps] = useState({})
   const requestInFlight = useRef(false)
+  const playingPaymentIdRef = useRef('')
 
   const refresh = useCallback(async ({ silent = false } = {}) => {
     if (requestInFlight.current) return
     requestInFlight.current = true
     if (!silent) setLoading(true)
     try {
-      const [nextCases, health] = await Promise.all([
-        getJson('/api/cases'),
-        getJson('/api/health'),
-      ])
+      const nextCases = await getJson('/api/cases')
       setCases(nextCases)
-      setDemoMode(Boolean(health.demoMode))
+      setLastUpdated(Date.now())
+      if (playingPaymentIdRef.current
+        && nextCases.some((item) => item.paymentId === playingPaymentIdRef.current)) {
+        playingPaymentIdRef.current = ''
+        setPlayingPaymentId('')
+      }
       setError('')
-    } catch (requestError) {
-      setError(requestError instanceof Error ? requestError.message : LABELS.requestFailed)
+    } catch {
+      setError(LABELS.wakingUp)
     } finally {
       requestInFlight.current = false
       setLoading(false)
@@ -770,13 +869,12 @@ function App() {
       .then(([nextCases, health]) => {
         if (!active) return
         setCases(nextCases)
+        setLastUpdated(Date.now())
         setDemoMode(Boolean(health.demoMode))
         setError('')
       })
-      .catch((requestError) => {
-        if (active) {
-          setError(requestError instanceof Error ? requestError.message : LABELS.requestFailed)
-        }
+      .catch(() => {
+        if (active) setError(LABELS.wakingUp)
       })
       .finally(() => {
         if (active) {
@@ -784,12 +882,44 @@ function App() {
           setLoading(false)
         }
       })
-    const intervalId = setInterval(() => refresh({ silent: true }), POLL_INTERVAL)
     return () => {
       active = false
-      clearInterval(intervalId)
     }
   }, [refresh])
+
+  useEffect(() => {
+    let active = true
+    getJson('/api/demo/scenarios')
+      .then((scenarios) => {
+        if (active && Array.isArray(scenarios)) setDemoScenarios(scenarios)
+      })
+      .catch(() => {
+        if (active) setDemoScenarios(null)
+      })
+    return () => {
+      active = false
+    }
+  }, [])
+
+  useEffect(() => {
+    const fastPolling = fastPollUntil > Date.now()
+    const intervalId = setInterval(
+      () => refresh({ silent: true }),
+      fastPolling ? FAST_POLL_INTERVAL : POLL_INTERVAL,
+    )
+    const fastPollTimeout = fastPolling
+      ? setTimeout(() => setFastPollUntil(0), fastPollUntil - Date.now())
+      : null
+    return () => {
+      clearInterval(intervalId)
+      if (fastPollTimeout !== null) clearTimeout(fastPollTimeout)
+    }
+  }, [fastPollUntil, refresh])
+
+  useEffect(() => {
+    const intervalId = setInterval(() => setClockNow(Date.now()), 1000)
+    return () => clearInterval(intervalId)
+  }, [])
 
   useEffect(() => {
     if (view !== 'case' || !selectedPaymentId) return undefined
@@ -801,11 +931,11 @@ function App() {
         setEventsByCase((current) => ({ ...current, [selectedPaymentId]: details.events }))
         setDetailState({ paymentId: selectedPaymentId, error: '' })
       })
-      .catch((requestError) => {
+      .catch(() => {
         if (active) {
           setDetailState({
             paymentId: selectedPaymentId,
-            error: requestError instanceof Error ? requestError.message : LABELS.requestFailed,
+            error: LABELS.wakingUp,
           })
         }
       })
@@ -819,6 +949,52 @@ function App() {
   const selectedEvents = eventsByCase[selectedPaymentId] ?? []
   const detailLoading = view === 'case' && detailState.paymentId !== selectedPaymentId
   const detailError = detailState.paymentId === selectedPaymentId ? detailState.error : ''
+
+  async function playScenario(scenarioId) {
+    setError('')
+    try {
+      const response = await fetch('/api/demo/play', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ scenario: scenarioId }),
+      })
+      const result = await response.json()
+      if (response.status === 429) {
+        const seconds = result?.retryAfterSeconds
+        setError(Number.isSafeInteger(seconds) && seconds > 0
+          ? LABELS.waitBeforeRetry.replace('{seconds}', String(seconds))
+          : LABELS.wakingUp)
+        return
+      }
+      if (!response.ok || typeof result.paymentId !== 'string') {
+        setError(LABELS.wakingUp)
+        return
+      }
+      playingPaymentIdRef.current = result.paymentId
+      setPlayingPaymentId(result.paymentId)
+      setNewPaymentId(result.paymentId)
+      setFastPollUntil(Date.now() + FAST_POLL_DURATION)
+    } catch {
+      setError(LABELS.wakingUp)
+    }
+  }
+
+  async function resetDemo() {
+    setError('')
+    try {
+      const response = await fetch('/api/demo/reset', { method: 'POST' })
+      if (!response.ok) {
+        setError(LABELS.wakingUp)
+        return
+      }
+      playingPaymentIdRef.current = ''
+      setPlayingPaymentId('')
+      setNewPaymentId('')
+      await refresh()
+    } catch {
+      setError(LABELS.wakingUp)
+    }
+  }
 
   function navigate(nextView, paymentId = '') {
     if (paymentId) setSelectedPaymentId(paymentId)
@@ -841,9 +1017,7 @@ function App() {
         if (Object.keys(loadedEvents).length > 0) {
           setEventsByCase((current) => ({ ...current, ...loadedEvents }))
         }
-        if (failedRequest) {
-          setError(failedRequest instanceof Error ? failedRequest.message : LABELS.requestFailed)
-        }
+        if (failedRequest) setError(LABELS.wakingUp)
       })
     }
     window.scrollTo({ top: 0, behavior: 'auto' })
@@ -895,9 +1069,21 @@ function App() {
             ))}
           </nav>
         </details>
+        {lastUpdated !== null && (
+          <span className="last-updated">
+            {LABELS.updatedAgo.replace(
+              '{seconds}',
+              String(Math.max(0, Math.floor((clockNow - lastUpdated) / 1000))),
+            )}
+          </span>
+        )}
       </header>
 
-      {demoMode && <aside className="demo-banner">{LABELS.demoBanner}</aside>}
+      {demoMode && (
+        <aside className="demo-banner">
+          {demoScenarios !== null ? LABELS.demoBanner : LABELS.legacyDemoBanner}
+        </aside>
+      )}
       {error && <p className="error-banner" role="alert">{error}</p>}
       {loading && cases.length === 0 && <p className="loading-banner">{LABELS.loadingCases}</p>}
       {!loading && cases.length === 0 && !error && (
@@ -910,6 +1096,11 @@ function App() {
           eventsByCase={eventsByCase}
           onOpen={(id) => navigate('case', id)}
           onNavigate={navigate}
+          demoScenarios={demoScenarios}
+          onPlayScenario={playScenario}
+          onResetDemo={resetDemo}
+          playing={Boolean(playingPaymentId)}
+          newPaymentId={newPaymentId}
         />
       )}
       {view === 'queue' && (
@@ -935,9 +1126,6 @@ function App() {
       {view === 'rules' && <RulesView />}
       {view === 'how-it-works' && <HowItWorksView />}
       <footer className="site-footer">{LABELS.footer}</footer>
-      <button className="refresh-button" type="button" onClick={() => refresh()} disabled={loading}>
-        {loading ? LABELS.refreshing : LABELS.refreshCases}
-      </button>
     </div>
   )
 }

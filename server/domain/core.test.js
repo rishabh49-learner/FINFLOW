@@ -42,9 +42,19 @@ test('maps existing weighted codes and preserves the original weights', () => {
   assert.equal(mapping.category, 'soft_decline')
   assert.equal(mapping.weight, 0.4)
   assert.equal(mapFailureCode('authentication_failed').weight, 0.1)
+  assert.equal(CONFIG.failureReasonMapping.authentication_failed.legacy, true)
   assert.equal(mapFailureCode('transaction_daily_limit_exceeded').weight, 0.2)
+  assert.equal(CONFIG.failureReasonMapping.transaction_daily_limit_exceeded.legacy, true)
   assert.equal(mapFailureCode('payment_cancelled').weight, 0.25)
+  assert.equal(CONFIG.failureReasonMapping.payment_cancelled.legacy, true)
   assert.equal(CONFIG.failureReasonWeights.insufficient_funds, 0.4)
+  assert.equal(CONFIG.failureReasonMapping.insufficient_funds.nextStep,
+    'Stripe will retry. If retries run out, the customer needs another payment method.')
+  assert.equal(CONFIG.failureReasonMapping.insufficient_funds.retryBehavior, 'stripe_retries')
+  for (const rule of Object.values(CONFIG.failureReasonMapping)) {
+    assert.match(rule.sourceUrl, /^https:\/\/docs\.stripe\.com\/declines\/codes$/)
+    assert.ok(['stripe_retries', 'stripe_will_not_retry'].includes(rule.retryBehavior))
+  }
   assert.equal(mapFailureCode('not_a_known_code'), null)
 })
 
@@ -96,8 +106,29 @@ test('maps generic_decline as a soft decline without failure-code reconciliation
 
   assert.equal(recoveryCase.failureCategory, 'soft_decline')
   assert.notEqual(recoveryCase.recommendedAction, 'reconcile_failure_code')
-  assert.equal(mapping.nextStep, 'Wait for the scheduled retry, then ask the customer to contact their card issuer or use another payment method')
-  assert.equal(mapping.source, 'Stripe dashboard decline explanation plus advice_code try_again_later')
+  assert.equal(mapping.nextStep,
+    'Wait for the scheduled retry. If it does not succeed, ask the customer to contact their card issuer.')
+  assert.equal(mapping.sourceUrl, 'https://docs.stripe.com/declines/codes')
+  assert.equal(mapping.adviceCodeSourceUrl, 'https://docs.stripe.com/declines/card')
+  assert.equal(mapping.retryBehavior, 'stripe_retries')
+})
+
+test('keeps decline reasons and next steps as complete Stripe-aligned sentences', () => {
+  for (const rule of Object.values(CONFIG.failureReasonMapping)) {
+    assert.match(rule.reason, /^[A-Z].*\.$/)
+    assert.match(rule.nextStep, /^[A-Z].*\.$/)
+    assert.doesNotMatch(rule.reason, /FINFLOW|existing rules classify/i)
+    assert.doesNotMatch(rule.nextStep, /FINFLOW|existing rules classify/i)
+  }
+
+  assert.equal(CONFIG.failureReasonMapping.generic_decline.reason,
+    'The card was declined for an unknown reason, or Stripe Radar or Adaptive Acceptance blocked the payment.')
+  assert.equal(CONFIG.failureReasonMapping.insufficient_funds.reason,
+    'The card has insufficient funds to complete the purchase.')
+  assert.equal(CONFIG.failureReasonMapping.authentication_required.reason,
+    'The card was declined because the transaction requires authentication, such as 3D Secure.')
+  assert.equal(CONFIG.failureReasonMapping.card_not_supported.reason,
+    'The card does not support this type of purchase.')
 })
 
 test('rejects malformed supported events and safely ignores unsupported types', () => {
@@ -130,8 +161,9 @@ test('projects a failure then a distinct failure on the same payment as one evol
   assert.equal(secondCase.paymentId, firstCase.paymentId)
   assert.equal(secondCase.status, 'open')
   assert.equal(secondCase.failureCode, 'authentication_required')
-  assert.equal(secondCase.failureCategory, 'soft_decline')
+  assert.equal(secondCase.failureCategory, 'hard_decline')
   assert.equal(secondCase.recommendedAction, 'request_customer_authentication')
+  assert.equal(triagePriority(secondCase).level, 'high')
 })
 
 test('success resolves an existing case and preserves its payment details', () => {
@@ -151,6 +183,8 @@ test('success resolves an existing case and preserves its payment details', () =
   assert.equal(resolved.currency, 'usd')
   assert.equal(resolved.failureCode, null)
   assert.equal(resolved.recommendedAction, 'none')
+  assert.equal(resolved.recommendationReason,
+    'Stripe reported that this PaymentIntent succeeded; the recovery case is resolved.')
 })
 
 test('keeps a newer success projection when an older failure arrives later', () => {
@@ -204,7 +238,10 @@ test('preserves the newer failure detail but requires reconciliation after succe
   const result = projectPaymentEvent(resolved, laterFailure)
   assert.equal(result.status, 'reconciliation_required')
   assert.equal(result.failureCode, 'authentication_required')
-  assert.equal(result.failureCategory, 'soft_decline')
+  assert.equal(result.failureCategory, 'hard_decline')
+  assert.equal(result.recommendationReason,
+    'A failure was recorded after a success for this payment. Check the payment in Stripe.')
+  assert.equal(result.reconciliationReason, result.recommendationReason)
 })
 
 test('assigns deterministic triage priorities from status and mapped category', () => {
