@@ -1,159 +1,151 @@
-# FINFLOW event-driven workbench
+# FinFlow architecture
 
-This is a small local workbench for **Stripe test-mode** PaymentIntent failures
-and successes. It keeps the existing React/Vite app and the legacy generator,
-JSON data, and V1 planning documents; the webhook service does not consume or
-rewrite the old generated dataset.
+FinFlow is a read-only workbench for **Stripe test-mode** PaymentIntent
+failures and successes. It stores payment events, derives a recovery case from
+them, and recommends a next step. It never retries a charge, moves money, or
+contacts a customer.
 
 ## Event path
 
 ```text
-Stripe webhook (raw bytes + signature)
-  -> Stripe SDK signature verification
-  -> Stripe provider adapter
-  -> normalized PaymentIntent event
-  -> SQLite unique event log
-  -> recovery-case projection
-  -> existing FINFLOW failure mapping
-  -> explainable recovery recommendation
-  -> /api/cases UI
+Stripe webhook (raw bytes + signature)        Simulator (demo mode only)
+  -> Stripe SDK signature verification          -> events built from scenario data
+                     \                         /
+                      -> Stripe provider adapter
+                      -> normalized PaymentIntent event
+                      -> SQLite event log (unique per event)
+                      -> case rebuilt from all of the payment's events
+                      -> rules: decline code to next step and priority
+                      -> /api/cases -> React workbench
 ```
 
-Provider parsing stays in `server/providers/stripe-adapter.js`. The adapter
-accepts `payment_intent.payment_failed` and `payment_intent.succeeded` only,
-extracting a PaymentIntent ID, provider timestamp, amount/currency, and (for a
-failure) the decline code or error code. It intentionally does not retain the
-full Stripe object or customer fields. A validly signed live-mode event is
-rejected.
+The simulator skips only the signature check. Everything after it is the same
+code path as a real webhook.
 
-`server/storage/sqlite-repository.js` stores:
+## Adapter
 
-- `payment_events`: unique on `(provider, event_id)` with the PaymentIntent ID,
-  provider event type/time, received time, and only normalized payment details.
-- `recovery_cases`: one row per PaymentIntent with status, amount/currency,
-  mapped failure, recommendation, reason, and latest provider event details.
+`server/providers/stripe-adapter.js` accepts only
+`payment_intent.payment_failed` and `payment_intent.succeeded`. From each event
+it extracts the PaymentIntent id, the provider timestamp, amount and currency,
+the opaque customer id, the charge id and, for a failure, the decline code
+(`decline_code` is preferred, then the error `code`). It does not retain the
+full Stripe object and keeps no names, emails or card details. A validly signed
+live-mode event is rejected. Other signed event types receive HTTP 200 with
+`ignored: true` and are not stored.
 
-Inserting an event and projecting its case happen in one SQLite transaction.
-Repeated deliveries return an acknowledged duplicate and cannot add a second
-event or case. Distinct failure events update one case; webhook events are not
-payment-attempt records. Success resolves an existing case and leaves all
-events intact.
+## Storage
 
-## Existing mapping and decision rules
+`server/storage/sqlite-repository.js` keeps two tables:
 
-The legacy mapping source is `data/config.js`: it contained generation weights
-for `insufficient_funds`, `authentication_failed`,
-`transaction_daily_limit_exceeded`, and `payment_cancelled`. The legacy
-generator separately classified `authentication_failed`,
-`insufficient_funds`, `payment_cancelled`, and
-`transaction_daily_limit_exceeded` as soft declines, and
-`card_not_supported`, `fraudulent`, `merchant_blacklist`, and `lost_card` as
-hard declines. There was no reusable mapping/decision module, and the legacy
-weights sum to 0.95 rather than 1.0.
+- `payment_events`: append-only, unique on `(provider, event_id)`, holding the
+  PaymentIntent id, provider event type and time, received time, and the
+  normalized payment details. This is the source of truth.
+- `recovery_cases`: one row per PaymentIntent. It is a cache of the result of
+  replaying the events, not a primary record.
 
-The config now exposes an additive `failureReasonMapping` used by
-`server/domain/failure-mapping.js` and `server/domain/decision-engine.js`.
-Existing code categories and weights are preserved; Stripe authentication
-codes are explicitly mapped to the existing authentication rule, and the
-legacy generator's remaining hard-decline codes are represented. Existing
-weights describe synthetic data frequency only; they are not used as
-decision thresholds. A code without an explicit mapping creates a
-`reconciliation_required` case instead of receiving an inferred action.
+Inserting an event and rebuilding its case happen in one `BEGIN IMMEDIATE`
+transaction. A repeated delivery is acknowledged as a duplicate and changes
+nothing.
 
-Known outcomes are deterministic: soft declines lead to the specific
-customer/retry action in the mapping; hard declines lead to a specific method
-change or manual-review action; success resolves the case. These are
-recommendations only—FINFLOW never retries or moves money.
+## Case rebuild
 
-## Ordering and reconciliation
+For every new event, the repository loads all stored events for that
+PaymentIntent, sorts them by `(provider_created, event_id)` using plain
+comparison, and folds them through `projectPaymentEvent` starting from nothing.
+The pure function `rebuildCase(events)` in `server/domain/rebuild-case.js` does
+this, and it copies the array before sorting. `rebuildAllCases()` repeats it for
+every stored payment at server start, so a rule change applies to history on
+restart.
 
-The projection compares Stripe's event `created` timestamp, not delivery order.
-An older event is retained in the log but cannot overwrite a projection from a
-newer provider timestamp. Distinct events with the same timestamp are
-ambiguous, so the case is marked `reconciliation_required`. A newer failure
-after a recorded success is also marked for reconciliation rather than
-asserting a new payment state. The API exposes the event history and
-reconciliation reason for review.
+Why: Stripe does not guarantee delivery order and its timestamps have
+one-second precision. Rebuilding from the full event list makes the result
+independent of arrival order.
 
-Stripe timestamps have second precision. This prototype does not retrieve the
-current PaymentIntent from Stripe to resolve conflicting/tied events; manual
-reconciliation is required.
+Reconciliation: two events with the same timestamp but different states, or a
+failure that follows a recorded success, give a case with status
+`reconciliation_required`. FinFlow does not call the Stripe API to resolve it.
 
-## Run locally
+## Attempts
 
-Requires Node.js `>=22.13.0` (Vite 8 and the built-in `node:sqlite` module).
-Node currently marks `node:sqlite` experimental; a warning is expected.
+An attempt is an executed charge. It is identified by the charge id carried on
+the failure event, or by the event id if no charge id is present. The number
+shown is the count of distinct attempt ids among the case's events, derived when
+the case is read. Stripe can schedule retries that do not execute (for hard
+declines) and those create no charge, so FinFlow's count can be lower than the
+invoice `attempt_count` Stripe reports. A missed webhook also undercounts.
 
-```powershell
-npm install
-npm test
-npm run demo
-```
+## Rules
 
-`npm run demo` signs three repeatable synthetic webhook payloads using the
-Stripe SDK and an ephemeral in-process secret, then sends them through the real
-HTTP route and in-memory SQLite: failure, updated failure, success. It requires
-no Stripe CLI account and writes no database file.
+Rules live in `data/config.js` (`failureReasonMapping`) and are applied by
+`server/domain/failure-mapping.js` and `server/domain/decision-engine.js`. Each
+rule has a category, a reason, a next step, a source URL from Stripe's
+documentation, and whether Stripe retries that decline.
 
-For the workbench, start the server and Vite dev server in separate terminals:
+- Soft decline: Stripe may retry. Priority **Standard**.
+- Hard decline: Stripe will not retry it without a new payment method. Priority
+  **High**. This includes `authentication_required`, as listed in Stripe's retry
+  documentation.
+- Success: the case is **Resolved**.
+- A code with no rule, or a conflict between events, gives **Needs review**
+  (`urgent`) and no invented action.
 
-```powershell
-$env:STRIPE_WEBHOOK_SECRET = "whsec_from_stripe_listen"
-npm run server
-```
+The rules encode documented guidance, not measured recovery rates. A few codes
+inherited from the original generator are not Stripe codes and are marked
+legacy. Customer messages are built in `src/customer-message.js` from fixed
+text per decline group. Fraud-flagged and blocklist codes produce no message,
+and an unmapped case produces none either.
 
-```powershell
-npm run dev
-```
+## Demo mode and the simulator
 
-The Vite dev server proxies `/api` to `localhost:8787`. The backend accepts a
-`PORT` override; if using a nondefault port, update the proxy target in
-`vite.config.js` as well. Set `DATABASE_PATH` to change the SQLite file path
-(default `data/finflow.sqlite`).
+With `DEMO_MODE=true` the server uses an in-memory database, seeds four cases
+(ids `pi_demo_...`, created through the same ingest path), serves the built UI,
+and disables the webhook route (404).
 
-### Stripe CLI test-mode forwarding
+Scenarios are data in `server/demo-scenarios.json`: `insufficient-funds-then-paid`,
+`generic-decline`, `authentication-required`, `lost-card` and
+`success-then-failure`. Each uses real Stripe decline codes. Playing one
+generates fresh ids (`pi_sim_...`, `evt_sim_...`, `ch_sim_...`, `cus_sim_...`
+with 8 hex characters), timestamps relative to now, and delivers the steps in
+the background. `success-then-failure` is delivered in reverse order by default.
 
-1. Install and authenticate Stripe CLI: `stripe login`.
-2. Start a listener: `stripe listen --forward-to localhost:8787/webhook`.
-3. Copy the `whsec_...` signing secret printed by `stripe listen` into the
-   backend terminal's `STRIPE_WEBHOOK_SECRET` environment variable, then start
-   `npm run server`. Start `npm run dev` in another terminal to view the UI.
-4. Trigger supported test events, for example:
+Guards: 10 plays per client IP per minute (HTTP 429 with the seconds to wait),
+at most 50 simulator cases (the oldest are removed), and a reset that cancels
+pending deliveries and removes only simulator rows. `TRUST_PROXY_HOPS` sets how
+many reverse proxies to trust when reading the client IP from
+`X-Forwarded-For`. It defaults to `0`.
 
-   ```powershell
-   stripe trigger payment_intent.payment_failed
-   stripe trigger payment_intent.succeeded
-   ```
-
-   The Stripe CLI fixture triggers can create **different, unrelated
-   PaymentIntents**. Triggering one failure and one success does not prove one
-   correlated payment lifecycle. Use `npm run demo` or the automated tests for
-   the repeatable same-PaymentIntent lifecycle.
-
-Only the two listed PaymentIntent event types are processed. Other
-validly-signed Stripe event types receive HTTP 200 with `ignored: true` and are
-not inserted into the payment event log.
-
-## API and limitations
+## API
 
 - `GET /api/health`
 - `GET /api/cases`
-- `GET /api/cases/:paymentIntentId` returns a case and its normalized event
-  history.
-- `GET /api/cases/:paymentIntentId/events` returns just the history.
-- `POST /webhook` verifies the raw body and Stripe signature using
-  `STRIPE_WEBHOOK_SECRET`.
-- With `DEMO_MODE=true`, `POST /api/demo/play` accepts
-  `{"scenario":"<scenario-id>","outOfOrder":false}` and returns HTTP 202 while
-  the selected scenario is processed in the background. Scenarios are data in
-  `server/demo-scenarios.json`; play is limited to 10 requests per client IP
-  per minute, and the simulator retains at most 50 cases.
-- With `DEMO_MODE=true`, `POST /api/demo/reset` cancels pending scenario
-  deliveries and removes simulator cases and events without affecting other
-  records. `TRUST_PROXY_HOPS` defaults to `0`; configure it only for the number
-  of trusted reverse proxies in front of the backend.
+- `GET /api/cases/:paymentIntentId`: the case and its normalized event history.
+- `GET /api/cases/:paymentIntentId/events`: the history only.
+- `POST /webhook`: raw body and Stripe signature, verified with
+  `STRIPE_WEBHOOK_SECRET`. Not available in demo mode.
+- Demo mode only: `GET /api/demo/scenarios`, `POST /api/demo/play` with
+  `{"scenario":"<id>","outOfOrder":false}` (HTTP 202), and
+  `POST /api/demo/reset`. These return 404 outside demo mode.
 
-The API excludes secrets and full customer/payment objects. This prototype
-does not include authentication, production deployment, customer contact,
-automatic retry, API reconciliation with Stripe, or a hosted database. Use
-only Stripe test mode; live-mode webhook events are rejected. Demo mode serves only synthetic data. Its simulator endpoints are unauthenticated by design and are rate-limited, capped at 50 cases, and can reset only simulator rows. Never run demo mode with real customer data or a real webhook secret.
+Cases expose the opaque customer id and no other customer data. The API never
+returns secrets or full Stripe objects.
+
+## Configuration
+
+| Variable | Meaning |
+| --- | --- |
+| `DEMO_MODE` | `true`: in-memory database, seeds, simulator routes, webhook off |
+| `STRIPE_WEBHOOK_SECRET` | Signing secret for `/webhook` |
+| `PORT` | Server port, default `8787` |
+| `DATABASE_PATH` | SQLite file, default `data/finflow.sqlite` |
+| `TRUST_PROXY_HOPS` | Trusted proxies for the client IP, default `0` |
+
+Requires Node.js 22.13 or newer. `node:sqlite` is experimental, so a warning is
+expected.
+
+## Limitations
+
+There is no login, no multi-merchant support, no backfill from the Stripe API,
+no ingestion of invoice or subscription events, and no follow-up tracking. Use
+Stripe test mode only. Demo mode serves synthetic data with unauthenticated,
+rate-limited simulator endpoints, so never run it with real customer data or a
+real webhook secret. Demo data is shared by all visitors.
